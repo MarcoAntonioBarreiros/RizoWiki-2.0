@@ -60,6 +60,20 @@ describe('viabilityEngine', () => {
     expect(stressed.finalLog).toBeLessThan(base.finalLog);
   });
 
+  it('aceita limiar efetivo configuravel por entrada', () => {
+    const result = simulateViability({
+      initialLog: 7.1,
+      hours: 48,
+      temperatureC: 35,
+      chemicalClass: 'fungicida',
+      organism: bacillusPrior,
+      effectiveThresholdLog: 7,
+    });
+
+    expect(result.threshold).toBe(7);
+    expect(result.verdict).toBe('abaixo_limiar');
+  });
+
   it('retorna inconclusivo quando faltam constantes', () => {
     const result = simulateViability({
       initialLog: 9,
