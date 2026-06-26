@@ -1,0 +1,139 @@
+{
+  "_meta": {
+    "tipo": "rascunho_didatico",
+    "status": "pendente_revisao",
+    "confidence": "baixa",
+    "source": "RizoWiki 1.0",
+    "source_files": ["assets/data/bioData.js"],
+    "campos": "label, culturas, metodo, dose_range, critical, ordem_mistura, manejo, monitorar — verbatim do 1.0 (doseInfo, app, extension.compatibilidadePratica, extension.oQueObservarNaLavoura).",
+    "aviso": "Texto de dose e manejo copiado VERBATIM do RizoWiki 1.0 apenas para montar a ficha. NAO e recomendacao calibrada nem substitui bula/registro do produto. A dose final exige curadoria com fonte tecnica/bula. Ids alinhados a compatibility_rules.json e diagnosticEngine."
+  },
+  "organisms": {
+    "bacillus": {
+      "label": "Bacillus / Priestia",
+      "culturas": "Milho, Soja, Hortaliças",
+      "metodo": "Tratamento Semente ou Sulco",
+      "dose_range": "10⁹ Esporos/mL",
+      "critical": "A forma esporulada garante estabilidade, mas requer ativação em solo úmido.",
+      "ordem_mistura": "Evitar misturar com fungicidas cúpricos ou de pH extremo. Adicionar por último.",
+      "manejo": "Não deixar sementes inoculadas expostas ao sol. Aplicar preferencialmente em até 24h.",
+      "monitorar": [
+        "Raízes mais profundas e ramificadas na camada 0-20 cm.",
+        "Solo mais 'solto' e agregado ao redor das raízes (rizosfera).",
+        "Menor incidência de murcha nas horas mais quentes do dia."
+      ]
+    },
+    "fixadores": {
+      "label": "Azospirillum spp.",
+      "culturas": "Milho, Trigo, Pastagens",
+      "metodo": "Sulco ou Semente",
+      "dose_range": "10⁸ - 10¹⁰ UFC/mL",
+      "critical": "Sensível à dessecação. Evitar exposição solar direta.",
+      "ordem_mistura": "Evitar misturar com herbicidas e inseticidas agressivos. Testar antes.",
+      "manejo": "Bactéria sensível à luz e seca. Aplicar rápido após inoculação.",
+      "monitorar": [
+        "Sistema radicular mais volumoso e 'cabeleira' densa.",
+        "Plantas mais verdes e vigorosas em faixas comparativas.",
+        "Maior tolerância a veranicos moderados."
+      ]
+    },
+    "rhizobium": {
+      "label": "Rhizobium / Bradyrhizobium",
+      "culturas": "Soja, Feijão, Ervilha",
+      "metodo": "Inoculação Semente/Sulco",
+      "dose_range": "10⁹ - 10¹⁰ UFC/mL",
+      "critical": "Compatibilidade com químicos é crítica. Morrem rapidamente com fungicidas e metais como Cobalto/Molibdênio em altas doses na semente (tóxicos por salinidade).",
+      "ordem_mistura": "Sensível a metais tóxicos (ex: Cobre) e altas concentrações salinas. No entanto, a aplicação de Co e Mo (essenciais para FBN) em doses agronômicas é necessária e compatível se a inoculação for imediata.",
+      "manejo": "Calor mata a bactéria. Semear imediatamente após inoculação.",
+      "monitorar": [
+        "Número de nódulos na raiz principal (coroa).",
+        "Cor interna dos nódulos: deve ser vermelha/rosada.",
+        "Ausência de clorose (amarelamento) na fase vegetativa."
+      ]
+    },
+    "methylobacterium": {
+      "label": "Methylobacterium",
+      "culturas": "Soja, Milho, Café, Hortifruti",
+      "metodo": "Pulverização Foliar",
+      "dose_range": "10⁸ UFC/mL",
+      "critical": "A aplicação deve garantir cobertura foliar. Pigmentos rosas conferem proteção UV, mas a bactéria depende de tecido vivo.",
+      "ordem_mistura": "Compatível com adubos foliares, evitar pH ácido ou cobre.",
+      "manejo": "Aplicar pela manhã para colonização dos estômatos.",
+      "monitorar": [
+        "Folhas mais verdes e túrgidas nas horas quentes.",
+        "Menor incidência de escaldadura solar.",
+        "Retardo no amarelamento do baixeiro."
+      ]
+    },
+    "bioinseticidas": {
+      "label": "Bioinseticidas (Beauveria, Metarhizium, Chromobacterium, Saccharopolyspora)",
+      "culturas": "Todas as culturas",
+      "metodo": "Pulverização dirigida",
+      "dose_range": "Variável (Esporos/mL ou Metabólitos)",
+      "critical": "Para fungos (Beauveria), umidade alta (>70%) é vital. Para bactérias, o pH da calda é crítico.",
+      "ordem_mistura": "NUNCA misturar fungos com fungicidas químicos.",
+      "manejo": "Aplicar fim de tarde ou noite (alta umidade).",
+      "monitorar": [
+        "Insetos 'mumificados' (cobertos de pó).",
+        "Redução progressiva dos danos em folhas novas.",
+        "Lagartas paralisadas."
+      ]
+    },
+    "pseudomonas": {
+      "label": "Pseudomonas spp.",
+      "culturas": "Trigo, Leguminosas (Co-inoculação)",
+      "metodo": "Líquido (Proteção Osmótica)",
+      "dose_range": "10⁸ - 10¹⁰ UFC/mL",
+      "critical": "Bactérias não-esporulantes. Exige proteção osmótica na formulação.",
+      "ordem_mistura": "Suscetível a choque salino. Evitar adubos concentrados.",
+      "manejo": "Produto perecível. Plantar imediatamente após tratar.",
+      "monitorar": [
+        "Arranque inicial mais rápido da cultura.",
+        "Raízes claras e sadias, sem lesões escuras.",
+        "Estande uniforme."
+      ]
+    },
+    "trichoderma": {
+      "label": "Trichoderma",
+      "culturas": "Soja, Feijão, Algodão, Hortifruti",
+      "metodo": "TS, Sulco ou Drench",
+      "dose_range": "10⁷ - 10⁹ Esporos/g",
+      "critical": "Sensível a UV e seca. Cobrir o solo após aplicação.",
+      "ordem_mistura": "PROIBIDO misturar com fungicidas. Aplicar separado.",
+      "manejo": "Armazenar em geladeira se possível. Produto vivo.",
+      "monitorar": [
+        "Redução de 'reboleiras' de plantas mortas.",
+        "Raízes brancas e sem lesões.",
+        "Emergência uniforme."
+      ]
+    },
+    "micorrizas": {
+      "label": "Micorrizas (FMA)",
+      "culturas": "Milho, Soja, Café, Cana",
+      "metodo": "Semente ou Sulco",
+      "dose_range": "Propágulos infectivos",
+      "critical": "Fungicidas sistêmicos podem abortar a simbiose.",
+      "ordem_mistura": "Sensível a fungicidas. Preferir aplicação no sulco.",
+      "manejo": "Precisa de planta viva para multiplicar (biotrófico obrigatório).",
+      "monitorar": [
+        "Maior resistência à seca (turgidez).",
+        "Melhor nutrição de P (sem arroxeamento).",
+        "Agregação do solo (glomalina)."
+      ]
+    },
+    "pnsb": {
+      "label": "PNSB (Rhodopseudomonas palustris)",
+      "culturas": "Hortaliças, Arroz",
+      "metodo": "Solo ou Foliar",
+      "dose_range": "10⁶ UFC/g",
+      "critical": "Sobrevivência depende de luz ou carbono orgânico.",
+      "ordem_mistura": "Compatível com melaço. Evitar cloro e antibióticos.",
+      "manejo": "Aplicar via drench ou fertirrigação.",
+      "monitorar": [
+        "Melhoria na estrutura do solo (mais fofo).",
+        "Redução da crosta salina na superfície.",
+        "Hortaliças com folhas mais vigorosas."
+      ]
+    }
+  }
+}
