@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "status": "pendente_revisao",
+    "draft_type": "rascunho_didatico",
+    "confidence": "baixa",
+    "source": "RizoWiki 1.0",
+    "source_files": ["assets/data/bioData.js", "assets/data/bioDataLab.js"],
+    "warning": "Rascunho didatico. Nao usar como parametro final."
+  },
+  "organisms": {
+    "bacillus": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Bacillus (Priestia)", "needs_review": ["form", "decay_k_base_per_h", "chemical_sensitivity_by_class", "uv_sensitivity"] },
+    "fixadores": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Azospirillum spp.", "needs_review": ["id canonico", "form", "compatibilidade quimica"] },
+    "rhizobium": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Rhizobium/Bradyrhizobium", "needs_review": ["separar grupos", "metais", "salinidade", "Co/Mo"] },
+    "methylobacterium": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Methylobacterium", "needs_review": ["pH", "cobre", "aplicacao foliar"] },
+    "bioinseticidas": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Bioinseticidas", "needs_review": ["grupo heterogeneo", "separar fungos/bacterias/metabolitos"] },
+    "pseudomonas": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Pseudomonas spp.", "needs_review": ["choque salino", "perecibilidade"] },
+    "trichoderma": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Trichoderma", "needs_review": ["fungicidas", "UV", "umidade", "temperatura"] },
+    "micorrizas": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "Micorrizas", "normalized_from": ["micorrizas", "mycorrhiza"], "needs_review": ["fungicidas", "propagulos", "simbiose"] },
+    "pnsb": { "status": "pendente_revisao", "draft_type": "rascunho_didatico", "confidence": "baixa", "source": "RizoWiki 1.0", "label": "PNSB", "needs_review": ["cloro", "antibioticos", "carbono/luz"] }
+  }
+}
