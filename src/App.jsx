@@ -24,8 +24,8 @@ export default function App() {
           Apoio a decisao sobre bioinsumos e rizosfera - descritivo e explicavel.
         </p>
         <p className="app__phase" role="status">
-          Fase 3 - Mapa (diagnostico) e Lab no ar. Motores: compatibility, viability e
-          diagnostic. Fatores e Wiki ainda em construcao.
+          Fase 5 - Mapa, Lab e Fatores no ar (ficha exportavel no Mapa). Motores:
+          compatibility, viability, diagnostic e protocol. Wiki ainda em construcao.
         </p>
       </header>
 
