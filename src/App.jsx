@@ -3,10 +3,7 @@ import Wiki from './pages/Wiki.jsx';
 import Mapa from './pages/Mapa.jsx';
 import Fatores from './pages/Fatores.jsx';
 import Lab from './pages/Lab.jsx';
-
-export const DISCLAIMER =
-  'Ferramenta de apoio a decisao. Ajuste a bula, a legislacao, as condicoes ' +
-  'locais e a avaliacao tecnica responsavel.';
+import { DISCLAIMER } from './disclaimer.js';
 
 const TABS = [
   { id: 'mapa', label: 'Mapa', component: Mapa },
@@ -27,7 +24,8 @@ export default function App() {
           Apoio a decisao sobre bioinsumos e rizosfera - descritivo e explicavel.
         </p>
         <p className="app__phase" role="status">
-          Fase 1 - compatibilityEngine implementado. Demais motores e telas seguem como placeholders.
+          Fase 3 - Mapa (diagnostico) e Lab no ar. Motores: compatibility, viability e
+          diagnostic. Fatores e Wiki ainda em construcao.
         </p>
       </header>
 

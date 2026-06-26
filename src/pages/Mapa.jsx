@@ -6,6 +6,7 @@ import QuickDiagnosisForm from '../components/QuickDiagnosisForm.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
 import { runDiagnosis } from '../engines/diagnosticEngine.js';
 import { evaluateCompatibility } from '../engines/compatibilityEngine.js';
+import { DISCLAIMER } from '../disclaimer.js';
 
 const SEMAPHORE_COLOR = { verde: '#22c55e', amarelo: '#fbbf24', vermelho: '#ef4444' };
 
@@ -110,6 +111,8 @@ export default function Mapa() {
           <li key={idx}>{item}</li>
         ))}
       </ul>
+
+      <p style={{ fontSize: '0.82rem', color: 'var(--muted)' }}>{DISCLAIMER}</p>
 
       <p className="page__todo">
         Proximos blocos (Fase 4): protocolo pratico (protocolEngine) e ficha exportavel.
