@@ -6,6 +6,8 @@ import QuickDiagnosisForm from '../components/QuickDiagnosisForm.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
 import { runDiagnosis } from '../engines/diagnosticEngine.js';
 import { evaluateCompatibility } from '../engines/compatibilityEngine.js';
+import { buildProtocol } from '../engines/protocolEngine.js';
+import ProtocolReport from '../components/ProtocolReport.jsx';
 import { DISCLAIMER } from '../disclaimer.js';
 
 const SEMAPHORE_COLOR = { verde: '#22c55e', amarelo: '#fbbf24', vermelho: '#ef4444' };
@@ -34,6 +36,21 @@ export default function Mapa() {
       applicationMode: form.modo,
     });
   }, [form, diag]);
+
+  const [organismoEscolhido, setOrganismoEscolhido] = useState(null);
+  const candidatos = diag.organismosCandidatos;
+  const escolhido = candidatos.includes(organismoEscolhido) ? organismoEscolhido : candidatos[0];
+
+  const protocolo = useMemo(() => {
+    if (!escolhido) return null;
+    return buildProtocol({
+      organismo: escolhido,
+      cultura: form.cultura,
+      quimico: form.quimico,
+      modo: form.modo,
+      bioinsumoEhAlavancaPrincipal: diag.bioinsumoEhAlavancaPrincipal,
+    });
+  }, [escolhido, form, diag]);
 
   const limitations = [...diag.limitations, ...(compat ? compat.limitations : [])];
 
@@ -99,6 +116,24 @@ export default function Mapa() {
               </li>
             ))}
           </ul>
+        </>
+      )}
+
+      {candidatos.length > 0 && (
+        <>
+          <h3>Protocolo pratico</h3>
+          <label className="field" style={{ maxWidth: 280 }}>
+            <span>Organismo escolhido</span>
+            <select value={escolhido} onChange={(event) => setOrganismoEscolhido(event.target.value)}>
+              {candidatos.map((id) => (
+                <option key={id} value={id}>{id}</option>
+              ))}
+            </select>
+          </label>
+          <ProtocolReport
+            protocol={protocolo}
+            contexto={{ cultura: form.cultura, problema: form.problema, quimico: form.quimico, modo: form.modo }}
+          />
         </>
       )}
 
