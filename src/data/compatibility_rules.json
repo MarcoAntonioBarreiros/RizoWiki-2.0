@@ -118,5 +118,50 @@
     "source": "RizoWiki 1.0",
     "source_file": "assets/data/bioData.js",
     "limitations": ["Falta separar fungicidas sistemicos, contato, dose e efeito na simbiose."]
+  },
+  {
+    "id": "methylobacterium_cuprico_cautela",
+    "status": "pendente_revisao",
+    "draft_type": "rascunho_didatico",
+    "organism": "methylobacterium",
+    "chemical_class": "cuprico_metal",
+    "application_mode": ["mistura_tanque", "foliar"],
+    "effect": "risco_moderado",
+    "semaphore": "amarelo",
+    "message": "Methylobacterium e compativel com adubos foliares, mas o 1.0 orienta evitar cobre e pH acido na calda.",
+    "confidence": "baixa",
+    "source": "RizoWiki 1.0",
+    "source_file": "assets/data/bioData.js",
+    "limitations": ["Falta forma/dose do cobre e pH limite."]
+  },
+  {
+    "id": "fixadores_herbicida_cautela",
+    "status": "pendente_revisao",
+    "draft_type": "rascunho_didatico",
+    "organism": "fixadores",
+    "chemical_class": "herbicida",
+    "application_mode": ["mistura_tanque", "tratamento_semente"],
+    "effect": "risco_moderado",
+    "semaphore": "amarelo",
+    "message": "Azospirillum: evitar mistura com herbicidas e inseticidas agressivos; testar compatibilidade antes.",
+    "confidence": "baixa",
+    "source": "RizoWiki 1.0",
+    "source_file": "assets/data/bioData.js",
+    "limitations": ["Grupo amplo de herbicidas/inseticidas; falta ingrediente ativo e dose."]
+  },
+  {
+    "id": "pnsb_cloro_cautela",
+    "status": "pendente_revisao",
+    "draft_type": "rascunho_didatico",
+    "organism": "pnsb",
+    "chemical_class": "cloro",
+    "application_mode": ["mistura_tanque", "foliar"],
+    "effect": "risco_moderado",
+    "semaphore": "amarelo",
+    "message": "PNSB e compativel com melaco, mas o 1.0 orienta evitar cloro e antibioticos na calda.",
+    "confidence": "baixa",
+    "source": "RizoWiki 1.0",
+    "source_file": "assets/data/bioData.js",
+    "limitations": ["Cloro da agua de calda e dose nao especificados."]
   }
 ]
