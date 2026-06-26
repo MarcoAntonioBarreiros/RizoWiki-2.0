@@ -1,0 +1,21 @@
+{
+  "_meta": {
+    "status": "pendente_revisao",
+    "draft_type": "rascunho_didatico",
+    "confidence": "baixa",
+    "source": "RizoWiki 1.0",
+    "source_file": "assets/data/bioData.js",
+    "warning": "Textos crus de compatibilidade. Classificar e validar antes de uso final."
+  },
+  "rules": [
+    { "organism": "bacillus", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Evitar misturar com fungicidas cupricos ou de pH extremo. Adicionar por ultimo." },
+    { "organism": "fixadores", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Evitar misturar com herbicidas e inseticidas agressivos. Testar antes." },
+    { "organism": "rhizobium", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Sensiveis a metais toxicos e altas concentracoes salinas; Co/Mo em doses agronomicas exige revisao." },
+    { "organism": "methylobacterium", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Compativel com adubos foliares, evitar pH acido ou cobre." },
+    { "organism": "bioinseticidas", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Nao misturar fungos com fungicidas quimicos." },
+    { "organism": "pseudomonas", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Suscetivel a choque salino. Evitar adubos concentrados." },
+    { "organism": "trichoderma", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Proibido misturar com fungicidas. Aplicar separado." },
+    { "organism": "micorrizas", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Sensivel a fungicidas. Preferir aplicacao no sulco." },
+    { "organism": "pnsb", "status": "pendente_revisao", "confidence": "baixa", "source": "RizoWiki 1.0", "raw": "Compativel com melaco. Evitar cloro e antibioticos." }
+  ]
+}
