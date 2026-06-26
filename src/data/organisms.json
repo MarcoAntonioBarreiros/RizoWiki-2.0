@@ -1,0 +1,280 @@
+{
+  "_meta": {
+    "tipo": "fonte_unica_consolidada",
+    "status": "pendente_revisao",
+    "confidence": "baixa",
+    "descricao": "Fonte unica de verdade dos organismos (brief secao 2). Consolida: descritivo + funcoes (do radar do 1.0), priors de viabilidade e dados de protocolo (verbatim do 1.0). Substitui viability_priors_draft.json e protocol_drafts_from_1_0.json no app. A extracao bruta fica preservada em raw/organisms_raw_from_1_0.json (auditoria).",
+    "source_descritivo_e_protocolo": "RizoWiki 1.0 (assets/data/bioData.js) - verbatim",
+    "avisos": [
+      "viability.*: PRIORS DEMONSTRATIVOS, nao calibrados, nao sao medidas. Os 4 primeiros (bacillus, trichoderma, rhizobium, pseudomonas) vem do rascunho do GPT; os 5 restantes foram derivados aqui da narrativa qualitativa do 1.0 (ver viability._basis). Todos pendentes de fonte tecnica/bula/artigo.",
+      "functions: mapeadas do radar chartData do 1.0; vocabulario alinhado ao diagnosticEngine.",
+      "sources: referem-se aos estudos de caso didaticos do 1.0, NAO sustentam os priors.",
+      "micorrizas: dose em propagulos (nao log UFC) - a viabilidade log-linear e semanticamente limitada aqui.",
+      "bioinseticidas: categoria heterogenea (fungos + bacterias + metabolitos); prior unico e simplificacao grosseira."
+    ],
+    "regra": "Nao promover a calibrado sem revisao humana com fonte. Ver curation_todo.md."
+  },
+  "organisms": {
+    "bacillus": {
+      "label": "Bacillus / Priestia",
+      "form": ["esporo", "vegetativo"],
+      "functions": ["solubilizacao_p", "biocontrole", "isr", "acc_desaminase", "sideroforos"],
+      "viability": {
+        "ideal_temp_c": 30,
+        "decay_k_base_per_h": 0.02,
+        "uv_sensitivity": 0.3,
+        "effective_threshold_log": 7,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.4, "cuprico_metal": 1.6, "adubo_salino": 1.2 },
+        "_basis": "Prior do rascunho GPT (valores-exemplo do brief). Esporulado e resiliente (k baixo). Demonstrativo."
+      },
+      "protocol": {
+        "culturas": "Milho, Soja, Hortaliças",
+        "metodo": "Tratamento Semente ou Sulco",
+        "dose_range": "10⁹ Esporos/mL",
+        "critical": "A forma esporulada garante estabilidade, mas requer ativação em solo úmido.",
+        "ordem_mistura": "Evitar misturar com fungicidas cúpricos ou de pH extremo. Adicionar por último.",
+        "manejo": "Não deixar sementes inoculadas expostas ao sol. Aplicar preferencialmente em até 24h.",
+        "monitorar": [
+          "Raízes mais profundas e ramificadas na camada 0-20 cm.",
+          "Solo mais 'solto' e agregado ao redor das raízes (rizosfera).",
+          "Menor incidência de murcha nas horas mais quentes do dia."
+        ]
+      },
+      "sources": ["Oliveira-Paiva et al., 2024. Frontiers in Microbiology."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "fixadores": {
+      "label": "Azospirillum spp.",
+      "form": ["vegetativo"],
+      "functions": ["aia", "promocao_radicular", "fixacao_n", "acc_desaminase"],
+      "viability": {
+        "ideal_temp_c": 29,
+        "decay_k_base_per_h": 0.05,
+        "uv_sensitivity": 0.9,
+        "effective_threshold_log": 7,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.4, "cuprico_metal": 1.6, "adubo_salino": 1.8 },
+        "_basis": "DERIVADO (demonstrativo): vegetativo/cistos (k moderado); '1.0: sensivel a luz e seca' -> uv alto; '1.0: evitar herbicidas/inseticidas agressivos'. Sem fonte."
+      },
+      "protocol": {
+        "culturas": "Milho, Trigo, Pastagens",
+        "metodo": "Sulco ou Semente",
+        "dose_range": "10⁸ - 10¹⁰ UFC/mL",
+        "critical": "Sensível à dessecação. Evitar exposição solar direta.",
+        "ordem_mistura": "Evitar misturar com herbicidas e inseticidas agressivos. Testar antes.",
+        "manejo": "Bactéria sensível à luz e seca. Aplicar rápido após inoculação.",
+        "monitorar": [
+          "Sistema radicular mais volumoso e 'cabeleira' densa.",
+          "Plantas mais verdes e vigorosas em faixas comparativas.",
+          "Maior tolerância a veranicos moderados."
+        ]
+      },
+      "sources": ["Hungria, M., et al. (2010). Field Crops Research, 119(1), 139-145."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "rhizobium": {
+      "label": "Rhizobium / Bradyrhizobium",
+      "form": ["vegetativo"],
+      "functions": ["fixacao_n"],
+      "viability": {
+        "ideal_temp_c": 28,
+        "decay_k_base_per_h": 0.06,
+        "uv_sensitivity": 0.9,
+        "effective_threshold_log": 7.5,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.8, "cuprico_metal": 2.8, "adubo_salino": 2 },
+        "_basis": "Prior do rascunho GPT. Sensivel a metais/cobre (cuprico alto) e salinidade. Demonstrativo."
+      },
+      "protocol": {
+        "culturas": "Soja, Feijão, Ervilha",
+        "metodo": "Inoculação Semente/Sulco",
+        "dose_range": "10⁹ - 10¹⁰ UFC/mL",
+        "critical": "Compatibilidade com químicos é crítica. Morrem rapidamente com fungicidas e metais como Cobalto/Molibdênio em altas doses na semente (tóxicos por salinidade).",
+        "ordem_mistura": "Sensível a metais tóxicos (ex: Cobre) e altas concentrações salinas. No entanto, a aplicação de Co e Mo (essenciais para FBN) em doses agronômicas é necessária e compatível se a inoculação for imediata.",
+        "manejo": "Calor mata a bactéria. Semear imediatamente após inoculação.",
+        "monitorar": [
+          "Número de nódulos na raiz principal (coroa).",
+          "Cor interna dos nódulos: deve ser vermelha/rosada.",
+          "Ausência de clorose (amarelamento) na fase vegetativa."
+        ]
+      },
+      "sources": ["M. Hungria et al., 2013. Soil Biology."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "methylobacterium": {
+      "label": "Methylobacterium",
+      "form": ["vegetativo"],
+      "functions": ["fixacao_n", "promocao_radicular", "aia"],
+      "viability": {
+        "ideal_temp_c": 28,
+        "decay_k_base_per_h": 0.03,
+        "uv_sensitivity": 0.2,
+        "effective_threshold_log": 7,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.5, "cuprico_metal": 2, "adubo_salino": 1.2 },
+        "_basis": "DERIVADO (demonstrativo): pigmentado e resiliente (k baixo); '1.0: pigmento protege UV' -> uv baixo; '1.0: evitar cobre' -> cuprico alto; compativel com adubos foliares. Sem fonte."
+      },
+      "protocol": {
+        "culturas": "Soja, Milho, Café, Hortifruti",
+        "metodo": "Pulverização Foliar",
+        "dose_range": "10⁸ UFC/mL",
+        "critical": "A aplicação deve garantir cobertura foliar. Pigmentos rosas conferem proteção UV, mas a bactéria depende de tecido vivo.",
+        "ordem_mistura": "Compatível com adubos foliares, evitar pH ácido ou cobre.",
+        "manejo": "Aplicar pela manhã para colonização dos estômatos.",
+        "monitorar": [
+          "Folhas mais verdes e túrgidas nas horas quentes.",
+          "Menor incidência de escaldadura solar.",
+          "Retardo no amarelamento do baixeiro."
+        ]
+      },
+      "sources": ["Rossetto, E. A., et al. (2023). Field Crops Research, 291, 108778."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "bioinseticidas": {
+      "label": "Bioinseticidas (Beauveria, Metarhizium, Chromobacterium, Saccharopolyspora)",
+      "form": ["esporo", "vegetativo"],
+      "functions": ["biocontrole_inseticida", "isr"],
+      "viability": {
+        "ideal_temp_c": 25,
+        "decay_k_base_per_h": 0.09,
+        "uv_sensitivity": 1,
+        "effective_threshold_log": 6.5,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 3, "cuprico_metal": 2, "adubo_salino": 1.4 },
+        "_basis": "DERIVADO (demonstrativo) e GROSSEIRO: categoria heterogenea (fungos+bacterias+metabolitos). Fragil (k alto); fungos UV-sensiveis (uv alto); '1.0: NUNCA misturar fungos com fungicidas' -> fungicida muito alto. Separar por organismo na curadoria."
+      },
+      "protocol": {
+        "culturas": "Todas as culturas",
+        "metodo": "Pulverização dirigida",
+        "dose_range": "Variável (Esporos/mL ou Metabólitos)",
+        "critical": "Para fungos (Beauveria), umidade alta (>70%) é vital. Para bactérias, o pH da calda é crítico.",
+        "ordem_mistura": "NUNCA misturar fungos com fungicidas químicos.",
+        "manejo": "Aplicar fim de tarde ou noite (alta umidade).",
+        "monitorar": [
+          "Insetos 'mumificados' (cobertos de pó).",
+          "Redução progressiva dos danos em folhas novas.",
+          "Lagartas paralisadas."
+        ]
+      },
+      "sources": ["Embrapa Milho e Sorgo, Circular Técnica, 2022."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "pseudomonas": {
+      "label": "Pseudomonas spp.",
+      "form": ["vegetativo"],
+      "functions": ["solubilizacao_p", "sideroforos", "isr", "biocontrole", "acc_desaminase"],
+      "viability": {
+        "ideal_temp_c": 28,
+        "decay_k_base_per_h": 0.07,
+        "uv_sensitivity": 0.8,
+        "effective_threshold_log": 7,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.5, "cuprico_metal": 1.7, "adubo_salino": 2.2 },
+        "_basis": "Prior do rascunho GPT. Nao-esporulante e perecivel (k alto); suscetivel a choque salino (salino alto). Demonstrativo."
+      },
+      "protocol": {
+        "culturas": "Trigo, Leguminosas (Co-inoculação)",
+        "metodo": "Líquido (Proteção Osmótica)",
+        "dose_range": "10⁸ - 10¹⁰ UFC/mL",
+        "critical": "Bactérias não-esporulantes. Exige proteção osmótica na formulação.",
+        "ordem_mistura": "Suscetível a choque salino. Evitar adubos concentrados.",
+        "manejo": "Produto perecível. Plantar imediatamente após tratar.",
+        "monitorar": [
+          "Arranque inicial mais rápido da cultura.",
+          "Raízes claras e sadias, sem lesões escuras.",
+          "Estande uniforme."
+        ]
+      },
+      "sources": ["Mendes, R., et al. (2011). Science, 332(6033), 1097-1100."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "trichoderma": {
+      "label": "Trichoderma",
+      "form": ["hifa", "esporo"],
+      "functions": ["biocontrole", "isr"],
+      "viability": {
+        "ideal_temp_c": 26,
+        "decay_k_base_per_h": 0.08,
+        "uv_sensitivity": 1.2,
+        "effective_threshold_log": 6.5,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 3, "cuprico_metal": 2.4, "adubo_salino": 1.4 },
+        "_basis": "Prior do rascunho GPT. Fungo sensivel a UV/seca (uv alto) e a fungicidas (fungicida muito alto). Demonstrativo. Nota: ideal_temp_c=26 resolve silenciosamente o conflito 26(bioData) vs 25(bioDataLab)."
+      },
+      "protocol": {
+        "culturas": "Soja, Feijão, Algodão, Hortifruti",
+        "metodo": "TS, Sulco ou Drench",
+        "dose_range": "10⁷ - 10⁹ Esporos/g",
+        "critical": "Sensível a UV e seca. Cobrir o solo após aplicação.",
+        "ordem_mistura": "PROIBIDO misturar com fungicidas. Aplicar separado.",
+        "manejo": "Armazenar em geladeira se possível. Produto vivo.",
+        "monitorar": [
+          "Redução de 'reboleiras' de plantas mortas.",
+          "Raízes brancas e sem lesões.",
+          "Emergência uniforme."
+        ]
+      },
+      "sources": ["Tucci, M., et al. (2011). Crop Protection, 30(10), 1353-1359."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "micorrizas": {
+      "label": "Micorrizas (FMA)",
+      "form": ["propagulo"],
+      "functions": ["micorriza_p", "isr", "tolerancia_estresse"],
+      "viability": {
+        "ideal_temp_c": 28,
+        "decay_k_base_per_h": 0.03,
+        "uv_sensitivity": 0.6,
+        "effective_threshold_log": 6,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 2.5, "cuprico_metal": 1.6, "adubo_salino": 1.4 },
+        "_basis": "DERIVADO (demonstrativo) com RESSALVA FORTE: dose em propagulos, NAO log UFC -> modelo log-linear semanticamente limitado. Propagulos resilientes (k baixo); '1.0: fungicidas sistemicos abortam simbiose' -> fungicida alto. Sem fonte."
+      },
+      "protocol": {
+        "culturas": "Milho, Soja, Café, Cana",
+        "metodo": "Semente ou Sulco",
+        "dose_range": "Propágulos infectivos",
+        "critical": "Fungicidas sistêmicos podem abortar a simbiose.",
+        "ordem_mistura": "Sensível a fungicidas. Preferir aplicação no sulco.",
+        "manejo": "Precisa de planta viva para multiplicar (biotrófico obrigatório).",
+        "monitorar": [
+          "Maior resistência à seca (turgidez).",
+          "Melhor nutrição de P (sem arroxeamento).",
+          "Agregação do solo (glomalina)."
+        ]
+      },
+      "sources": ["Smith & Read, 2008. Mycorrhizal Symbiosis."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    },
+    "pnsb": {
+      "label": "PNSB (Rhodopseudomonas palustris)",
+      "form": ["vegetativo"],
+      "functions": ["biofilme", "aia", "biocontrole", "tolerancia_estresse"],
+      "viability": {
+        "ideal_temp_c": 28,
+        "decay_k_base_per_h": 0.03,
+        "uv_sensitivity": 0.9,
+        "effective_threshold_log": 6,
+        "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.4, "cuprico_metal": 1.6, "adubo_salino": 1.4 },
+        "_basis": "DERIVADO (demonstrativo): forma biofilme e e persistente (k baixo); '1.0: UV mata' -> uv alto; '1.0: evitar cloro e antibioticos' (fora do conjunto de classes). Sem fonte."
+      },
+      "protocol": {
+        "culturas": "Hortaliças, Arroz",
+        "metodo": "Solo ou Foliar",
+        "dose_range": "10⁶ UFC/g",
+        "critical": "Sobrevivência depende de luz ou carbono orgânico.",
+        "ordem_mistura": "Compatível com melaço. Evitar cloro e antibióticos.",
+        "manejo": "Aplicar via drench ou fertirrigação.",
+        "monitorar": [
+          "Melhoria na estrutura do solo (mais fofo).",
+          "Redução da crosta salina na superfície.",
+          "Hortaliças com folhas mais vigorosas."
+        ]
+      },
+      "sources": ["Watanabe, K., et al. (2017). Plant and Soil, 419(1-2), 175-187."],
+      "_status": "pendente_revisao",
+      "_confidence": "baixa"
+    }
+  }
+}
