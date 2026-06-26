@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import ViabilityChart from '../components/ViabilityChart.jsx';
 import { simulateViability } from '../engines/viabilityEngine.js';
-import priorsDraft from '../data/viability_priors_draft.json';
+import organismsData from '../data/organisms.json';
 
 const CHEMICAL_CLASSES = [
   { value: 'nenhum', label: 'Nenhum' },
@@ -16,7 +16,7 @@ function formatNumber(value, digits = 2) {
 }
 
 export default function Lab() {
-  const organisms = priorsDraft.organisms;
+  const organisms = organismsData.organisms;
   const organismIds = Object.keys(organisms);
   const [organismId, setOrganismId] = useState(organismIds[0]);
   const [initialLog, setInitialLog] = useState(9);
@@ -24,9 +24,9 @@ export default function Lab() {
   const [temperatureC, setTemperatureC] = useState(30);
   const [chemicalClass, setChemicalClass] = useState('fungicida');
   const [exposedToUv, setExposedToUv] = useState(false);
-  const [threshold, setThreshold] = useState(organisms[organismId].effective_threshold_log);
+  const [threshold, setThreshold] = useState(organisms[organismId].viability.effective_threshold_log);
 
-  const organism = organisms[organismId];
+  const organism = organisms[organismId].viability;
 
   const result = useMemo(
     () =>
@@ -44,7 +44,7 @@ export default function Lab() {
 
   function handleOrganismChange(nextId) {
     setOrganismId(nextId);
-    setThreshold(organisms[nextId].effective_threshold_log);
+    setThreshold(organisms[nextId].viability.effective_threshold_log);
   }
 
   return (

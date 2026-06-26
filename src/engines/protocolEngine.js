@@ -7,7 +7,7 @@
 // INTEGRIDADE (AGENTS.md 3-4): NAO inventa dose nem manejo. Surfaceia o texto do 1.0
 // (verbatim, atribuido a "RizoWiki 1.0") e marca como rascunho/confidence baixa.
 // Reusa compatibilityEngine para os impedimentos quimicos (AGENTS.md 6: nao duplica regra).
-import protocolData from '../data/protocol_drafts_from_1_0.json';
+import organismsData from '../data/organisms.json';
 import { evaluateCompatibility } from './compatibilityEngine.js';
 
 export function buildProtocol(input = {}) {
@@ -18,7 +18,8 @@ export function buildProtocol(input = {}) {
     bioinsumoEhAlavancaPrincipal = true,
   } = input;
 
-  const dados = protocolData.organisms[organismo];
+  const o = organismsData.organisms[organismo];
+  const dados = o ? o.protocol : null;
   if (!dados) {
     return {
       organismo: organismo ?? null,
@@ -64,7 +65,7 @@ export function buildProtocol(input = {}) {
 
   return {
     organismo,
-    label: dados.label,
+    label: o.label,
     culturasReferencia: dados.culturas,
     dose: dados.dose_range,
     metodo: dados.metodo,

@@ -1,7 +1,7 @@
 // riskAssessment - logica da aba Fatores (brief secao 6).
 // NAO e um motor novo: orquestra viabilityEngine + compatibilityEngine e agrega o
 // resultado num veredito go/no-go com acao corretiva (AGENTS.md 6: nao duplica logica).
-import viabilityPriors from '../data/viability_priors_draft.json';
+import organismsData from '../data/organisms.json';
 import { simulateViability } from '../engines/viabilityEngine.js';
 import { evaluateCompatibility } from '../engines/compatibilityEngine.js';
 
@@ -22,7 +22,7 @@ export function assessApplication(input = {}) {
   } = input;
 
   const flags = [];
-  const prior = viabilityPriors.organisms[organismo];
+  const prior = organismsData.organisms[organismo]?.viability;
 
   // 1) Viabilidade no tempo (reusa viabilityEngine) - so com prior do organismo.
   let viability = null;
