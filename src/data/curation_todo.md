@@ -31,3 +31,29 @@ Pendencias antes de promover dados a fonte unica curada.
 
 - `compatibility_rules.json` e operacional para testes e revisao.
 - As classificacoes `semaphore` e `effect` ainda nao sao parametro final validado.
+
+## Atualizacao - consolidacao (organisms.json)
+
+Criada a fonte unica `src/data/organisms.json` (9 organismos), que o app passou a ler;
+removidos `viability_priors_draft.json` e `protocol_drafts_from_1_0.json`. A extracao
+bruta `raw/organisms_raw_from_1_0.json` permanece como auditoria.
+
+PENDENTE (alta prioridade) - priors de viabilidade SEM fonte:
+- Os 9 organismos tem `viability.*` (ideal_temp_c, decay_k_base_per_h, uv_sensitivity,
+  effective_threshold_log, chemical_sensitivity_by_class) como RASCUNHO demonstrativo.
+- 4 vieram do rascunho do GPT (bacillus, trichoderma, rhizobium, pseudomonas); 5 foram
+  DERIVADOS aqui da narrativa qualitativa do 1.0 (fixadores, methylobacterium,
+  bioinseticidas, micorrizas, pnsb) - ver `viability._basis` de cada organismo.
+- Nenhum tem fonte tecnica/bula/artigo. Calibrar TODOS antes de tratar como tecnico.
+
+Ressalvas especificas:
+- `micorrizas`: dose em propagulos (nao log UFC) -> viabilidade log-linear semanticamente
+  limitada; rever modelo/unidade.
+- `bioinseticidas`: prior unico para categoria heterogenea (fungos+bacterias+metabolitos)
+  - separar por organismo/produto.
+- `trichoderma`: `ideal_temp_c=26` resolve em silencio o conflito 26(bioData) vs
+  25(bioDataLab) - confirmar.
+
+Outras:
+- `functions` agora usa vocabulario compartilhado com o diagnosticEngine; revisar taxonomia.
+- `compatibility_rules.json` cobre os 9 organismos (rascunho); validar condicoes, classes e doses.
