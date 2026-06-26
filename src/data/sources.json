@@ -1,0 +1,22 @@
+{
+  "status": "fase_1",
+  "generated_at": "2026-06-26",
+  "brief": {
+    "role": "Escopo, arquitetura e fases do RizoWiki 2.0"
+  },
+  "rizowiki_1_0": {
+    "repository": "https://github.com/MarcoAntonioBarreiros/RizoWiki",
+    "files": [
+      "assets/data/bioData.js",
+      "assets/data/bioDataLab.js"
+    ],
+    "caveat": "Nenhum valor do RizoWiki 1.0 foi promovido a parametro final."
+  },
+  "required_future_sources": [
+    "Bulas e fichas tecnicas de produtos registrados",
+    "Legislacao e registros oficiais aplicaveis a bioinsumos",
+    "Manuais tecnicos regionais de fertilidade e manejo do solo",
+    "Artigos revisados por pares para constantes, limiares e efeitos biologicos",
+    "Referencias oficiais/tecnicas para compatibilidade em mistura e tratamento de sementes"
+  ]
+}
