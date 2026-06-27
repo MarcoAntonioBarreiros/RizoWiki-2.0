@@ -32,6 +32,13 @@ export const PROBLEMAS = {
     candidatos: ['fixadores', 'bacillus', 'micorrizas'],
     bioinsumoPrincipal: true,
   },
+  estresse_foliar: {
+    label: 'Estresse foliar / calor / stay-green',
+    limitacao: 'Estresse foliar por calor, radiacao ou perda de vigor fisiologico.',
+    funcoes: ['promocao_foliar', 'tolerancia_estresse', 'fixacao_n_foliar'],
+    candidatos: ['methylobacterium', 'pnsb'],
+    bioinsumoPrincipal: true,
+  },
   baixa_fixacao_n: {
     label: 'Necessidade de nitrogenio / fixacao biologica',
     limitacao: 'Suprimento de N dependente de fixacao biologica.',
@@ -51,6 +58,13 @@ export const PROBLEMAS = {
     limitacao: 'Estresse salino e solo degradado.',
     funcoes: ['biofilme', 'tolerancia_estresse'],
     candidatos: ['pnsb', 'bacillus'],
+    bioinsumoPrincipal: true,
+  },
+  pragas_insetos: {
+    label: 'Pressao de pragas / manejo biologico de insetos',
+    limitacao: 'Pressao de insetos-praga exigindo estrategia biologica ou rotacao de manejo.',
+    funcoes: ['biocontrole_inseticida'],
+    candidatos: ['bioinseticidas'],
     bioinsumoPrincipal: true,
   },
   acidez_fertilidade: {

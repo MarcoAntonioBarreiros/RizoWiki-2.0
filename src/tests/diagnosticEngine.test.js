@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { runDiagnosis, classificaCultura, PROBLEMAS } from '../engines/diagnosticEngine.js';
+import organismsData from '../data/organisms.json';
 
 describe('diagnosticEngine (versao leve por regras)', () => {
   it('fosforo indisponivel prioriza solubilizacao de P e sugere micorrizas', () => {
@@ -59,5 +60,29 @@ describe('diagnosticEngine (versao leve por regras)', () => {
 
   it('expoe o catalogo de problemas', () => {
     expect(Object.keys(PROBLEMAS).length).toBeGreaterThanOrEqual(6);
+  });
+
+  it('todos os organismos consolidados aparecem em ao menos um caminho do Mapa', () => {
+    const encontrados = new Set();
+
+    for (const problema of Object.keys(PROBLEMAS)) {
+      const r = runDiagnosis({
+        cultura: 'outra',
+        problema,
+        pClasse: 'medio',
+        umidade: 'adequado',
+      });
+      r.organismosCandidatos.forEach((id) => encontrados.add(id));
+    }
+
+    expect([...encontrados].sort()).toEqual(Object.keys(organismsData.organisms).sort());
+  });
+
+  it('inclui methylobacterium no cenario foliar e bioinseticidas no cenario de pragas', () => {
+    const foliar = runDiagnosis({ problema: 'estresse_foliar' });
+    const pragas = runDiagnosis({ problema: 'pragas_insetos' });
+
+    expect(foliar.organismosCandidatos).toContain('methylobacterium');
+    expect(pragas.organismosCandidatos).toContain('bioinseticidas');
   });
 });
