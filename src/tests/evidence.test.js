@@ -49,4 +49,21 @@ describe('evidence registry', () => {
     expect(evidence.claims.some((claim) => claim.status === 'calibrado')).toBe(false);
     expect(evidence._meta.scope).toContain('Nenhum parametro numerico foi promovido');
   });
+
+  it('claims de viabilidade dos tres organismos do Codex nao promovem constantes', () => {
+    const focus = ['bacillus', 'rhizobium', 'trichoderma'];
+    const claims = evidence.claims.filter((claim) =>
+      focus.some((id) => claim.organisms.includes(id)) &&
+      claim.supports_fields.includes('viability._calibration')
+    );
+
+    expect(claims.length).toBeGreaterThanOrEqual(4);
+    expect(new Set(claims.flatMap((claim) => claim.organisms).filter((id) => focus.includes(id)))).toEqual(new Set(focus));
+
+    for (const claim of claims) {
+      expect(evidence.sources[claim.source_id]).toBeTruthy();
+      expect(claim.status).not.toBe('calibrado');
+      expect(claim.does_not_support_yet.join(' ')).toMatch(/decay_k|uv_sensitivity|chemical_sensitivity|effective_threshold|valor numerico/);
+    }
+  });
 });

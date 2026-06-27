@@ -76,6 +76,23 @@ Importante:
 - Proximo passo: extrair dose, modo, ingredientes/condicoes e ressalvas de cada fonte
   para entao propor `calibrado_parcial`.
 
+## Viabilidade - Bacillus, Rhizobium/Bradyrhizobium e Trichoderma
+
+Rodada Codex registrada:
+- `bacillus`: Embrapa COT 252/BiomaPhos ancora a direcao de maior resiliencia operacional
+  por endosporos e tolerancia relativa a estresses. Nao ha curva de morte por hora para
+  `decay_k_base_per_h`, `uv_sensitivity` ou limiar efetivo.
+- `rhizobium`: fontes Embrapa/Infoteca ancoram manejo de viabilidade em semente
+  (sombra, proteger do sol, semear logo) e risco por tratamento quimico/fungicida.
+  O fator numerico de sensibilidade quimica segue prior_regra ate extrair produto/ingrediente.
+- `trichoderma`: fonte Embrapa ancora dependencia de especie/isolado/ambiente; estudo
+  revisado de shelf-life em formulacao carrier-based mostra que carrier/formulacao afetam
+  CFU ao longo de 180 dias. Isso nao e regime de calda/aplicacao e nao vira k por hora.
+
+Resultado: criado `viability._calibration` nos tres organismos com status
+`direcao_ancorada_sem_constante`. Todos os campos numericos de viabilidade continuam
+`prior_regra` ate existir cinetica compativel com o motor.
+
 ## Fase 1
 
 - `compatibility_rules.json` e operacional para testes e revisao.
@@ -87,13 +104,15 @@ Criada a fonte unica `src/data/organisms.json` (9 organismos), que o app passou 
 removidos `viability_priors_draft.json` e `protocol_drafts_from_1_0.json`. A extracao
 bruta `raw/organisms_raw_from_1_0.json` permanece como auditoria.
 
-PENDENTE (alta prioridade) - priors de viabilidade SEM fonte:
+PENDENTE (alta prioridade) - priors de viabilidade sem constante calibrada:
 - Os 9 organismos tem `viability.*` (ideal_temp_c, decay_k_base_per_h, uv_sensitivity,
-  effective_threshold_log, chemical_sensitivity_by_class) como RASCUNHO demonstrativo.
+  effective_threshold_log, chemical_sensitivity_by_class) como RASCUNHO demonstrativo ou
+  `prior_regra`.
 - 4 vieram do rascunho do GPT (bacillus, trichoderma, rhizobium, pseudomonas); 5 foram
   DERIVADOS aqui da narrativa qualitativa do 1.0 (fixadores, methylobacterium,
   bioinseticidas, micorrizas, pnsb) - ver `viability._basis` de cada organismo.
-- Nenhum tem fonte tecnica/bula/artigo. Calibrar TODOS antes de tratar como tecnico.
+- Alguns ja tem direcao/manejo ancorados por fonte, mas nenhum deve ser tratado como
+  constante numerica tecnica sem cinetica compativel com o regime do motor.
 
 Ressalvas especificas:
 - `micorrizas`: dose em propagulos (nao log UFC) -> viabilidade log-linear semanticamente

@@ -25,7 +25,27 @@
         "uv_sensitivity": 0.3,
         "effective_threshold_log": 7,
         "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.4, "cuprico_metal": 1.6, "adubo_salino": 1.2 },
-        "_basis": "Prior do rascunho GPT (valores-exemplo do brief). Esporulado e resiliente (k baixo). Demonstrativo."
+        "_status": "prior_regra",
+        "_basis": "PRIOR DE RANQUEAMENTO (regra por forma): Bacillus/Priestia no BiomaPhos e esporulado/resiliente. A fonte Embrapa COT 252 sustenta resistencia operacional por endosporos e tolerancia relativa a calor, pH, baixa umidade e alguns pesticidas, mas nao fornece curva de morte por hora. decay_k/uv/limiar seguem prior_regra.",
+        "_calibration": {
+          "status": "direcao_ancorada_sem_constante",
+          "confidence": "media_para_direcao_baixa_para_numero",
+          "sources": ["embrapa_biomaphos_cot252"],
+          "regime_do_motor": "calda/semente/sulco em janela operacional; nao ensaio de prateleira controlado",
+          "ancoras_confirmadas": [
+            "endosporos explicam maior resiliencia operacional relativa",
+            "tolerancia a estresses de temperatura, pH, baixa umidade e alguns pesticidas e citada para o inoculante",
+            "fonte nao fornece constante por hora para mistura/aplicacao"
+          ],
+          "numeric_fields_status": {
+            "ideal_temp_c": "prior_regra",
+            "decay_k_base_per_h": "prior_regra",
+            "uv_sensitivity": "prior_regra",
+            "effective_threshold_log": "prior_regra",
+            "chemical_sensitivity_by_class": "prior_regra"
+          },
+          "not_promoted_reason": "A fonte sustenta direcao de resiliencia, mas nao cinetica compativel com o viabilityEngine."
+        }
       },
       "protocol": {
         "culturas": "Milho, Soja, Hortaliças",
@@ -95,7 +115,27 @@
         "uv_sensitivity": 0.9,
         "effective_threshold_log": 7.5,
         "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.8, "cuprico_metal": 2.8, "adubo_salino": 2 },
-        "_basis": "Prior do rascunho GPT. Sensivel a metais/cobre (cuprico alto) e salinidade. Demonstrativo."
+        "_status": "prior_regra",
+        "_basis": "PRIOR DE RANQUEAMENTO (regra por forma): Bradyrhizobium/Rhizobium vegetativo e sensivel a desseccacao, sol, calor e tratamento quimico na semente. Embrapa ancora manejo (sombra, semear logo, evitar sol/produtos toxicos) e compatibilidade com fungicida em TS, mas nao fornece decay_k por hora.",
+        "_calibration": {
+          "status": "direcao_ancorada_sem_constante",
+          "confidence": "media_para_manejo_baixa_para_numero",
+          "sources": ["infoteca_bradyrhizobium_seed_soy_548660", "infoteca_bradyrhizobium_fungicide_compat_694841"],
+          "regime_do_motor": "inoculacao de semente/sulco e periodo ate semeadura; nao prateleira fechada",
+          "ancoras_confirmadas": [
+            "inoculacao deve ser feita a sombra e a semeadura no mesmo dia ou logo depois",
+            "semente inoculada deve ficar protegida do sol para preservar bacterias",
+            "fungicidas/tratamento de sementes podem reduzir sobrevivencia/nodulacao e exigem regra especifica por produto"
+          ],
+          "numeric_fields_status": {
+            "ideal_temp_c": "prior_regra",
+            "decay_k_base_per_h": "prior_regra",
+            "uv_sensitivity": "prior_regra",
+            "effective_threshold_log": "prior_regra",
+            "chemical_sensitivity_by_class": "prior_regra"
+          },
+          "not_promoted_reason": "As fontes sustentam direcao e manejo de risco, mas nao uma curva log-linear de morte para promover constantes."
+        }
       },
       "protocol": {
         "culturas": "Soja, Feijão, Ervilha",
@@ -237,7 +277,27 @@
         "uv_sensitivity": 1.2,
         "effective_threshold_log": 6.5,
         "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 3, "cuprico_metal": 2.4, "adubo_salino": 1.4 },
-        "_basis": "Prior do rascunho GPT. Fungo sensivel a UV/seca (uv alto) e a fungicidas (fungicida muito alto). Demonstrativo. Nota: ideal_temp_c=26 resolve silenciosamente o conflito 26(bioData) vs 25(bioDataLab)."
+        "_status": "prior_regra",
+        "_basis": "PRIOR DE RANQUEAMENTO (regra por forma): fungo/conidio com viabilidade dependente de formulacao, umidade, temperatura e compatibilidade quimica. A fonte Embrapa ancora dependencia de ambiente/manejo; estudo de shelf-life mostra que carrier/formulacao altera CFU ao longo de 180 dias. Nao ha k por hora no regime aplicado.",
+        "_calibration": {
+          "status": "direcao_ancorada_sem_constante",
+          "confidence": "media_para_formulacao_baixa_para_numero",
+          "sources": ["infoteca_trichoderma_manejo_925302", "trichoderma_shelf_life_carrier_2022"],
+          "regime_do_motor": "aplicacao em TS/sulco/drench e exposicao operacional; nao armazenamento em carrier por meses",
+          "ancoras_confirmadas": [
+            "atividade de Trichoderma depende de especie/isolado e condicoes fisico-quimicas/ecologicas",
+            "shelf-life em formulacao depende fortemente do carrier, com CFU ainda mensuravel ate 180 dias no estudo registrado",
+            "compatibilidade com fungicida e UV/seca seguem como risco operacional, sem constante numerica calibrada"
+          ],
+          "numeric_fields_status": {
+            "ideal_temp_c": "prior_regra",
+            "decay_k_base_per_h": "prior_regra",
+            "uv_sensitivity": "prior_regra",
+            "effective_threshold_log": "prior_regra",
+            "chemical_sensitivity_by_class": "prior_regra"
+          },
+          "not_promoted_reason": "As fontes sustentam dependencia de formulacao/ambiente e direcao de risco, mas nao cinetica por hora para o motor."
+        }
       },
       "protocol": {
         "culturas": "Soja, Feijão, Algodão, Hortifruti",

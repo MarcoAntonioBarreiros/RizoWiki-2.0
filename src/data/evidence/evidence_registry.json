@@ -167,6 +167,14 @@
       "url": "https://topbiobrasil.com.br/wp-content/uploads/2023/09/topbio-audax-ficha-tecnica.pdf",
       "accessed_at": "2026-06-27",
       "notes": "VERIFICADA (PDF lido): produto registrado no MAPA. Estirpe CNPSo 2719; 1x10^11 UFC/L (~10^8 UFC/mL); dose 100 mL/ha em tratamento de sementes; armazenar 15-25C ao abrigo de luz; validade 6 meses; reinocular em 24h. Fonte PRIMARIA da dose/concentracao da pseudomonas (chegamos a ela pela compilacao Gemini do usuario, cujos numeros estavam em imagem)."
+    },
+    "trichoderma_shelf_life_carrier_2022": {
+      "title": "Shelf-Life Assessment Of Carrier Based Formulations Of Trichoderma Mutants",
+      "publisher": "Journal of Plant Disease Sciences, 2022 - DOI 10.48165/jpds.2022.1704",
+      "source_type": "artigo_revisado",
+      "url": "https://doi.org/10.48165/jpds.2022.1704",
+      "accessed_at": "2026-06-27",
+      "notes": "Fonte revisada encontrada via Crossref. Avalia CFU/g de formulacoes carrier-based de Trichoderma harzianum/hamatum ate 180 dias; talco manteve maiores contagens. Usar para direcao: formulacao/carrier e tempo de armazenamento importam. Nao converter para k por hora de calda/aplicacao."
     }
   },
   "claims": [
@@ -224,11 +232,11 @@
       "organisms": ["trichoderma"],
       "claim_type": "descricao_e_manejo",
       "claim": "Fonte Embrapa/Infoteca sobre especies de Trichoderma como fungos beneficos favorecidos por praticas adequadas de manejo.",
-      "supports_fields": ["functions", "protocol.manejo", "protocol.monitorar"],
+      "supports_fields": ["functions", "protocol.manejo", "protocol.monitorar", "viability._calibration"],
       "does_not_support_yet": ["viability.uv_sensitivity", "viability.decay_k_base_per_h", "compatibility_rules"],
       "status": "fonte_candidata",
       "confidence": "media",
-      "calibration_action": "Extrair recomendacoes de manejo; manter claims de viabilidade como priors ate fonte especifica."
+      "calibration_action": "Usar como apoio de direcao para dependencia de especie/isolado/ambiente; manter constantes numericas de viabilidade como priors ate fonte especifica."
     },
     {
       "id": "trichoderma_antagonismo_sclerotinia_in_vitro",
@@ -241,6 +249,54 @@
       "status": "fonte_candidata",
       "confidence": "baixa",
       "calibration_action": "Usar para sustentar biocontrole como funcao candidata; nao extrapolar para eficacia de campo sem fontes adicionais."
+    },
+    {
+      "id": "bacillus_viability_endosporo_direcao",
+      "source_id": "embrapa_biomaphos_cot252",
+      "organisms": ["bacillus"],
+      "claim_type": "viabilidade_direcao_manejo",
+      "claim": "A publicacao tecnica do BiomaPhos sustenta que Bacillus/Priestia no inoculante tem resistencia operacional associada a endosporos, com tolerancia relativa a estresses como temperatura, pH, baixa umidade e alguns pesticidas.",
+      "supports_fields": ["viability._calibration", "viability_direcao", "form"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity (valor numerico)", "viability.effective_threshold_log"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO: viability._calibration de bacillus registra resiliencia relativa por endosporos. Constantes numericas seguem PRIOR_REGRA; nao promover k/UV/limiar."
+    },
+    {
+      "id": "rhizobium_viability_manejo_semente",
+      "source_id": "infoteca_bradyrhizobium_seed_soy_548660",
+      "organisms": ["rhizobium"],
+      "claim_type": "viabilidade_direcao_manejo",
+      "claim": "Fonte Embrapa sobre inoculacao de soja com Bradyrhizobium ancora manejo de sobrevivencia na semente: operar a sombra, proteger semente inoculada do sol e semear logo/no mesmo dia.",
+      "supports_fields": ["viability._calibration", "viability_direcao", "protocol.manejo"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity (valor numerico)", "viability.effective_threshold_log"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO: viability._calibration de rhizobium registra sensibilidade operacional a sol/tempo ate semeadura. Constantes numericas seguem PRIOR_REGRA."
+    },
+    {
+      "id": "rhizobium_viability_fungicida_direcao",
+      "source_id": "infoteca_bradyrhizobium_fungicide_compat_694841",
+      "organisms": ["rhizobium"],
+      "claim_type": "viabilidade_compatibilidade",
+      "claim": "Fonte Embrapa/Infoteca sobre compatibilidade de tratamento de sementes com fungicida e inoculacao com Bradyrhizobium sustenta risco de reducao de sobrevivencia/nodulacao por tratamento quimico.",
+      "supports_fields": ["viability._calibration", "compatibility_rules", "viability.chemical_sensitivity_by_class_direcao"],
+      "does_not_support_yet": ["viability.chemical_sensitivity_by_class.fungicida (valor numerico)", "viability.decay_k_base_per_h"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO: direcao de risco quimico registrada; manter fator numerico como PRIOR_REGRA ate extrair ingredientes/condicoes."
+    },
+    {
+      "id": "trichoderma_viability_formulacao_direcao",
+      "source_id": "trichoderma_shelf_life_carrier_2022",
+      "organisms": ["trichoderma"],
+      "claim_type": "viabilidade_direcao_manejo",
+      "claim": "Estudo de shelf-life de formulacoes carrier-based de Trichoderma mostra que a contagem de CFU/g ao longo de 180 dias depende fortemente do carrier/formulacao.",
+      "supports_fields": ["viability._calibration", "viability_direcao", "protocol.manejo"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h (regime aplicado)", "viability.uv_sensitivity (valor numerico)", "viability.effective_threshold_log"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO: viability._calibration de trichoderma registra dependencia de formulacao/carrier e armazenamento. Nao converter dados de 180 dias em k por hora da calda/aplicacao."
     },
     {
       "id": "fixadores_azospirillum_funcao_protocolo",

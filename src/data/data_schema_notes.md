@@ -28,8 +28,9 @@ Campos previstos: `label`, `form`, `functions`, `ideal_temp_c`, `operational_res
 A fonte unica esta em `src/data/organisms.json` (substitui os drafts paralelos). Por organismo:
 
 - `label`, `form[]`, `functions[]` (vocabulario compartilhado com o diagnosticEngine), `sources[]`.
-- `viability`: `{ ideal_temp_c, decay_k_base_per_h, uv_sensitivity, effective_threshold_log, chemical_sensitivity_by_class, _basis }`
-  -> consumido pelo viabilityEngine (Lab) e pelo riskAssessment (Fatores). PRIORS demonstrativos, nao calibrados.
+- `viability`: `{ ideal_temp_c, decay_k_base_per_h, uv_sensitivity, effective_threshold_log, chemical_sensitivity_by_class, _status, _basis, _calibration? }`
+  -> consumido pelo viabilityEngine (Lab) e pelo riskAssessment (Fatores). Campos numericos continuam priors/regra ate fonte cinetica compativel.
+  -> `_calibration` pode registrar direcao/manejo ancorados por fonte sem promover constantes numericas.
 - `protocol`: `{ culturas, metodo, dose_range, critical, ordem_mistura, manejo, monitorar[] }` (verbatim do 1.0)
   -> consumido pelo protocolEngine (ficha do Mapa).
 - `_status` / `_confidence`: `pendente_revisao` / `baixa`.

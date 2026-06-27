@@ -1,9 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import organismsData from '../data/organisms.json';
+import evidence from '../data/evidence/evidence_registry.json';
 
 const IDS = [
   'bacillus', 'fixadores', 'rhizobium', 'methylobacterium', 'bioinseticidas',
   'pseudomonas', 'trichoderma', 'micorrizas', 'pnsb',
+];
+const CODEX_VIABILITY_IDS = ['bacillus', 'rhizobium', 'trichoderma'];
+const NUMERIC_VIABILITY_FIELDS = [
+  'ideal_temp_c',
+  'decay_k_base_per_h',
+  'uv_sensitivity',
+  'effective_threshold_log',
+  'chemical_sensitivity_by_class',
 ];
 
 describe('organisms.json (fonte unica consolidada)', () => {
@@ -35,6 +44,23 @@ describe('organisms.json (fonte unica consolidada)', () => {
     expect(organismsData._meta.status).toBe('pendente_revisao');
     for (const id of IDS) {
       expect(organismsData.organisms[id]._status).toBe('pendente_revisao');
+    }
+  });
+
+  it('bacillus, rhizobium e trichoderma tem viabilidade ancorada sem promover constantes', () => {
+    for (const id of CODEX_VIABILITY_IDS) {
+      const calibration = organismsData.organisms[id].viability._calibration;
+      expect(calibration.status).toBe('direcao_ancorada_sem_constante');
+      expect(calibration.ancoras_confirmadas.length).toBeGreaterThan(0);
+      expect(calibration.not_promoted_reason).toBeTruthy();
+
+      for (const sourceId of calibration.sources) {
+        expect(evidence.sources[sourceId]).toBeTruthy();
+      }
+
+      for (const field of NUMERIC_VIABILITY_FIELDS) {
+        expect(calibration.numeric_fields_status[field]).toBe('prior_regra');
+      }
     }
   });
 });
