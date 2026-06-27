@@ -4,19 +4,27 @@
 import { useEffect, useMemo } from 'react';
 import QuickDiagnosisForm from '../components/QuickDiagnosisForm.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
-import { runDiagnosis } from '../engines/diagnosticEngine.js';
 import { evaluateCompatibility } from '../engines/compatibilityEngine.js';
 import { buildProtocol } from '../engines/protocolEngine.js';
+import { buildMapRecommendations } from '../engines/recommendationEngine.js';
 import ProtocolReport from '../components/ProtocolReport.jsx';
 import { DISCLAIMER } from '../disclaimer.js';
 
 const SEMAPHORE_COLOR = { verde: '#22c55e', amarelo: '#fbbf24', vermelho: '#ef4444' };
+const RISK_COLOR = { go: '#22c55e', atencao: '#fbbf24', nogo: '#ef4444' };
+const STATUS_LABEL = {
+  recomendado: 'Recomendado para este caso',
+  ajustar: 'Usar com ajustes',
+  evitar_agora: 'Evitar agora / revisar',
+};
 
 export default function Mapa({ caseState, onCaseChange }) {
   const form = caseState;
   const onChange = onCaseChange;
 
-  const diag = useMemo(() => runDiagnosis(form), [form]);
+  const mapa = useMemo(() => buildMapRecommendations(form), [form]);
+  const diag = mapa.diagnosis;
+  const ranked = mapa.rankedRecommendations;
 
   const compat = useMemo(() => {
     if (form.quimico === 'nenhum' || diag.organismosCandidatos.length === 0) return null;
@@ -27,8 +35,9 @@ export default function Mapa({ caseState, onCaseChange }) {
     });
   }, [form, diag]);
 
-  const candidatos = diag.organismosCandidatos;
-  const escolhido = candidatos.includes(form.organismo) ? form.organismo : candidatos[0];
+  const candidatos = ranked.map((item) => item.organism);
+  const recomendado = mapa.topRecommendation?.organism;
+  const escolhido = candidatos.includes(form.organismo) ? form.organismo : recomendado;
 
   useEffect(() => {
     if (candidatos.length > 0 && !candidatos.includes(form.organismo)) {
@@ -47,7 +56,7 @@ export default function Mapa({ caseState, onCaseChange }) {
     });
   }, [escolhido, form, diag]);
 
-  const limitations = [...diag.limitations, ...(compat ? compat.limitations : [])];
+  const limitations = [...mapa.limitations, ...(compat ? compat.limitations : [])];
 
   return (
     <section>
@@ -83,9 +92,71 @@ export default function Mapa({ caseState, onCaseChange }) {
 
       {diag.organismosCandidatos.length > 0 && (
         <p>
-          <strong>Organismos candidatos (rascunho):</strong>{' '}
-          {diag.organismosCandidatos.join(', ')}
+          <strong>Organismos candidatos ranqueados:</strong>{' '}
+          {ranked.map((item) => `${item.organism} (${item.score})`).join(', ')}
         </p>
+      )}
+
+      {ranked.length > 0 && (
+        <>
+          <h3>Recomendacao ranqueada</h3>
+          <div style={{ display: 'grid', gap: '0.75rem', margin: '0.75rem 0 1rem' }}>
+            {ranked.map((item, idx) => (
+              <article
+                key={item.organism}
+                style={{
+                  border: '1px solid var(--panel-2)',
+                  borderLeft: `6px solid ${RISK_COLOR[item.riskSemaphore] || 'var(--panel-2)'}`,
+                  borderRadius: 8,
+                  padding: '0.75rem 0.85rem',
+                  background: idx === 0 ? 'rgba(56, 189, 248, 0.1)' : 'rgba(15, 23, 42, 0.42)',
+                }}
+              >
+                <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <strong>{idx + 1}. {item.label}</strong>
+                  <span style={{ color: 'var(--muted)', fontSize: '0.86rem' }}>
+                    escore {item.score} - {STATUS_LABEL[item.status]}
+                  </span>
+                  {item.organism === recomendado && (
+                    <span style={{ color: 'var(--accent)', fontSize: '0.82rem' }}>melhor ajuste</span>
+                  )}
+                </div>
+
+                {item.reasons.length > 0 && (
+                  <ul className="page__todo" style={{ marginTop: '0.45rem' }}>
+                    {item.reasons.map((reason) => (
+                      <li key={reason}>{reason}</li>
+                    ))}
+                  </ul>
+                )}
+
+                {item.alerts.length > 0 && (
+                  <ul style={{ margin: '0.45rem 0 0', color: RISK_COLOR[item.riskSemaphore] || 'var(--warn)' }}>
+                    {item.alerts.map((alert) => (
+                      <li key={alert}>{alert}</li>
+                    ))}
+                  </ul>
+                )}
+
+                {item.actions.length > 0 && (
+                  <ul className="page__todo" style={{ marginTop: '0.45rem' }}>
+                    {item.actions.map((action) => (
+                      <li key={action}>Acao: {action}</li>
+                    ))}
+                  </ul>
+                )}
+
+                <button
+                  className="app__tab"
+                  style={{ marginTop: '0.45rem' }}
+                  onClick={() => onCaseChange('organismo', item.organism)}
+                >
+                  Usar na ficha
+                </button>
+              </article>
+            ))}
+          </div>
+        </>
       )}
 
       {compat && (
@@ -118,10 +189,12 @@ export default function Mapa({ caseState, onCaseChange }) {
         <>
           <h3>Protocolo pratico</h3>
           <label className="field" style={{ maxWidth: 280 }}>
-            <span>Organismo escolhido</span>
+            <span>Organismo escolhido para ficha</span>
             <select value={escolhido} onChange={(event) => onCaseChange('organismo', event.target.value)}>
-              {candidatos.map((id) => (
-                <option key={id} value={id}>{id}</option>
+              {ranked.map((item) => (
+                <option key={item.organism} value={item.organism}>
+                  {item.label} - escore {item.score}
+                </option>
               ))}
             </select>
           </label>
@@ -146,6 +219,7 @@ export default function Mapa({ caseState, onCaseChange }) {
 
       <p className="page__todo">
         O organismo, quimico, umidade e modo selecionados aqui alimentam tambem Fatores e Lab.
+        No Mapa V0.5, esses campos tambem rebaixam ou bloqueiam candidatos no ranking acima.
       </p>
     </section>
   );

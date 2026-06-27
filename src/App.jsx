@@ -56,8 +56,8 @@ export default function App() {
           Apoio a decisao sobre bioinsumos e rizosfera - descritivo e explicavel.
         </p>
         <p className="app__phase" role="status">
-          Fase 5 - Mapa, Fatores e Lab conectados pelo mesmo caso. Motores:
-          compatibility, viability, diagnostic e protocol. Dados tecnicos ainda em curadoria.
+          Fase 5 - Mapa V0.5 ranqueia candidatos pelo mesmo caso usado em Fatores e Lab.
+          Motores: diagnostic, recommendation, compatibility, viability e protocol. Dados tecnicos ainda em curadoria.
         </p>
       </header>
 
