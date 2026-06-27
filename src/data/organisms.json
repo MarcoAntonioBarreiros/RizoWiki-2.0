@@ -57,19 +57,30 @@
         "_basis": "DERIVADO (demonstrativo): vegetativo/cistos (k moderado); '1.0: sensivel a luz e seca' -> uv alto; '1.0: evitar herbicidas/inseticidas agressivos'. Sem fonte."
       },
       "protocol": {
-        "culturas": "Milho, Trigo, Pastagens",
-        "metodo": "Sulco ou Semente",
-        "dose_range": "10⁸ - 10¹⁰ UFC/mL",
-        "critical": "Sensível à dessecação. Evitar exposição solar direta.",
-        "ordem_mistura": "Evitar misturar com herbicidas e inseticidas agressivos. Testar antes.",
-        "manejo": "Bactéria sensível à luz e seca. Aplicar rápido após inoculação.",
+        "culturas": "Milho e Trigo (gramíneas; outras em avaliação) [Embrapa Doc 325]",
+        "metodo": "Inoculante líquido aplicado às sementes (tambor rotatório ou máquina de tratamento de sementes); não inocular na caixa semeadora [Embrapa Doc 325]",
+        "dose_range": "Inoculante líquido; concentração mínima legal (MAPA): 10⁸ células/g ou mL [Embrapa Doc 325]",
+        "critical": "Bactérias vivas, sensíveis a calor, déficit hídrico e agrotóxicos. Conservar até 30 °C, protegido do sol [Embrapa Doc 325].",
+        "ordem_mistura": "Em sementes tratadas (fungicida/inseticida/micronutriente): inoculante por último; semear o quanto antes; se não semear em 24 h, repetir a inoculação. Compatibilidade com fungicidas/inseticidas é o principal desafio, ainda sob pesquisa [Embrapa Doc 325].",
+        "manejo": "Semear imediatamente ou em até 24 h após a inoculação. Se o depósito de sementes passar de 35 °C, resfriar (o calor mata as bactérias); em condições adversas, aumentar a dose e semear logo [Embrapa Doc 325].",
         "monitorar": [
           "Sistema radicular mais volumoso e 'cabeleira' densa.",
           "Plantas mais verdes e vigorosas em faixas comparativas.",
           "Maior tolerância a veranicos moderados."
         ]
       },
-      "sources": ["Hungria, M., et al. (2010). Field Crops Research, 119(1), 139-145."],
+      "sources": [
+        "Hungria, M., et al. (2010). Field Crops Research, 119(1), 139-145.",
+        "Hungria, M. (2011). Inoculacao com Azospirillum brasilense: inovacao em rendimento a baixo custo. Embrapa Soja, Documentos 325."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "source": "embrapa_azospirillum_doc325",
+        "confidence_protocolo": "media",
+        "campos_calibrados": ["protocol.culturas", "protocol.metodo", "protocol.dose_range", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo"],
+        "extraido": "Estirpes Ab-V5/Ab-V6; concentracao minima legal 10^8 cel/g ou mL (MAPA); inoculante liquido nas sementes (tambor/maquina de TS), nunca na caixa semeadora; semear em ate 24h; conservar ate 30C protegido do sol (>35C mata as bacterias); em sementes tratadas, inoculante por ultimo e repetir se nao semear em 24h; compatibilidade com fungicida/inseticida e o maior desafio (sob pesquisa).",
+        "pendente": "viability.* (decay_k_base_per_h, uv_sensitivity, effective_threshold_log) seguem DEMONSTRATIVOS: a fonte traz manejo/dose, nao cinetica de morte por tempo/temperatura."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },

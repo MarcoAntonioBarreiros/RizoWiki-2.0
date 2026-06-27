@@ -218,9 +218,9 @@
       "claim": "Publicacao tecnica Embrapa sobre inoculacao de gramineas com Azospirillum brasilense (Ab-V5/Ab-V6): promocao radicular e parte da adubacao nitrogenada.",
       "supports_fields": ["functions", "protocol.culturas", "protocol.metodo", "protocol.manejo"],
       "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity", "viability.effective_threshold_log", "viability.chemical_sensitivity_by_class"],
-      "status": "evidencia_registrada",
+      "status": "calibrado_parcial",
       "confidence": "media",
-      "calibration_action": "Extrair recomendacoes de modo/cultura e comparar com o protocol atual; manter priors de viabilidade como demonstrativos."
+      "calibration_action": "FEITO (extracao Doc 325): protocol.{culturas,metodo,dose_range,critical,ordem_mistura,manejo} de fixadores revisados com a fonte (Ab-V5/V6; minimo legal 10^8 cel/g ou mL; inoculante liquido nas sementes; semear em ate 24h; conservar ate 30C; inoculante por ultimo em sementes tratadas). PENDENTE: viability.* (sem cinetica na fonte)."
     },
     {
       "id": "fixadores_rhizobium_coinoculacao",
