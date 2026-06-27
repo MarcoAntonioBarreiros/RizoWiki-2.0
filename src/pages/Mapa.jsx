@@ -1,7 +1,7 @@
 // Mapa - diagnostico rapido -> recomendacao justificada (brief secao 6).
 // Reusa diagnosticEngine + compatibilityEngine (AGENTS.md regra 6: nao duplica logica).
 // A pagina so orquestra e exibe; toda decisao vive nos motores.
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import QuickDiagnosisForm from '../components/QuickDiagnosisForm.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
 import { runDiagnosis } from '../engines/diagnosticEngine.js';
@@ -12,19 +12,9 @@ import { DISCLAIMER } from '../disclaimer.js';
 
 const SEMAPHORE_COLOR = { verde: '#22c55e', amarelo: '#fbbf24', vermelho: '#ef4444' };
 
-const INITIAL = {
-  cultura: 'soja',
-  estadio: 'pre_semeadura',
-  problema: 'fosforo_indisponivel',
-  pClasse: 'medio',
-  umidade: 'adequado',
-  quimico: 'nenhum',
-  modo: 'tratamento_semente',
-};
-
-export default function Mapa() {
-  const [form, setForm] = useState(INITIAL);
-  const onChange = (field, val) => setForm((prev) => ({ ...prev, [field]: val }));
+export default function Mapa({ caseState, onCaseChange }) {
+  const form = caseState;
+  const onChange = onCaseChange;
 
   const diag = useMemo(() => runDiagnosis(form), [form]);
 
@@ -37,9 +27,14 @@ export default function Mapa() {
     });
   }, [form, diag]);
 
-  const [organismoEscolhido, setOrganismoEscolhido] = useState(null);
   const candidatos = diag.organismosCandidatos;
-  const escolhido = candidatos.includes(organismoEscolhido) ? organismoEscolhido : candidatos[0];
+  const escolhido = candidatos.includes(form.organismo) ? form.organismo : candidatos[0];
+
+  useEffect(() => {
+    if (candidatos.length > 0 && !candidatos.includes(form.organismo)) {
+      onCaseChange('organismo', candidatos[0]);
+    }
+  }, [candidatos, form.organismo, onCaseChange]);
 
   const protocolo = useMemo(() => {
     if (!escolhido) return null;
@@ -124,7 +119,7 @@ export default function Mapa() {
           <h3>Protocolo pratico</h3>
           <label className="field" style={{ maxWidth: 280 }}>
             <span>Organismo escolhido</span>
-            <select value={escolhido} onChange={(event) => setOrganismoEscolhido(event.target.value)}>
+            <select value={escolhido} onChange={(event) => onCaseChange('organismo', event.target.value)}>
               {candidatos.map((id) => (
                 <option key={id} value={id}>{id}</option>
               ))}
@@ -150,7 +145,7 @@ export default function Mapa() {
       <p style={{ fontSize: '0.82rem', color: 'var(--muted)' }}>{DISCLAIMER}</p>
 
       <p className="page__todo">
-        Proximos blocos (Fase 4): protocolo pratico (protocolEngine) e ficha exportavel.
+        O organismo, quimico, umidade e modo selecionados aqui alimentam tambem Fatores e Lab.
       </p>
     </section>
   );

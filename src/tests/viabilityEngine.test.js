@@ -37,6 +37,7 @@ describe('viabilityEngine', () => {
     expect(result.finalLog).toBeLessThan(9);
     expect(result.relativeSurvival).toBeLessThan(1);
     expect(result.verdict).toBe('acima_limiar');
+    expect(result.confidence).toBe('baixa');
   });
 
   it('penaliza quimico e UV quando informados', () => {

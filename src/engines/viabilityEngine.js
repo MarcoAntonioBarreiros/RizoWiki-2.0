@@ -106,10 +106,10 @@ export function simulateViability(input = {}) {
     kTotal,
     factors: { temperature: fT, chemical: fC, uv: fUv },
     threshold,
-    confidence: threshold === null ? 'baixa' : 'media',
+    confidence: 'baixa',
     limitations: [
       'Modelo ilustrativo, nao calibrado; ranqueia cenarios, nao preve numero de campo.',
-      'Constantes devem permanecer como priors configuraveis ate revisao tecnica.',
+      'Constantes devem permanecer como priors configuraveis ate revisao tecnica; confianca baixa mesmo quando ha limiar numerico.',
     ],
   };
 }

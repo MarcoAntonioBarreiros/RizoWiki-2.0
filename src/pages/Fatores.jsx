@@ -1,6 +1,6 @@
 // Fatores - checklist go/no-go "vou aplicar agora?" (brief secao 6).
 // A pagina orquestra: RiskPanel coleta, riskAssessment reusa os motores e decide.
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import RiskPanel from '../components/RiskPanel.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
 import { assessApplication } from '../utils/riskAssessment.js';
@@ -12,19 +12,9 @@ const VERDICT = {
   nogo: { label: 'NO-GO - nao aplicar agora', color: '#ef4444' },
 };
 
-const INITIAL = {
-  organismo: 'bacillus',
-  horas: 6,
-  refrigerado: false,
-  exposicaoUV: false,
-  umidade: 'adequado',
-  quimico: 'nenhum',
-  modo: 'mistura_tanque',
-};
-
-export default function Fatores() {
-  const [form, setForm] = useState(INITIAL);
-  const onChange = (field, val) => setForm((prev) => ({ ...prev, [field]: val }));
+export default function Fatores({ caseState, onCaseChange }) {
+  const form = caseState;
+  const onChange = onCaseChange;
   const result = useMemo(() => assessApplication(form), [form]);
   const verdict = VERDICT[result.semaphore] ?? VERDICT.atencao;
 
@@ -33,7 +23,7 @@ export default function Fatores() {
       <h2 className="page__title">Fatores - vou aplicar agora?</h2>
       <p className="page__todo">
         Checklist pre-aplicacao. Reusa viabilityEngine e compatibilityEngine (via
-        riskAssessment); nao reimplementa logica de motor.
+        riskAssessment); usa o mesmo caso selecionado no Mapa e no Lab.
       </p>
 
       <RiskPanel value={form} onChange={onChange} />

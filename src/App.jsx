@@ -1,9 +1,28 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Wiki from './pages/Wiki.jsx';
 import Mapa from './pages/Mapa.jsx';
 import Fatores from './pages/Fatores.jsx';
 import Lab from './pages/Lab.jsx';
 import { DISCLAIMER } from './disclaimer.js';
+import organismsData from './data/organisms.json';
+
+const DEFAULT_ORGANISM = 'bacillus';
+const DEFAULT_CASE = {
+  cultura: 'soja',
+  estadio: 'pre_semeadura',
+  problema: 'fosforo_indisponivel',
+  pClasse: 'medio',
+  umidade: 'adequado',
+  quimico: 'nenhum',
+  modo: 'tratamento_semente',
+  organismo: DEFAULT_ORGANISM,
+  horas: 6,
+  refrigerado: false,
+  exposicaoUV: false,
+  initialLog: 9,
+  temperatureC: 30,
+  effectiveThresholdLog: organismsData.organisms[DEFAULT_ORGANISM].viability.effective_threshold_log,
+};
 
 const TABS = [
   { id: 'mapa', label: 'Mapa', component: Mapa },
@@ -14,7 +33,20 @@ const TABS = [
 
 export default function App() {
   const [tab, setTab] = useState('mapa');
+  const [caseState, setCaseState] = useState(DEFAULT_CASE);
   const Active = (TABS.find((item) => item.id === tab) ?? TABS[0]).component;
+  const setCaseField = useCallback((field, value) => {
+    setCaseState((prev) => {
+      if (field !== 'organismo') return { ...prev, [field]: value };
+
+      const threshold = organismsData.organisms[value]?.viability?.effective_threshold_log;
+      return {
+        ...prev,
+        organismo: value,
+        effectiveThresholdLog: threshold ?? prev.effectiveThresholdLog,
+      };
+    });
+  }, []);
 
   return (
     <div className="app">
@@ -24,8 +56,8 @@ export default function App() {
           Apoio a decisao sobre bioinsumos e rizosfera - descritivo e explicavel.
         </p>
         <p className="app__phase" role="status">
-          Fase 5 - Mapa, Lab e Fatores no ar (ficha exportavel no Mapa). Motores:
-          compatibility, viability, diagnostic e protocol. Wiki ainda em construcao.
+          Fase 5 - Mapa, Fatores e Lab conectados pelo mesmo caso. Motores:
+          compatibility, viability, diagnostic e protocol. Dados tecnicos ainda em curadoria.
         </p>
       </header>
 
@@ -43,7 +75,7 @@ export default function App() {
       </nav>
 
       <main className="app__main">
-        <Active />
+        <Active caseState={caseState} onCaseChange={setCaseField} />
       </main>
 
       <footer className="app__footer">

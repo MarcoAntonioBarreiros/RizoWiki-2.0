@@ -8,6 +8,7 @@ const QUIMICOS = [
   { value: 'fungicida', label: 'Fungicida' },
   { value: 'cuprico_metal', label: 'Cuprico / metal' },
   { value: 'adubo_salino', label: 'Adubo salino' },
+  { value: 'herbicida', label: 'Herbicida' },
 ];
 
 const UMIDADES = [
