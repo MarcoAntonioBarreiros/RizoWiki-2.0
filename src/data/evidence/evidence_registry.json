@@ -242,9 +242,9 @@
       "claim": "Documento Embrapa descreve rizobacterias (incl. Pseudomonas fluorescens/putida) com producao de sideroforos e antibiose para biocontrole.",
       "supports_fields": ["functions", "diagnosticEngine.PROBLEMAS.doenca_solo"],
       "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
-      "status": "evidencia_registrada",
+      "status": "calibrado_parcial",
       "confidence": "media",
-      "calibration_action": "Sustentar funcoes sideroforos/biocontrole de Pseudomonas; nao extrapolar para dose ou cinetica de viabilidade."
+      "calibration_action": "FEITO (extracao Doc 155): functions de pseudomonas confirmadas por fonte tecnica (sideroforos pioverdina/enterobactina, antibiose, ISR via P. fluorescens WCS417r). PENDENTE: protocol.* (fonte e revisao de mecanismos, nao protocolo de produto) e viability.* (sem cinetica)."
     },
     {
       "id": "methylobacterium_foliar_n_eficacia",

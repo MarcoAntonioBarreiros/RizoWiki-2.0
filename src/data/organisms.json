@@ -196,7 +196,18 @@
           "Estande uniforme."
         ]
       },
-      "sources": ["Mendes, R., et al. (2011). Science, 332(6033), 1097-1100."],
+      "sources": [
+        "Mendes, R., et al. (2011). Science, 332(6033), 1097-1100.",
+        "Vieira Junior, J. R. et al. (2013). Rizobacterias como agentes de controle biologico e promotores de crescimento de plantas. Embrapa Rondonia, Documentos 155."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "source": "embrapa_rizobacterias_doc155",
+        "confidence_funcoes": "media",
+        "campos_calibrados": ["functions"],
+        "extraido": "Funcoes confirmadas por fonte tecnica: sideroforos (pioverdina, enterobactina; competicao por ferro Fe3+), biocontrole por antibiose (Pseudomonas do grupo fluorescente; antibioticos/alcaloides toxicos a fitopatogenos) e ISR (modelo classico P. fluorescens WCS417r induz resistencia sistemica em cravo, rabanete, tomate e feijao). Pseudomonas (P. fluorescens/P. putida) predomina como colonizador da rizosfera.",
+        "pendente": "protocol.* (dose/metodo/manejo): a fonte e revisao de MECANISMOS, nao protocolo de produto - precisa de bula/ficha tecnica. viability.* segue DEMONSTRATIVO (sem cinetica)."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },
