@@ -69,7 +69,7 @@
       "label": "Azospirillum spp.",
       "form": ["vegetativo"],
       "functions": ["aia", "promocao_radicular", "fixacao_n", "acc_desaminase"],
-      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "Embrapa Doc 325", "janela_uso_h": 24, "temp_armazenamento_max_c": 30, "temp_letal_c": 35, "uv_exige_horario": true },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "Embrapa Doc 325", "_escopo": "Embrapa Doc 325, generico para A. brasilense (Ab-V5/Ab-V6)", "janela_uso_h": 24, "janela_acao": "reinocular", "temp_armazenamento_max_c": 30, "temp_letal_c": 35, "uv_exige_horario": true },
       "viability": {
         "ideal_temp_c": 29,
         "decay_k_base_per_h": 0.05,
@@ -235,7 +235,7 @@
       "label": "Pseudomonas spp.",
       "form": ["vegetativo"],
       "functions": ["solubilizacao_p", "sideroforos", "isr", "biocontrole", "acc_desaminase"],
-      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "ficha Audax + compilacao", "janela_uso_h": 24, "calda_h": 4, "temp_armazenamento_min_c": 15, "temp_armazenamento_max_c": 25, "temp_ar_max_c": 30, "agua_ph_min": 5.5, "agua_ph_max": 7.0, "incompat_duras": ["cuprico_metal"], "uv_exige_horario": true },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "ficha Audax + compilacao", "_escopo": "valores numericos (janela/temp/pH) do produto Audax (estirpe CNPSo 2719); NAO universais para Pseudomonas", "janela_uso_h": 24, "janela_acao": "reinocular", "calda_h": 4, "temp_armazenamento_min_c": 15, "temp_armazenamento_max_c": 25, "temp_ar_max_c": 30, "agua_ph_min": 5.5, "agua_ph_max": 7.0, "incompat_duras": ["cuprico_metal"], "uv_exige_horario": true },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.07,
@@ -357,7 +357,7 @@
       "label": "PNSB (Rhodopseudomonas palustris)",
       "form": ["vegetativo"],
       "functions": ["biofilme", "aia", "biocontrole", "tolerancia_estresse"],
-      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0", "incompat_duras": ["cloro", "antibiotico"], "obs": "depende de luz/carbono organico" },
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0", "incompat_atencao": ["cloro", "antibiotico"], "obs": "1.0 diz 'evitar' cloro/antibiotico (brando, nao bloqueio); depende de luz/carbono organico" },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.03,
