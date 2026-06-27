@@ -254,9 +254,9 @@
       "claim": "Artigo revisado: aplicacao foliar de M. symbioticum em milho/morango associada a fixacao de N foliar e reducao parcial da adubacao nitrogenada.",
       "supports_fields": ["functions", "protocol.metodo", "protocol.culturas"],
       "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity", "viability.effective_threshold_log"],
-      "status": "fonte_candidata",
+      "status": "calibrado_parcial",
       "confidence": "media",
-      "calibration_action": "Extrair condicoes de aplicacao foliar; manter a viabilidade como prior demonstrativo ate fonte de cinetica."
+      "calibration_action": "FEITO: protocol.{metodo,dose_range,culturas} e functions de methylobacterium calibrados (foliar; Blue N 333 g/ha em ~100 L; milho/morango). PENDENTE: viability.* (sem cinetica); abstract Springer nao acessado (paywall)."
     },
     {
       "id": "methylobacterium_efeito_limitado_contraponto",
@@ -266,9 +266,9 @@
       "claim": "CONTRAPONTO revisado: efeito LIMITADO de M. symbioticum foliar sobre produtividade e recuperacao de N em milho de campo/vaso.",
       "supports_fields": ["confidence", "limitations"],
       "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
-      "status": "fonte_candidata",
+      "status": "calibrado_parcial",
       "confidence": "baixa",
-      "calibration_action": "Usar para manter confianca baixa e evitar superestimar a eficacia foliar; equilibrar com as fontes positivas."
+      "calibration_action": "FEITO: contraponto aplicado na ficha de methylobacterium (critical: eficacia foliar variavel, sem ganho significativo de produtividade) e dose extraida (Blue N 333 g/ha). Mantem confianca baixa."
     },
     {
       "id": "bioinseticidas_fungos_entomopatogenicos_manejo",

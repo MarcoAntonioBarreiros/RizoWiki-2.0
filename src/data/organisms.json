@@ -126,10 +126,10 @@
         "_basis": "DERIVADO (demonstrativo): pigmentado e resiliente (k baixo); '1.0: pigmento protege UV' -> uv baixo; '1.0: evitar cobre' -> cuprico alto; compativel com adubos foliares. Sem fonte."
       },
       "protocol": {
-        "culturas": "Soja, Milho, Café, Hortifruti",
-        "metodo": "Pulverização Foliar",
-        "dose_range": "10⁸ UFC/mL",
-        "critical": "A aplicação deve garantir cobertura foliar. Pigmentos rosas conferem proteção UV, mas a bactéria depende de tecido vivo.",
+        "culturas": "Milho e morango (eficácia avaliada nas fontes); também soja, café, hortifruti (origem 1.0)",
+        "metodo": "Pulverização foliar [Blue N / PMC11510831]",
+        "dose_range": "Aplicação foliar; ex.: produto comercial Blue N (M. symbioticum SB23) a 333 g/ha em ~100 L de água, em estádio vegetativo [PMC11510831]",
+        "critical": "Cobertura foliar necessária; pigmentos rosas conferem proteção UV, mas depende de tecido vivo. EFICÁCIA FOLIAR VARIÁVEL: estudo de campo encontrou contribuição de N inconsistente e SEM ganho significativo de produtividade [PMC11510831].",
         "ordem_mistura": "Compatível com adubos foliares, evitar pH ácido ou cobre.",
         "manejo": "Aplicar pela manhã para colonização dos estômatos.",
         "monitorar": [
@@ -138,7 +138,20 @@
           "Retardo no amarelamento do baixeiro."
         ]
       },
-      "sources": ["Rossetto, E. A., et al. (2023). Field Crops Research, 291, 108778."],
+      "sources": [
+        "Rossetto, E. A., et al. (2023). Field Crops Research, 291, 108778.",
+        "Application and effectiveness of Methylobacterium symbioticum as a biological inoculant in maize and strawberry crops. Folia Microbiologica (2023), DOI 10.1007/s12223-023-01078-4.",
+        "The Application of a Foliar Spray Containing Methylobacterium symbioticum Had a Limited Effect on Crop Yield and Nitrogen Recovery in Field and Pot-Grown Maize. PMC11510831."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "sources": ["pmc_methylobacterium_limited_effect_maize", "springer_methylobacterium_maize_strawberry_2023"],
+        "confidence_protocolo": "media",
+        "campos_calibrados": ["protocol.metodo", "protocol.dose_range", "protocol.culturas", "functions"],
+        "extraido": "Aplicacao foliar; produto comercial Blue N (M. symbioticum SB23) a 333 g/ha em ~100 L de agua, em estadio vegetativo (verificado no PMC11510831). Funcao: fixacao de N foliar. Culturas avaliadas: milho e morango.",
+        "ressalva_eficacia": "EVIDENCIA CONFLITANTE (registrada de proposito): a fonte Springer reporta efetividade como inoculante em milho/morango; o contraponto (PMC11510831) encontrou contribuicao de N limitada/inconsistente em campo (fixacao aparente ~9-24% do N recuperado) e SEM diferenca significativa de produtividade. Manter confianca baixa; nao prometer substituicao da adubacao nitrogenada.",
+        "pendente": "viability.* (decay_k_base_per_h, uv_sensitivity, effective_threshold_log) seguem DEMONSTRATIVOS: as fontes nao trazem cinetica de morte por tempo/temperatura. Abstract da Springer nao acessado (paywall); numeros positivos nao foram transcritos."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },
