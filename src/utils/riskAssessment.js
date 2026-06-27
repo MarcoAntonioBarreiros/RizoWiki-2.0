@@ -87,7 +87,7 @@ export function assessApplication(input = {}) {
     });
   }
 
-  // --- Temperatura ---
+  // --- Temperatura de APLICACAO (letal/ar). Armazenamento e PRATELEIRA -> vira nota, nao flag. ---
   const tempAtual = refrigerado ? 8 : TEMP_AMBIENTE_C;
   if (lim.temp_letal_c && tempAtual >= lim.temp_letal_c) {
     flags.push({
@@ -96,11 +96,11 @@ export function assessApplication(input = {}) {
       acao: 'Resfriar antes de aplicar.',
       fonte,
     });
-  } else if (lim.temp_armazenamento_max_c && !refrigerado && tempAtual > lim.temp_armazenamento_max_c) {
+  } else if (lim.temp_ar_max_c && tempAtual > lim.temp_ar_max_c) {
     flags.push({
       nivel: 'atencao',
-      mensagem: `Manter ate ${lim.temp_armazenamento_max_c} C (ambiente estimado ${tempAtual} C).`,
-      acao: 'Refrigerar / proteger do calor.',
+      mensagem: `Temperatura do ar acima de ${lim.temp_ar_max_c} C na aplicacao.`,
+      acao: 'Aplicar em horario mais fresco (manha/fim de tarde).',
       fonte,
     });
   }
@@ -147,6 +147,9 @@ export function assessApplication(input = {}) {
   }
   if (lim._escopo) {
     limitations.push(`Escopo dos limites: ${lim._escopo}.`);
+  }
+  if (lim.temp_armazenamento_max_c) {
+    limitations.push(`Armazenar ate ${lim.temp_armazenamento_max_c} C (prateleira, nao impede aplicacao) [${fonte}].`);
   }
 
   const confidence = lim._status === 'calibrado_parcial' ? 'media' : 'baixa';
