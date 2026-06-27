@@ -32,4 +32,11 @@ describe('protocolEngine (ficha rascunho a partir do 1.0)', () => {
     expect(p.confidence).toBe('inconclusiva');
     expect(p.dose).toBeNull();
   });
+
+  it('expoe funcoes e procedencia; marca calibrado parcial quando ha _calibration', () => {
+    const fix = buildProtocol({ organismo: 'fixadores' });
+    expect(Array.isArray(fix.funcoes)).toBe(true);
+    expect(fix.funcoes.length).toBeGreaterThan(0);
+    expect(fix.procedencia.toLowerCase()).toContain('calibrado parcial');
+  });
 });

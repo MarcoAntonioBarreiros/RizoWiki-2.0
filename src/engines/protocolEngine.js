@@ -30,6 +30,8 @@ export function buildProtocol(input = {}) {
       ordemDeMistura: null,
       manejo: null,
       monitorar: [],
+      funcoes: [],
+      procedencia: null,
       contraindicacoes: [],
       confidence: 'inconclusiva',
       source: null,
@@ -51,8 +53,19 @@ export function buildProtocol(input = {}) {
   }
   if (dados.critical) contraindicacoes.push(dados.critical);
 
+  // Procedencia: reflete o bloco _calibration (se houver) para a ficha mostrar
+  // o que tem fonte tecnica e o que ainda e rascunho do 1.0.
+  const cal = o._calibration || null;
+  const calibrado = !!cal;
+  const procedencia = calibrado
+    ? 'Calibrado parcial - campos com fonte tecnica: ' + (cal.campos_calibrados || []).join(', ') + '.'
+      + (cal.pendente ? ' Pendente: ' + cal.pendente : '')
+    : 'Protocolo de referencia (RizoWiki 1.0); fonte tecnica de produto ainda pendente.';
+
   const limitations = [
-    'Ficha em RASCUNHO a partir do RizoWiki 1.0; dose e manejo nao calibrados.',
+    calibrado
+      ? 'Ficha em CALIBRACAO PARCIAL: parte dos campos foi revisada com fonte tecnica (ver Procedencia); o restante segue como rascunho do 1.0.'
+      : 'Ficha em RASCUNHO a partir do RizoWiki 1.0; dose e manejo nao calibrados.',
     'Nao substitui bula, registro do produto nem recomendacao tecnica responsavel.',
     'Ajuste a cultura, ao produto comercial e as condicoes locais.',
   ];
@@ -72,9 +85,11 @@ export function buildProtocol(input = {}) {
     ordemDeMistura: dados.ordem_mistura,
     manejo: dados.manejo,
     monitorar: dados.monitorar ?? [],
+    funcoes: o.functions ?? [],
+    procedencia,
     contraindicacoes,
     confidence: 'baixa',
-    source: 'RizoWiki 1.0',
+    source: calibrado ? 'RizoWiki 1.0 + fonte tecnica (calibrado parcial)' : 'RizoWiki 1.0',
     limitations,
   };
 }

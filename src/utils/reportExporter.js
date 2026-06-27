@@ -36,12 +36,14 @@ export function buildProtocolHtml(protocol, contexto = {}) {
   <p class="tag">RASCUNHO - confianca ${esc(protocol.confidence)} - fonte: ${esc(protocol.source)}</p>
   <p class="muted">Contexto: cultura ${esc(contexto.cultura || '-')} | problema ${esc(contexto.problema || '-')} | quimico ${esc(contexto.quimico || 'nenhum')} | modo ${esc(contexto.modo || '-')}</p>
 
-  <h2>Dose (referencia 1.0)</h2><p>${esc(protocol.dose)}</p>
+  <h2>Dose</h2><p>${esc(protocol.dose)}</p>
   <h2>Metodo / culturas</h2><p>${esc(protocol.metodo)} - ${esc(protocol.culturasReferencia)}</p>
   <h2>Ordem de mistura</h2><p>${esc(protocol.ordemDeMistura)}</p>
   <h2>Manejo</h2><p>${esc(protocol.manejo)}</p>
+  <h2>Funcoes</h2><p>${esc((protocol.funcoes || []).join(', ') || '-')}</p>
   <h2>O que monitorar</h2><ul>${liList(protocol.monitorar)}</ul>
   <h2>Contraindicacoes</h2><ul>${liList(protocol.contraindicacoes)}</ul>
+  <h2>Procedencia</h2><p>${esc(protocol.procedencia || '-')}</p>
   <h2>Limitacoes</h2><ul>${liList(protocol.limitations)}</ul>
 
   <p class="foot">${esc(DISCLAIMER)}</p>

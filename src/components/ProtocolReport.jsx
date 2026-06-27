@@ -42,14 +42,31 @@ export default function ProtocolReport({ protocol, contexto = {} }) {
     >
       <h3 style={{ marginTop: 0 }}>Ficha pratica - {protocol.label || protocol.organismo}</h3>
 
-      <Linha titulo="Dose (referencia 1.0)">{protocol.dose}</Linha>
+      <Linha titulo="Dose">{protocol.dose}</Linha>
       <Linha titulo="Metodo / culturas">
         {protocol.metodo} - {protocol.culturasReferencia}
       </Linha>
       <Linha titulo="Ordem de mistura">{protocol.ordemDeMistura}</Linha>
       <Linha titulo="Manejo">{protocol.manejo}</Linha>
+      {protocol.funcoes && protocol.funcoes.length > 0 && (
+        <Linha titulo="Funcoes">{protocol.funcoes.join(', ')}</Linha>
+      )}
       <ListaBloco titulo="O que monitorar" itens={protocol.monitorar} />
       <ListaBloco titulo="Contraindicacoes" itens={protocol.contraindicacoes} />
+
+      {protocol.procedencia && (
+        <p
+          style={{
+            fontSize: '0.82rem',
+            color: 'var(--muted)',
+            borderLeft: '3px solid var(--accent)',
+            paddingLeft: '0.6rem',
+            margin: '0.6rem 0',
+          }}
+        >
+          <strong>Procedencia:</strong> {protocol.procedencia}
+        </p>
+      )}
 
       <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', margin: '0.6rem 0', flexWrap: 'wrap' }}>
         <ConfidenceBadge level={protocol.confidence} />
