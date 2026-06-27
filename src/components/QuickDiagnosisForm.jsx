@@ -11,12 +11,6 @@ const ESTADIOS = [
   { value: 'reprodutivo', label: 'Reprodutivo' },
 ];
 
-const P_CLASSES = [
-  { value: 'baixo', label: 'Baixo' },
-  { value: 'medio', label: 'Medio' },
-  { value: 'alto', label: 'Alto' },
-];
-
 const UMIDADES = [
   { value: 'seco', label: 'Seco' },
   { value: 'adequado', label: 'Adequado' },
@@ -66,7 +60,6 @@ export default function QuickDiagnosisForm({ value, onChange }) {
       <Field label="Cultura" field="cultura" value={value.cultura} options={CULTURAS} onChange={onChange} />
       <Field label="Estadio" field="estadio" value={value.estadio} options={ESTADIOS} onChange={onChange} />
       <Field label="Problema" field="problema" value={value.problema} options={problemaOptions} onChange={onChange} />
-      <Field label="P (classe)" field="pClasse" value={value.pClasse} options={P_CLASSES} onChange={onChange} />
       <Field label="Umidade" field="umidade" value={value.umidade} options={UMIDADES} onChange={onChange} />
       <Field label="Quimico" field="quimico" value={value.quimico} options={QUIMICOS} onChange={onChange} />
       <Field label="Modo de aplicacao" field="modo" value={value.modo} options={MODOS} onChange={onChange} />

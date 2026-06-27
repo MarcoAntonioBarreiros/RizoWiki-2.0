@@ -11,7 +11,6 @@ const DEFAULT_CASE = {
   cultura: 'soja',
   estadio: 'pre_semeadura',
   problema: 'fosforo_indisponivel',
-  pClasse: 'medio',
   umidade: 'adequado',
   quimico: 'nenhum',
   modo: 'tratamento_semente',
