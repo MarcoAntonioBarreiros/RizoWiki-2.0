@@ -55,6 +55,21 @@ Terceira rodada registrada (Claude, fontes verificadas) - completa os 9 organism
   Evidencias agora cobrem OS 9 ORGANISMOS. Proximo passo real: extrair de cada fonte dose/modo/
   ressalvas e so entao propor `calibrado_parcial` por campo (nunca promover viability.* sem cinetica).
 
+## Viabilidade (decay_k/UV/limiar) - tratamento de Azospirillum, pseudomonas, methylobacterium
+
+Decisao do usuario: tentar cinetica, cair na regra. Resultado HONESTO: NAO ha constante de k
+por hora publicada para o regime que o motor modela (contato em tanque/aplicado). O dado
+disponivel e de PRATELEIRA/dessecacao (regime diferente) - ancora DIRECAO e limites, nao calibra
+o k. Entao decay_k/uv dos 3 ficaram `prior_regra` (regra por forma, ancorada em evidencia), e NAO
+`calibrado`. Marcado `viability._status: prior_regra` em cada um, com `_basis` citando a fonte.
+
+Fontes de viabilidade registradas (direcao): Azospirillum (Soil Biol Biochem 1995 - prateleira
+~3 log/5 meses a 28C); Pseudomonas (Berninger 2018 - dessecacao rapida em nao-esporulantes);
+Methylobacterium (Frontiers 2022 - carotenoide atenua UV -> uv baixa).
+
+Reforco (brief sec 5): o viabilityEngine RANQUEIA cenarios, nao preve numero de campo. Os priors
+de viabilidade sao tunaveis por Marco; nao trata-los como medida.
+
 Importante:
 - Nenhum `viability.*` foi promovido a calibrado.
 - Nenhum semaforo de `compatibility_rules.json` foi alterado nesta rodada.

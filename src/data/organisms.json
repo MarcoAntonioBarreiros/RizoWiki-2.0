@@ -54,7 +54,8 @@
         "uv_sensitivity": 0.9,
         "effective_threshold_log": 7,
         "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.4, "cuprico_metal": 1.6, "adubo_salino": 1.8 },
-        "_basis": "DERIVADO (demonstrativo): vegetativo/cistos (k moderado); '1.0: sensivel a luz e seca' -> uv alto; '1.0: evitar herbicidas/inseticidas agressivos'. Sem fonte."
+        "_status": "prior_regra",
+        "_basis": "PRIOR DE RANQUEAMENTO (regra por forma): vegetativo perecivel -> k alto no regime APLICADO; sensivel a luz/seca -> uv alto. Ancoras: Embrapa Doc 325 (semear em 24h; calor mata >35C) + scidir_azospirillum_survival_1995 (prateleira ~3 log/5 meses a 28C = regime DIFERENTE, so limite inferior). decay_k/uv NAO calibrados; motor RANQUEIA cenarios (brief sec 5)."
       },
       "protocol": {
         "culturas": "Milho e Trigo (gramíneas; outras em avaliação) [Embrapa Doc 325]",
@@ -123,7 +124,8 @@
         "uv_sensitivity": 0.2,
         "effective_threshold_log": 7,
         "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.5, "cuprico_metal": 2, "adubo_salino": 1.2 },
-        "_basis": "DERIVADO (demonstrativo): pigmentado e resiliente (k baixo); '1.0: pigmento protege UV' -> uv baixo; '1.0: evitar cobre' -> cuprico alto; compativel com adubos foliares. Sem fonte."
+        "_status": "prior_regra",
+        "_basis": "PRIOR DE RANQUEAMENTO (regra por forma): pigmentado/persistente -> k moderado-baixo; carotenoides atenuam UV (frontiers_methylobacterium_carotenoid_uv_2022) -> uv BAIXO (direcao com fonte). cuprico alto (1.0: evitar cobre). decay_k NAO calibrado; motor RANQUEIA cenarios."
       },
       "protocol": {
         "culturas": "Milho e morango (eficácia avaliada nas fontes); também soja, café, hortifruti (origem 1.0)",
@@ -194,7 +196,8 @@
         "uv_sensitivity": 0.8,
         "effective_threshold_log": 7,
         "chemical_sensitivity_by_class": { "nenhum": 1, "fungicida": 1.5, "cuprico_metal": 1.7, "adubo_salino": 2.2 },
-        "_basis": "Prior do rascunho GPT. Nao-esporulante e perecivel (k alto); suscetivel a choque salino (salino alto). Demonstrativo."
+        "_status": "prior_regra",
+        "_basis": "PRIOR DE RANQUEAMENTO (regra por forma): nao-esporulante e perecivel -> k alto; dessecacao causa perda rapida (wiley_berninger_nonsporulating_viability_2018); uv moderado-alto (sem pigmento). decay_k/uv NAO calibrados (dado e de prateleira/dessecacao, regime != tanque); motor RANQUEIA cenarios."
       },
       "protocol": {
         "culturas": "Trigo, Leguminosas (Co-inoculação)",
