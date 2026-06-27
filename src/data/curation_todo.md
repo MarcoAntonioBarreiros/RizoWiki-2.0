@@ -39,6 +39,14 @@ Primeira rodada registrada:
   compatibilidade com fungicida em tratamento de sementes.
 - `trichoderma`: fontes Embrapa/Infoteca sobre manejo de Trichoderma e antagonismo in vitro.
 
+Segunda rodada registrada (Claude, fontes verificadas):
+- `fixadores`/Azospirillum: Embrapa Documentos 325 (Hungria, 2011 - verificada por fetch) +
+  Circular Tecnica 166 (coinoculacao Bradyrhizobium + Azospirillum).
+- `pseudomonas`: Embrapa Documentos 155 (rizobacterias: sideroforos, antibiose, biocontrole).
+- `methylobacterium`: artigo revisado Springer (milho/morango, DOI 10.1007/s12223-023-01078-4)
+  + CONTRAPONTO revisado (PMC11510831: efeito LIMITADO de M. symbioticum foliar em campo).
+  Mesma regra: nenhuma constante de viabilidade promovida; tudo fonte_candidata/evidencia_registrada.
+
 Importante:
 - Nenhum `viability.*` foi promovido a calibrado.
 - Nenhum semaforo de `compatibility_rules.json` foi alterado nesta rodada.

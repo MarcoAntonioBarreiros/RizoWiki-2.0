@@ -55,6 +55,46 @@
       "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/190441",
       "accessed_at": "2026-06-26",
       "notes": "Fonte candidata para revisar claims de antagonismo/biocontrole de Trichoderma; in vitro nao equivale diretamente a eficacia de campo."
+    },
+    "embrapa_azospirillum_doc325": {
+      "title": "Inoculacao com Azospirillum brasilense: inovacao em rendimento a baixo custo",
+      "publisher": "Embrapa Soja, Documentos 325 (Hungria, M., 2011)",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/879471",
+      "accessed_at": "2026-06-27",
+      "notes": "VERIFICADA. Publicacao tecnica Embrapa sobre inoculacao de gramineas (milho, trigo) com Azospirillum brasilense (Ab-V5/Ab-V6). Usar para revisar funcoes, culturas e modo; NAO para inferir cinetica de viabilidade."
+    },
+    "embrapa_coinoculacao_circ166": {
+      "title": "Coinoculacao da soja com Bradyrhizobium e Azospirillum (Circular Tecnica 166)",
+      "publisher": "Embrapa Soja",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1129470/1/CIrc-Tec-166.pdf",
+      "accessed_at": "2026-06-27",
+      "notes": "Circular Tecnica Embrapa sobre coinoculacao Bradyrhizobium + Azospirillum em soja. Usar para revisar protocolo/modo de coinoculacao; nao promove constante numerica."
+    },
+    "embrapa_rizobacterias_doc155": {
+      "title": "Rizobacterias como agentes de controle biologico (Documentos 155)",
+      "publisher": "Embrapa",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1018841/1/doc155rizobacterias.pdf",
+      "accessed_at": "2026-06-27",
+      "notes": "Documento tecnico Embrapa sobre rizobacterias (inclui Pseudomonas fluorescens/putida): sideroforos, antibiose e biocontrole. Usar para revisar funcoes/biocontrole de Pseudomonas; nao para dose/cinetica."
+    },
+    "springer_methylobacterium_maize_strawberry_2023": {
+      "title": "Application and effectiveness of Methylobacterium symbioticum as a biological inoculant in maize and strawberry crops",
+      "publisher": "Folia Microbiologica (Springer), 2023 - DOI 10.1007/s12223-023-01078-4",
+      "source_type": "artigo_revisado",
+      "url": "https://link.springer.com/article/10.1007/s12223-023-01078-4",
+      "accessed_at": "2026-06-27",
+      "notes": "Artigo revisado sobre aplicacao foliar de M. symbioticum em milho e morango. Usar para revisar funcao (fixacao_n foliar) e modo (foliar); nao para inferir decay/UV/limiar."
+    },
+    "pmc_methylobacterium_limited_effect_maize": {
+      "title": "The Application of a Foliar Spray Containing Methylobacterium symbioticum Had a Limited Effect on Crop Yield and Nitrogen Recovery in Field and Pot-Grown Maize",
+      "publisher": "PMC (open access, peer-reviewed) - PMC11510831",
+      "source_type": "artigo_revisado",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11510831/",
+      "accessed_at": "2026-06-27",
+      "notes": "CONTRAPONTO honesto: estudo revisado que encontrou efeito LIMITADO de M. symbioticum foliar em milho de campo/vaso. Usar para manter confianca baixa e nao superestimar a eficacia foliar."
     }
   },
   "claims": [
@@ -129,6 +169,66 @@
       "status": "fonte_candidata",
       "confidence": "baixa",
       "calibration_action": "Usar para sustentar biocontrole como funcao candidata; nao extrapolar para eficacia de campo sem fontes adicionais."
+    },
+    {
+      "id": "fixadores_azospirillum_funcao_protocolo",
+      "source_id": "embrapa_azospirillum_doc325",
+      "organisms": ["fixadores"],
+      "claim_type": "funcao_e_protocolo",
+      "claim": "Publicacao tecnica Embrapa sobre inoculacao de gramineas com Azospirillum brasilense (Ab-V5/Ab-V6): promocao radicular e parte da adubacao nitrogenada.",
+      "supports_fields": ["functions", "protocol.culturas", "protocol.metodo", "protocol.manejo"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity", "viability.effective_threshold_log", "viability.chemical_sensitivity_by_class"],
+      "status": "evidencia_registrada",
+      "confidence": "media",
+      "calibration_action": "Extrair recomendacoes de modo/cultura e comparar com o protocol atual; manter priors de viabilidade como demonstrativos."
+    },
+    {
+      "id": "fixadores_rhizobium_coinoculacao",
+      "source_id": "embrapa_coinoculacao_circ166",
+      "organisms": ["fixadores", "rhizobium"],
+      "claim_type": "protocolo_coinoculacao",
+      "claim": "Circular Tecnica Embrapa sobre coinoculacao Bradyrhizobium + Azospirillum em soja.",
+      "supports_fields": ["protocol.metodo", "protocol.culturas"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.chemical_sensitivity_by_class", "compatibility_rules"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Extrair condicoes de coinoculacao e ressalvas antes de propor qualquer protocolo combinado."
+    },
+    {
+      "id": "pseudomonas_rizobacterias_biocontrole",
+      "source_id": "embrapa_rizobacterias_doc155",
+      "organisms": ["pseudomonas"],
+      "claim_type": "funcao_biocontrole",
+      "claim": "Documento Embrapa descreve rizobacterias (incl. Pseudomonas fluorescens/putida) com producao de sideroforos e antibiose para biocontrole.",
+      "supports_fields": ["functions", "diagnosticEngine.PROBLEMAS.doenca_solo"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "evidencia_registrada",
+      "confidence": "media",
+      "calibration_action": "Sustentar funcoes sideroforos/biocontrole de Pseudomonas; nao extrapolar para dose ou cinetica de viabilidade."
+    },
+    {
+      "id": "methylobacterium_foliar_n_eficacia",
+      "source_id": "springer_methylobacterium_maize_strawberry_2023",
+      "organisms": ["methylobacterium"],
+      "claim_type": "funcao_e_modo",
+      "claim": "Artigo revisado: aplicacao foliar de M. symbioticum em milho/morango associada a fixacao de N foliar e reducao parcial da adubacao nitrogenada.",
+      "supports_fields": ["functions", "protocol.metodo", "protocol.culturas"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity", "viability.effective_threshold_log"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Extrair condicoes de aplicacao foliar; manter a viabilidade como prior demonstrativo ate fonte de cinetica."
+    },
+    {
+      "id": "methylobacterium_efeito_limitado_contraponto",
+      "source_id": "pmc_methylobacterium_limited_effect_maize",
+      "organisms": ["methylobacterium"],
+      "claim_type": "eficacia_variavel",
+      "claim": "CONTRAPONTO revisado: efeito LIMITADO de M. symbioticum foliar sobre produtividade e recuperacao de N em milho de campo/vaso.",
+      "supports_fields": ["confidence", "limitations"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "fonte_candidata",
+      "confidence": "baixa",
+      "calibration_action": "Usar para manter confianca baixa e evitar superestimar a eficacia foliar; equilibrar com as fontes positivas."
     }
   ]
 }
