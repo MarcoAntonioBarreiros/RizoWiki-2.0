@@ -200,12 +200,12 @@
         "_basis": "PRIOR DE RANQUEAMENTO (regra por forma): nao-esporulante e perecivel -> k alto; dessecacao causa perda rapida (wiley_berninger_nonsporulating_viability_2018); uv moderado-alto (sem pigmento). decay_k/uv NAO calibrados (dado e de prateleira/dessecacao, regime != tanque); motor RANQUEIA cenarios."
       },
       "protocol": {
-        "culturas": "Trigo, Leguminosas (Co-inoculação)",
-        "metodo": "Líquido (Proteção Osmótica)",
-        "dose_range": "10⁸ - 10¹⁰ UFC/mL",
-        "critical": "Bactérias não-esporulantes. Exige proteção osmótica na formulação.",
-        "ordem_mistura": "Suscetível a choque salino. Evitar adubos concentrados.",
-        "manejo": "Produto perecível. Plantar imediatamente após tratar.",
+        "culturas": "Milho (solubilização de P; ex.: Audax), soja (coinoculação com Bradyrhizobium + Azospirillum), pastagens (Brachiaria) e arroz [ficha técnica Audax + literatura técnica]",
+        "metodo": "Tratamento de sementes (recobrimento total da semente) ou sulco de semeadura; o sulco é a rota preferencial quando há incompatibilidade química na semente [ficha técnica Audax + literatura técnica]",
+        "dose_range": "Inoculante líquido ~10⁸ UFC/mL (estirpe P. fluorescens CNPSo 2719; ex.: Audax 1×10¹¹ UFC/L). Dose verificada: 100 mL/ha no tratamento de sementes [ficha técnica Audax, registro MAPA PR 93923-4 10104-7]",
+        "critical": "Bactérias não-esporulantes e perecíveis. Armazenar fechado, ao abrigo de luz, 15–25 °C; validade ~6 meses [ficha técnica Audax]. Fungicidas cúpricos e bactericidas inviabilizam as células.",
+        "ordem_mistura": "Tríplice lavagem do tanque (resíduos de cúpricos/herbicidas/inseticidas matam as bactérias). Em sementes tratadas: aplicar o químico primeiro e deixar secar, depois o inoculante, com protetores. Evitar água clorada ou turva [literatura técnica de manejo].",
+        "manejo": "Reinocular ou semear em até 24 h após o tratamento [ficha técnica Audax]. Aplicar de manhã cedo ou no fim de tarde (evita UV/calor), com UR > 50% e solo úmido [literatura técnica].",
         "monitorar": [
           "Arranque inicial mais rápido da cultura.",
           "Raízes claras e sadias, sem lesões escuras.",
@@ -218,11 +218,11 @@
       ],
       "_calibration": {
         "status": "calibrado_parcial",
-        "source": "embrapa_rizobacterias_doc155",
-        "confidence_funcoes": "media",
-        "campos_calibrados": ["functions"],
-        "extraido": "Funcoes confirmadas por fonte tecnica: sideroforos (pioverdina, enterobactina; competicao por ferro Fe3+), biocontrole por antibiose (Pseudomonas do grupo fluorescente; antibioticos/alcaloides toxicos a fitopatogenos) e ISR (modelo classico P. fluorescens WCS417r induz resistencia sistemica em cravo, rabanete, tomate e feijao). Pseudomonas (P. fluorescens/P. putida) predomina como colonizador da rizosfera.",
-        "pendente": "protocol.* (dose/metodo/manejo): a fonte e revisao de MECANISMOS, nao protocolo de produto - precisa de bula/ficha tecnica. viability.* segue DEMONSTRATIVO (sem cinetica)."
+        "sources": ["embrapa_rizobacterias_doc155", "ficha_tecnica_audax_pseudomonas"],
+        "confidence": "media",
+        "campos_calibrados": ["functions", "protocol.dose_range", "protocol.metodo", "protocol.culturas", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo"],
+        "extraido": "Funcoes (Embrapa Doc 155): sideroforos (pioverdina/enterobactina), antibiose, ISR (P. fluorescens WCS417r). Protocolo (ficha tecnica Audax, MAPA PR 93923-4 10104-7, VERIFICADA por leitura do PDF): estirpe CNPSo 2719, 1x10^11 UFC/L (~10^8 UFC/mL), dose 100 mL/ha no tratamento de sementes, armazenar 15-25C ao abrigo de luz, validade 6 meses, reinocular em 24h. Manejo de calda/compatibilidade/coinoculacao: compilacao do usuario (Gemini) que cita Embrapa/ANVISA P67/fichas tecnicas - triplice lavagem, evitar cupricos/bactericidas e agua clorada/turva, aplicacao sequencial, UR>50%, manha/fim de tarde, solo umido.",
+        "pendente": "viability.* segue prior_regra (sem cinetica). Doses por cultura alem do TS (sulco/foliar/soja/pastagem) vieram como IMAGENS no docx Gemini e NAO foram verificadas em fonte primaria - usar so a dose Audax (TS, 100 mL/ha) como ancora ate confirmar nas fichas tecnicas de cada produto."
       },
       "_status": "pendente_revisao",
       "_confidence": "baixa"

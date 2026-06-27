@@ -159,6 +159,14 @@
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9853530/",
       "accessed_at": "2026-06-27",
       "notes": "Suporta a DIRECAO de baixa uv_sensitivity de Methylobacterium: carotenoides conferem protecao/atenuacao a radiacao UV. Nao fornece constante de decaimento."
+    },
+    "ficha_tecnica_audax_pseudomonas": {
+      "title": "Audax - Ficha Tecnica (inoculante Pseudomonas fluorescens CNPSo 2719)",
+      "publisher": "Total Biotecnologia / TopBio - registro MAPA PR 93923-4 10104-7",
+      "source_type": "ficha_tecnica",
+      "url": "https://topbiobrasil.com.br/wp-content/uploads/2023/09/topbio-audax-ficha-tecnica.pdf",
+      "accessed_at": "2026-06-27",
+      "notes": "VERIFICADA (PDF lido): produto registrado no MAPA. Estirpe CNPSo 2719; 1x10^11 UFC/L (~10^8 UFC/mL); dose 100 mL/ha em tratamento de sementes; armazenar 15-25C ao abrigo de luz; validade 6 meses; reinocular em 24h. Fonte PRIMARIA da dose/concentracao da pseudomonas (chegamos a ela pela compilacao Gemini do usuario, cujos numeros estavam em imagem)."
     }
   },
   "claims": [
@@ -389,6 +397,18 @@
       "status": "evidencia_registrada",
       "confidence": "media",
       "calibration_action": "Ancora a DIRECAO de uv baixa. Valor numerico segue PRIOR_REGRA."
+    },
+    {
+      "id": "pseudomonas_protocolo_audax_ficha",
+      "source_id": "ficha_tecnica_audax_pseudomonas",
+      "organisms": ["pseudomonas"],
+      "claim_type": "protocolo_produto",
+      "claim": "Ficha tecnica de produto registrado no MAPA (Audax): P. fluorescens CNPSo 2719, ~10^8 UFC/mL, 100 mL/ha em tratamento de sementes, armazenar 15-25C ao abrigo de luz, validade 6 meses, reinocular em 24h.",
+      "supports_fields": ["protocol.dose_range", "protocol.metodo", "protocol.critical", "protocol.manejo"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "doses por cultura alem do TS (sulco/foliar)"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO: protocol da pseudomonas calibrado com a dose/concentracao PRIMARIA do Audax (TS 100 mL/ha, CNPSo 2719, ~10^8 UFC/mL). Manejo de calda complementado pela compilacao Gemini do usuario (cita Embrapa/ANVISA). PENDENTE: doses sulco/foliar por cultura (vieram como imagem; confirmar nas fichas tecnicas)."
     }
   ]
 }
