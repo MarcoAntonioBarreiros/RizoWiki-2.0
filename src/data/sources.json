@@ -1,5 +1,5 @@
 {
-  "status": "fase_1",
+  "status": "curadoria_inicial",
   "generated_at": "2026-06-26",
   "brief": {
     "role": "Escopo, arquitetura e fases do RizoWiki 2.0"
@@ -11,6 +11,17 @@
       "assets/data/bioDataLab.js"
     ],
     "caveat": "Nenhum valor do RizoWiki 1.0 foi promovido a parametro final."
+  },
+  "evidence_layer": {
+    "path": "src/data/evidence/evidence_registry.json",
+    "status": "iniciada",
+    "scope": "Registro auditavel de fontes e claims antes de promover parametros.",
+    "initial_organisms": [
+      "bacillus",
+      "rhizobium",
+      "trichoderma"
+    ],
+    "caveat": "Primeira rodada registra evidencias e fontes; nenhum parametro numerico foi calibrado ainda."
   },
   "required_future_sources": [
     "Bulas e fichas tecnicas de produtos registrados",

@@ -27,6 +27,24 @@ Pendencias antes de promover dados a fonte unica curada.
 - Manuais regionais de fertilidade e manejo do solo.
 - Artigos revisados por pares para cinetica, compatibilidade, dose, temperatura, UV e eficacia.
 
+## Atualizacao - inicio da calibracao por evidencias
+
+Criada a camada `src/data/evidence/evidence_registry.json` para registrar fontes e claims
+antes de alterar parametros do app.
+
+Primeira rodada registrada:
+- `bacillus`: fontes Embrapa/Infoteca e Embrapa sobre BiomaPhos e bacterias solubilizadoras
+  de fosfato.
+- `rhizobium`: fontes Embrapa/Infoteca sobre inoculacao de soja com Bradyrhizobium e
+  compatibilidade com fungicida em tratamento de sementes.
+- `trichoderma`: fontes Embrapa/Infoteca sobre manejo de Trichoderma e antagonismo in vitro.
+
+Importante:
+- Nenhum `viability.*` foi promovido a calibrado.
+- Nenhum semaforo de `compatibility_rules.json` foi alterado nesta rodada.
+- Proximo passo: extrair dose, modo, ingredientes/condicoes e ressalvas de cada fonte
+  para entao propor `calibrado_parcial`.
+
 ## Fase 1
 
 - `compatibility_rules.json` e operacional para testes e revisao.

@@ -1,0 +1,134 @@
+{
+  "_meta": {
+    "schema_version": 1,
+    "status": "curadoria_inicial",
+    "confidence": "baixa",
+    "generated_at": "2026-06-26",
+    "scope": "Primeira camada de evidencias para calibracao. Nenhum parametro numerico foi promovido.",
+    "rule": "Fonte registrada nao implica parametro calibrado; toda promocao exige revisao humana."
+  },
+  "sources": {
+    "embrapa_biomaphos_cot252": {
+      "title": "Inoculante a base de bacterias solubilizadoras de fosfato nas culturas da soja e do milho: duvidas frequentes e boas praticas de inoculacao",
+      "publisher": "Embrapa / Infoteca",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1135409/1/COT-252-BiomaPhos-duvidas-frequentes-e-boas-praticas.pdf",
+      "accessed_at": "2026-06-26",
+      "notes": "Fonte tecnica para BiomaPhos e bacterias solubilizadoras de fosfato. Usar para revisar protocolo, modo de aplicacao e claims de solubilizacao, nao para inferir cinetica de viabilidade sem extracao especifica."
+    },
+    "embrapa_biomaphos_news_2019": {
+      "title": "Embrapa e Bioma lancam primeiro inoculante nacional para fosforo",
+      "publisher": "Embrapa",
+      "source_type": "noticia_oficial",
+      "url": "https://www.embrapa.br/busca-de-noticias/-/noticia/45883415/embrapa-e-bioma-lancam-primeiro-inoculante-nacional-para-fosforo",
+      "accessed_at": "2026-06-26",
+      "notes": "Fonte oficial de contexto tecnologico sobre BiomaPhos; usar como apoio descritivo, nao como fonte primaria de dose/compatibilidade."
+    },
+    "infoteca_bradyrhizobium_seed_soy_548660": {
+      "title": "Inoculacao de sementes de soja com Bradyrhizobium japonicum",
+      "publisher": "Embrapa / Infoteca",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/548660",
+      "accessed_at": "2026-06-26",
+      "notes": "Fonte candidata para revisar protocolo de inoculacao de soja com Bradyrhizobium."
+    },
+    "infoteca_bradyrhizobium_fungicide_compat_694841": {
+      "title": "Compatibilidade do tratamento de sementes de soja com fungicida e inoculacao com Bradyrhizobium",
+      "publisher": "Embrapa / Infoteca",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/694841",
+      "accessed_at": "2026-06-26",
+      "notes": "Fonte candidata para revisar regras de compatibilidade entre fungicida, tratamento de sementes e Bradyrhizobium."
+    },
+    "infoteca_trichoderma_manejo_925302": {
+      "title": "Especies de Trichoderma: fungos beneficos a serem favorecidos por praticas adequadas de manejo",
+      "publisher": "Embrapa / Infoteca",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/925302",
+      "accessed_at": "2026-06-26",
+      "notes": "Fonte candidata para revisar descricao, manejo e funcao benefica de Trichoderma."
+    },
+    "infoteca_trichoderma_sclerotinia_190441": {
+      "title": "Avaliacao da atividade antagonica in vitro de isolados de Trichoderma sp. para biocontrole de Sclerotinia sclerotiorum",
+      "publisher": "Embrapa / Infoteca",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/190441",
+      "accessed_at": "2026-06-26",
+      "notes": "Fonte candidata para revisar claims de antagonismo/biocontrole de Trichoderma; in vitro nao equivale diretamente a eficacia de campo."
+    }
+  },
+  "claims": [
+    {
+      "id": "bacillus_solubilizacao_p_biomaphos",
+      "source_id": "embrapa_biomaphos_cot252",
+      "organisms": ["bacillus"],
+      "claim_type": "funcao_e_protocolo",
+      "claim": "Publicacao tecnica sobre inoculante com bacterias solubilizadoras de fosfato em soja e milho; fonte apropriada para revisar claims de solubilizacao de P e modo de aplicacao relacionado a BiomaPhos.",
+      "supports_fields": ["functions", "protocol.metodo", "protocol.culturas", "protocol.manejo"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity", "viability.effective_threshold_log"],
+      "status": "evidencia_registrada",
+      "confidence": "media",
+      "calibration_action": "Extrair recomendacoes operacionais e comparar com protocol atual; nao alterar constantes de viabilidade nesta etapa."
+    },
+    {
+      "id": "bacillus_biomaphos_contexto_oficial",
+      "source_id": "embrapa_biomaphos_news_2019",
+      "organisms": ["bacillus"],
+      "claim_type": "contexto_tecnologico",
+      "claim": "Noticia oficial da Embrapa contextualiza o BiomaPhos como tecnologia nacional para solubilizacao de fosforo.",
+      "supports_fields": ["sources", "functions"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.*", "compatibility_rules"],
+      "status": "evidencia_registrada",
+      "confidence": "baixa",
+      "calibration_action": "Usar apenas como apoio descritivo; priorizar a publicacao tecnica para protocolo."
+    },
+    {
+      "id": "rhizobium_soja_inoculacao_bradyrhizobium",
+      "source_id": "infoteca_bradyrhizobium_seed_soy_548660",
+      "organisms": ["rhizobium"],
+      "claim_type": "protocolo_inoculacao",
+      "claim": "Fonte Embrapa/Infoteca especifica sobre inoculacao de sementes de soja com Bradyrhizobium japonicum.",
+      "supports_fields": ["protocol.culturas", "protocol.metodo", "functions"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.chemical_sensitivity_by_class", "compatibility_rules"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Extrair dose, modo de inoculacao e ressalvas; comparar com texto do RizoWiki 1.0 antes de promover protocolo."
+    },
+    {
+      "id": "rhizobium_fungicida_compatibilidade_semente",
+      "source_id": "infoteca_bradyrhizobium_fungicide_compat_694841",
+      "organisms": ["rhizobium"],
+      "claim_type": "compatibilidade",
+      "claim": "Fonte Embrapa/Infoteca trata explicitamente da compatibilidade entre tratamento de sementes de soja com fungicida e inoculacao com Bradyrhizobium.",
+      "supports_fields": ["compatibility_rules", "protocol.ordem_mistura", "protocol.critical"],
+      "does_not_support_yet": ["viability.chemical_sensitivity_by_class.cuprico_metal", "viability.decay_k_base_per_h"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Extrair ingredientes/condicoes avaliadas; so entao revisar semaforos de compatibilidade."
+    },
+    {
+      "id": "trichoderma_manejo_fungos_beneficos",
+      "source_id": "infoteca_trichoderma_manejo_925302",
+      "organisms": ["trichoderma"],
+      "claim_type": "descricao_e_manejo",
+      "claim": "Fonte Embrapa/Infoteca sobre especies de Trichoderma como fungos beneficos favorecidos por praticas adequadas de manejo.",
+      "supports_fields": ["functions", "protocol.manejo", "protocol.monitorar"],
+      "does_not_support_yet": ["viability.uv_sensitivity", "viability.decay_k_base_per_h", "compatibility_rules"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Extrair recomendacoes de manejo; manter claims de viabilidade como priors ate fonte especifica."
+    },
+    {
+      "id": "trichoderma_antagonismo_sclerotinia_in_vitro",
+      "source_id": "infoteca_trichoderma_sclerotinia_190441",
+      "organisms": ["trichoderma"],
+      "claim_type": "biocontrole_in_vitro",
+      "claim": "Fonte Embrapa/Infoteca avalia atividade antagonica in vitro de isolados de Trichoderma sp. contra Sclerotinia sclerotiorum.",
+      "supports_fields": ["functions", "diagnosticEngine.PROBLEMAS.doenca_solo"],
+      "does_not_support_yet": ["eficacia_campo", "protocol.dose_range", "viability.*"],
+      "status": "fonte_candidata",
+      "confidence": "baixa",
+      "calibration_action": "Usar para sustentar biocontrole como funcao candidata; nao extrapolar para eficacia de campo sem fontes adicionais."
+    }
+  ]
+}
