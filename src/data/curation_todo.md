@@ -47,6 +47,14 @@ Segunda rodada registrada (Claude, fontes verificadas):
   + CONTRAPONTO revisado (PMC11510831: efeito LIMITADO de M. symbioticum foliar em campo).
   Mesma regra: nenhuma constante de viabilidade promovida; tudo fonte_candidata/evidencia_registrada.
 
+Terceira rodada registrada (Claude, fontes verificadas) - completa os 9 organismos:
+- `bioinseticidas`: Embrapa - Pequeno Manual sobre Fungos Entomopatogenicos (Doc 286) +
+  Tecnica de producao de Metarhizium anisopliae (handle/968726).
+- `micorrizas`: Embrapa - Manual de Curadores de Germoplasma de FMA (Doc 334, PDF lido/verificado).
+- `pnsb`: revisoes revisadas (MDPI) sobre bacterias fotossinteticas/PNSB e R. palustris em arroz.
+  Evidencias agora cobrem OS 9 ORGANISMOS. Proximo passo real: extrair de cada fonte dose/modo/
+  ressalvas e so entao propor `calibrado_parcial` por campo (nunca promover viability.* sem cinetica).
+
 Importante:
 - Nenhum `viability.*` foi promovido a calibrado.
 - Nenhum semaforo de `compatibility_rules.json` foi alterado nesta rodada.

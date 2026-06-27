@@ -95,6 +95,46 @@
       "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11510831/",
       "accessed_at": "2026-06-27",
       "notes": "CONTRAPONTO honesto: estudo revisado que encontrou efeito LIMITADO de M. symbioticum foliar em milho de campo/vaso. Usar para manter confianca baixa e nao superestimar a eficacia foliar."
+    },
+    "embrapa_metarhizium_producao_968726": {
+      "title": "Tecnica de producao do fungo entomopatogenico Metarhizium anisopliae para uso em controle biologico",
+      "publisher": "Embrapa / Infoteca",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/handle/doc/968726",
+      "accessed_at": "2026-06-27",
+      "notes": "Documento tecnico Embrapa sobre producao de Metarhizium anisopliae para controle biologico. Especifico de Metarhizium; nao generalizar para todo o grupo bioinseticidas."
+    },
+    "embrapa_manual_fungos_entomopatogenicos_doc286": {
+      "title": "Pequeno Manual sobre Fungos Entomopatogenicos (Documentos 286)",
+      "publisher": "Embrapa",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/884758/1/doc286.pdf",
+      "accessed_at": "2026-06-27",
+      "notes": "Manual Embrapa sobre fungos entomopatogenicos (Beauveria, Metarhizium): biologia, manejo e exigencia de umidade. Usar para funcoes/manejo; NAO para dose nem cinetica."
+    },
+    "embrapa_fma_curadores_germoplasma": {
+      "title": "Manual de Curadores de Germoplasma - Micro-organismos: Fungos Micorrizicos Arbusculares (Embrapa, Documentos, 2011)",
+      "publisher": "Embrapa",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.embrapa.br/documents/1355163/2005846/doc334-290-76.pdf/adb755f4-51b9-49e2-aabe-d400baf644fb",
+      "accessed_at": "2026-06-27",
+      "notes": "VERIFICADA (PDF lido): manual Embrapa de curadoria de germoplasma de FMA (Glomus, Gigaspora, Acaulospora). Confirma biologia/forma (propagulo); NAO traz dose/eficacia."
+    },
+    "mdpi_photosynthetic_bacteria_agriculture_2021": {
+      "title": "From Lab to Farm: Elucidating the Beneficial Roles of Photosynthetic Bacteria in Sustainable Agriculture",
+      "publisher": "Microorganisms (MDPI), 2021 - revisado por pares",
+      "source_type": "artigo_revisado",
+      "url": "https://www.mdpi.com/2076-2607/9/12/2453",
+      "accessed_at": "2026-06-27",
+      "notes": "Revisao revisada sobre bacterias fotossinteticas (PNSB): biofertilizacao, 5-ALA, biocontrole e tolerancia a estresse. Usar para funcoes; nao para dose/cinetica."
+    },
+    "mdpi_rhodopseudomonas_rice_2024": {
+      "title": "Utilization of Rhodopseudomonas palustris in Crop Rotation Practice Boosts Rice Productivity and Soil Nutrient Dynamics",
+      "publisher": "Agriculture (MDPI), 2024 - revisado por pares",
+      "source_type": "artigo_revisado",
+      "url": "https://www.mdpi.com/2077-0472/14/5/758",
+      "accessed_at": "2026-06-27",
+      "notes": "Estudo revisado: R. palustris em rotacao com arroz melhora produtividade e nutrientes do solo. Usar para funcoes/cultura (arroz); nao para inferir cinetica."
     }
   },
   "claims": [
@@ -229,6 +269,66 @@
       "status": "fonte_candidata",
       "confidence": "baixa",
       "calibration_action": "Usar para manter confianca baixa e evitar superestimar a eficacia foliar; equilibrar com as fontes positivas."
+    },
+    {
+      "id": "bioinseticidas_fungos_entomopatogenicos_manejo",
+      "source_id": "embrapa_manual_fungos_entomopatogenicos_doc286",
+      "organisms": ["bioinseticidas"],
+      "claim_type": "funcao_e_manejo",
+      "claim": "Manual Embrapa sobre fungos entomopatogenicos (Beauveria/Metarhizium): biocontrole de insetos e exigencia de umidade na aplicacao.",
+      "supports_fields": ["functions", "protocol.manejo", "diagnosticEngine.PROBLEMAS.pragas_insetos"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.uv_sensitivity", "viability.effective_threshold_log"],
+      "status": "evidencia_registrada",
+      "confidence": "media",
+      "calibration_action": "Extrair exigencias de umidade/UV por organismo; o grupo bioinseticidas e heterogeneo e deve ser separado antes de calibrar."
+    },
+    {
+      "id": "bioinseticidas_metarhizium_producao",
+      "source_id": "embrapa_metarhizium_producao_968726",
+      "organisms": ["bioinseticidas"],
+      "claim_type": "producao_e_aplicacao",
+      "claim": "Documento Embrapa sobre tecnica de producao de Metarhizium anisopliae para controle biologico.",
+      "supports_fields": ["functions", "protocol.metodo"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Especifico de Metarhizium; nao generalizar para Beauveria/Chromobacterium/Saccharopolyspora sem fonte propria."
+    },
+    {
+      "id": "micorrizas_fma_biologia_forma",
+      "source_id": "embrapa_fma_curadores_germoplasma",
+      "organisms": ["micorrizas"],
+      "claim_type": "biologia_e_forma",
+      "claim": "Manual Embrapa de germoplasma de FMA confirma biologia/diversidade (Glomus, Gigaspora, Acaulospora) e a forma de propagulo.",
+      "supports_fields": ["functions", "form"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Confirma forma (propagulos infectivos); buscar fonte de dose/eficacia (ex.: produto registrado) e rever a unidade da viabilidade (propagulos != log UFC)."
+    },
+    {
+      "id": "pnsb_fotossinteticas_funcao_mecanismo",
+      "source_id": "mdpi_photosynthetic_bacteria_agriculture_2021",
+      "organisms": ["pnsb"],
+      "claim_type": "funcao_e_mecanismo",
+      "claim": "Revisao revisada sobre PNSB na agricultura: biofertilizacao, 5-ALA, biocontrole e tolerancia a estresse.",
+      "supports_fields": ["functions"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "evidencia_registrada",
+      "confidence": "media",
+      "calibration_action": "Sustentar funcoes (biofilme/tolerancia/5-ALA); nao extrapolar para dose ou cinetica."
+    },
+    {
+      "id": "pnsb_rhodopseudomonas_arroz_eficacia",
+      "source_id": "mdpi_rhodopseudomonas_rice_2024",
+      "organisms": ["pnsb"],
+      "claim_type": "eficacia_campo",
+      "claim": "Estudo revisado: R. palustris em rotacao melhora produtividade e dinamica de nutrientes em arroz.",
+      "supports_fields": ["functions", "protocol.culturas"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "fonte_candidata",
+      "confidence": "media",
+      "calibration_action": "Extrair condicoes de uso em arroz; manter viabilidade como prior demonstrativo."
     }
   ]
 }
