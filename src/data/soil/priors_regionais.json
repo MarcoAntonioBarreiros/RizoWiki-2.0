@@ -1,0 +1,16 @@
+{
+  "_meta": {
+    "tipo": "priors_regionais_solo",
+    "status": "pendente_revisao",
+    "confidence": "baixa",
+    "aviso": "Defaults regionais ASSUMIDOS para a degradacao graciosa quando o usuario NAO informa a analise de solo. NAO sao a analise do usuario nem medida; sao priors conservadores a REFINAR com manuais regionais (CQFS-RS/SC 2016; IAPAR/PR). Toda saida que usar estes valores deve marcar origem=prior_regional e confianca baixa.",
+    "unidades": "P mg/dm3 (Mehlich-1); pH em agua; V %; Al cmolc/dm3; CTC cmolc/dm3; argila g/kg; densidade g/cm3"
+  },
+  "regioes": {
+    "sul_pr": {
+      "_label": "Sul / Parana (default)",
+      "_source": "assumido_regional (refinar com CQFS-RS/SC 2016 e IAPAR/PR)",
+      "defaults": { "P": 8, "pH": 5.5, "V": 50, "Al": 0.3, "CTC": 10, "argila": 350, "densidade": 1.3 }
+    }
+  }
+}
