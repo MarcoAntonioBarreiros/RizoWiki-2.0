@@ -63,4 +63,13 @@ describe('organisms.json (fonte unica consolidada)', () => {
       }
     }
   });
+
+  it('cada organismo tem limites_operacionais com fonte (Fase V1)', () => {
+    for (const id of IDS) {
+      const lim = organismsData.organisms[id].limites_operacionais;
+      expect(lim).toBeTruthy();
+      expect(lim._source).toBeTruthy();
+      expect(lim._status).toBeTruthy();
+    }
+  });
 });

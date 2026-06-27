@@ -19,6 +19,7 @@
       "label": "Bacillus / Priestia",
       "form": ["esporo", "vegetativo"],
       "functions": ["solubilizacao_p", "biocontrole", "isr", "acc_desaminase", "sideroforos"],
+      "limites_operacionais": { "_status": "prior_1_0_cot252", "_source": "RizoWiki 1.0 + Embrapa COT 252", "janela_uso_h": 24, "uv_exige_horario": true, "forma_resiliente": true },
       "viability": {
         "ideal_temp_c": 30,
         "decay_k_base_per_h": 0.02,
@@ -68,6 +69,7 @@
       "label": "Azospirillum spp.",
       "form": ["vegetativo"],
       "functions": ["aia", "promocao_radicular", "fixacao_n", "acc_desaminase"],
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "Embrapa Doc 325", "janela_uso_h": 24, "temp_armazenamento_max_c": 30, "temp_letal_c": 35, "uv_exige_horario": true },
       "viability": {
         "ideal_temp_c": 29,
         "decay_k_base_per_h": 0.05,
@@ -109,6 +111,7 @@
       "label": "Rhizobium / Bradyrhizobium",
       "form": ["vegetativo"],
       "functions": ["fixacao_n"],
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Embrapa (compat. fungicida)", "janela_uso_h": 24, "incompat_duras": ["cuprico_metal"], "uv_exige_horario": true },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.06,
@@ -158,6 +161,7 @@
       "label": "Methylobacterium",
       "form": ["vegetativo"],
       "functions": ["fixacao_n", "promocao_radicular", "aia"],
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Frontiers 2022 (carotenoide)", "incompat_duras": ["cuprico_metal"], "uv_exige_horario": false, "obs_uv": "pigmento carotenoide atenua UV; ainda assim aplicar de manha" },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.03,
@@ -201,6 +205,7 @@
       "label": "Bioinseticidas (Beauveria, Metarhizium, Chromobacterium, Saccharopolyspora)",
       "form": ["esporo", "vegetativo"],
       "functions": ["biocontrole_inseticida", "isr"],
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Embrapa Doc 286", "incompat_duras": ["fungicida"], "uv_exige_horario": true, "umidade_min_pct": 70, "obs": "fungos exigem alta umidade; nunca misturar com fungicidas" },
       "viability": {
         "ideal_temp_c": 25,
         "decay_k_base_per_h": 0.09,
@@ -230,6 +235,7 @@
       "label": "Pseudomonas spp.",
       "form": ["vegetativo"],
       "functions": ["solubilizacao_p", "sideroforos", "isr", "biocontrole", "acc_desaminase"],
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "ficha Audax + compilacao", "janela_uso_h": 24, "calda_h": 4, "temp_armazenamento_min_c": 15, "temp_armazenamento_max_c": 25, "temp_ar_max_c": 30, "agua_ph_min": 5.5, "agua_ph_max": 7.0, "incompat_duras": ["cuprico_metal"], "uv_exige_horario": true },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.07,
@@ -271,6 +277,7 @@
       "label": "Trichoderma",
       "form": ["hifa", "esporo"],
       "functions": ["biocontrole", "isr"],
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Embrapa", "incompat_duras": ["fungicida"], "uv_exige_horario": true, "temp_armazenamento_max_c": 8, "obs": "armazenar refrigerado; PROIBIDO misturar com fungicidas" },
       "viability": {
         "ideal_temp_c": 26,
         "decay_k_base_per_h": 0.08,
@@ -320,6 +327,7 @@
       "label": "Micorrizas (FMA)",
       "form": ["propagulo"],
       "functions": ["micorriza_p", "isr", "tolerancia_estresse"],
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0", "incompat_duras": ["fungicida"], "obs": "fungicidas sistemicos abortam a simbiose; propagulo biotrofico" },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.03,
@@ -349,6 +357,7 @@
       "label": "PNSB (Rhodopseudomonas palustris)",
       "form": ["vegetativo"],
       "functions": ["biofilme", "aia", "biocontrole", "tolerancia_estresse"],
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0", "incompat_duras": ["cloro", "antibiotico"], "obs": "depende de luz/carbono organico" },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.03,
