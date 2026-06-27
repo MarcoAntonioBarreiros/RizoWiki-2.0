@@ -51,8 +51,9 @@ export default function Lab({ caseState, onCaseChange }) {
     <section>
       <h2 className="page__title">Lab - viabilidade no tempo</h2>
       <p className="page__todo">
-        Simulador semi-quantitativo com decaimento de primeira ordem. Os valores abaixo sao priors
-        demonstrativos, pendentes de revisao, e servem para comparar cenarios do mesmo caso.
+        COMPARADOR ILUSTRATIVO (nao calibrado): curva de decaimento de 1a ordem com priors
+        demonstrativos. Serve so para comparar cenarios - NAO decide viabilidade. A decisao de
+        "posso aplicar agora?" esta na aba Fatores (limites operacionais com fonte).
       </p>
 
       <div className="lab-grid">

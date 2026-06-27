@@ -161,7 +161,7 @@
       "label": "Methylobacterium",
       "form": ["vegetativo"],
       "functions": ["fixacao_n", "promocao_radicular", "aia"],
-      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Frontiers 2022 (carotenoide)", "incompat_duras": ["cuprico_metal"], "uv_exige_horario": false, "obs_uv": "pigmento carotenoide atenua UV; ainda assim aplicar de manha" },
+      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Frontiers 2022 (carotenoide)", "incompat_atencao": ["cuprico_metal"], "uv_exige_horario": false, "obs_uv": "pigmento carotenoide atenua UV; 1.0 diz 'evitar cobre' (brando); aplicar de manha" },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.03,

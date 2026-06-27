@@ -22,8 +22,8 @@ export default function Fatores({ caseState, onCaseChange }) {
     <section>
       <h2 className="page__title">Fatores - vou aplicar agora?</h2>
       <p className="page__todo">
-        Checklist pre-aplicacao. Reusa viabilityEngine e compatibilityEngine (via
-        riskAssessment); usa o mesmo caso selecionado no Mapa e no Lab.
+        Checklist pre-aplicacao. Veredito por LIMITES OPERACIONAIS com fonte: bloqueio so
+        quando a fonte e dura; o resto e risco. Usa o mesmo caso do Mapa e do Lab.
       </p>
 
       <RiskPanel value={form} onChange={onChange} />
@@ -59,6 +59,7 @@ export default function Fatores({ caseState, onCaseChange }) {
               <strong>{flag.mensagem}</strong>
               <div style={{ color: 'var(--muted)', marginLeft: 18, fontSize: '0.9rem' }}>
                 Acao: {flag.acao}
+                {flag.fonte ? <span> &middot; <em>Fonte: {flag.fonte}</em></span> : null}
               </div>
             </li>
           ))}
