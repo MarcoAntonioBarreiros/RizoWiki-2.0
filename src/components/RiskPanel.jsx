@@ -1,7 +1,7 @@
 // RiskPanel - checklist "vou aplicar agora?" da aba Fatores (brief secao 6).
 // Componente PURAMENTE visual: coleta os campos e devolve via onChange(field, valor).
 // A decisao go/no-go fica no riskAssessment, que reusa os motores (AGENTS.md regra 5).
-import organismsData from '../data/organisms.json';
+// O organismo agora e selecionado na barra de caso compartilhado (CaseContextBar).
 
 const QUIMICOS = [
   { value: 'nenhum', label: 'Nenhum' },
@@ -25,18 +25,8 @@ const MODOS = [
 ];
 
 export default function RiskPanel({ value, onChange }) {
-  const organismos = Object.keys(organismsData.organisms);
   return (
     <div className="lab-grid">
-      <label className="field">
-        <span>Organismo</span>
-        <select value={value.organismo} onChange={(event) => onChange('organismo', event.target.value)}>
-          {organismos.map((id) => (
-            <option key={id} value={id}>{organismsData.organisms[id].label}</option>
-          ))}
-        </select>
-      </label>
-
       <label className="field">
         <span>Horas desde a inoculacao</span>
         <input
