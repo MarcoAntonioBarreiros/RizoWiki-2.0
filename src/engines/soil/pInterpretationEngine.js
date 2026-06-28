@@ -7,17 +7,12 @@
 // Nada inventado. Sem o dado (valor ou argila) -> nao classifica e diz o que falta (honesto).
 import tabela from '../../data/soil/p_interpretation.json';
 
-const FRUTIFERAS = [
-  'nogueira', 'noz', 'peca', 'maca', 'macieira', 'citros', 'laranja', 'uva', 'videira',
-  'pessego', 'pera', 'ameixa', 'caqui', 'frutifera',
-];
-
-// Grupo de tabela por cultura. Default: sequeiro (graos), que cobre as culturas-foco
-// do RizoWiki (soja, milho, trigo...). So vira 'frutiferas' para fruteiras perenes.
-export function grupoCulturaP(cultura) {
-  const c = String(cultura || '').trim().toLowerCase();
-  if (FRUTIFERAS.some((f) => c.includes(f))) return 'frutiferas';
-  return 'sequeiro';
+// Grupo de tabela de P (CQFS-RS/SC 2016). DESCOBERTA 2026-06-28: graos (exceto arroz) E frutiferas
+// usam a MESMA tabela (Grupo II) - a distincao sequeiro/frutiferas anterior (baseada na ed. 2004 do
+// manual) estava errada. Por isso todas as culturas-foco do RizoWiki caem em 'grupo_ii'. Arroz
+// irrigado (Grupo I / solo alagado) e excecao pendente.
+export function grupoCulturaP() {
+  return 'grupo_ii';
 }
 
 // Parse de numero opcional vindo de formulario: '', null, undefined, espaco ou nao-numero -> null

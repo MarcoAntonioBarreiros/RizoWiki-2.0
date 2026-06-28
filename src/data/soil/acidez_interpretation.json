@@ -3,9 +3,10 @@
     "tipo": "interpretacao_acidez_solo",
     "status": "sourced",
     "confidence": "media",
-    "_source": "CQFS-RS/SC (2016), Tabela 5.1 (pH em agua, saturacao por bases V%, saturacao por aluminio m%)",
-    "_url": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/manual_adubacao_calagem_rs_sc.pdf",
-    "verificado_em": "2026-06-27 (leitura direta do PDF, pagina 51)",
+    "_source": "CQFS-RS/SC - interpretacao de pH em agua, saturacao por bases (V%) e saturacao por aluminio (m%). As faixas de acidez NAO mudaram entre as edicoes 2004 e 2016: lidas da Tabela 5.1 do Manual (ed. 2004) e CONFIRMADAS para a CQFS 2016 por Tiecher et al. (gatilho de correcao pH<5,5 / V<65% / m>10%).",
+    "_url_manual_2004": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/manual_adubacao_calagem_rs_sc.pdf",
+    "_url_tiecher_2016": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/evolucao_estado_fertilidade_solo.pdf",
+    "verificado_em": "2026-06-27 (leitura do PDF) + 2026-06-28 (edicao 2004 identificada; faixas de acidez confirmadas p/ 2016 via Tiecher)",
     "nota_correspondencia": "CQFS Tab.5.1: 'os valores analiticos referem-se somente as faixas especificadas, NAO havendo necessariamente correspondencia entre si'. A direcao de QUALIDADE difere por indicador: pH e V% -> maior e melhor; m% (Al) -> maior e PIOR (toxidez de aluminio).",
     "nota_unidade_al": "Esta tabela usa SATURACAO por aluminio (m%, = 100*Al/CTCefetiva), NAO o Al trocavel em cmolc/dm3. Ambos saem no laudo; nao confundir."
   },

@@ -3,13 +3,15 @@
     "tipo": "interpretacao_fosforo_solo",
     "status": "sourced",
     "confidence": "media",
-    "_source": "Manual de Adubacao e de Calagem para os Estados do RS e SC - CQFS-RS/SC (2016), Tabelas 5.2, 5.3 e 5.4",
-    "_url": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/manual_adubacao_calagem_rs_sc.pdf",
-    "nota": "Teor critico = limite inferior da faixa 'Alto' (= limite superior de 'Medio'). A interpretacao de P por Mehlich-1 muda com o teor de ARGILA e com o GRUPO de cultura: sequeiro (graos) e frutiferas tem tabelas distintas. Valores em mg/dm3.",
-    "verificado_em": "2026-06-27 (leitura direta do PDF, paginas 50-51)"
+    "_source": "CQFS-RS/SC (2016) - interpretacao de P por Mehlich-1 e teor de argila, Grupo II (graos exceto arroz irrigado; hortalicas exceto algumas; pastagens exceto natural; frutiferas; gengibre). Valores conferidos em DOIS sources: Tiecher et al. (Tabela 5, explicito p/ graos) e Nava et al./Embrapa (Tabela 3, frutiferas) - identicos.",
+    "_url_tiecher": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/evolucao_estado_fertilidade_solo.pdf",
+    "_url_nava": "https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/1169991/1/Correcao-e-adubacao-do-solo-Nava.pdf",
+    "_correcao": "CORRIGIDO 2026-06-28: a versao anterior usava a Tabela 5.3 do Manual de Adubacao e Calagem ed. 2004 (classe1 MB<=2 / Medio 4,1-6), que NAO e a tabela vigente para graos. A CQFS 2016 (Grupo II) define classe1 MB<=3 / Medio 6,1-9, confirmado por Tiecher (2016, explicito p/ graos) e Nava. Graos e frutiferas usam a MESMA tabela (Grupo II) - a distincao sequeiro/frutiferas anterior estava errada.",
+    "nota": "Teor critico = limite inferior de 'Alto' (= superior de 'Medio'). Mehlich-1 muda com a ARGILA. Arroz irrigado (Grupo I / solo alagado) e excecao pendente.",
+    "unidade": "mg/dm3"
   },
   "classes_argila": {
-    "_source": "CQFS-RS/SC 2016, Tabela 5.2",
+    "_source": "CQFS-RS/SC, Tabela de teor de argila",
     "_nota": "Aceita argila em % (0-100) ou g/kg (>100, convertido /10).",
     "faixas_pct": [
       { "classe": 4, "max": 20 },
@@ -19,19 +21,9 @@
     ]
   },
   "mehlich1": {
-    "sequeiro": {
-      "_escopo": "culturas de sequeiro (graos: soja, milho, trigo, sorgo, etc.)",
-      "_source": "CQFS-RS/SC 2016, Tabela 5.3",
-      "por_classe_argila": {
-        "1": { "muito_baixo_max": 2.0, "baixo_max": 4.0, "medio_max": 6.0, "alto_max": 12.0, "critico": 6.0 },
-        "2": { "muito_baixo_max": 3.0, "baixo_max": 6.0, "medio_max": 9.0, "alto_max": 18.0, "critico": 9.0 },
-        "3": { "muito_baixo_max": 4.0, "baixo_max": 8.0, "medio_max": 12.0, "alto_max": 24.0, "critico": 12.0 },
-        "4": { "muito_baixo_max": 7.0, "baixo_max": 14.0, "medio_max": 21.0, "alto_max": 42.0, "critico": 21.0 }
-      }
-    },
-    "frutiferas": {
-      "_escopo": "especies frutiferas (ex.: nogueira-peca, macieira, citros, videira)",
-      "_source": "Embrapa 'Correcao e adubacao do solo' (Nava et al.), Tabela 3 - adaptado de CQFS-RS/SC 2016",
+    "grupo_ii": {
+      "_escopo": "Grupo II da CQFS-RS/SC 2016: graos (exceto arroz irrigado), hortalicas (exceto alho/beterraba/cenoura/batata/roseira), pastagens (exceto natural), frutiferas e gengibre. Cobre soja, milho, trigo, feijao, etc.",
+      "_source": "CQFS-RS/SC 2016 - Tiecher et al. (Tabela 5) / Nava et al. (Tabela 3); valores identicos",
       "por_classe_argila": {
         "1": { "muito_baixo_max": 3.0, "baixo_max": 6.0, "medio_max": 9.0, "alto_max": 12.0, "critico": 9.0 },
         "2": { "muito_baixo_max": 4.0, "baixo_max": 8.0, "medio_max": 12.0, "alto_max": 24.0, "critico": 12.0 },
@@ -42,12 +34,11 @@
   },
   "resina": {
     "_escopo": "P por resina de troca anionica em laminas; INDEPENDE do teor de argila",
-    "_source": "CQFS-RS/SC 2016, Tabela 5.4",
+    "_source": "CQFS-RS/SC, interpretacao por resina (teor de suficiencia/critico = 20 mg/dm3)",
     "faixas": { "muito_baixo_max": 5.0, "baixo_max": 10.0, "medio_max": 20.0, "alto_max": 40.0, "critico": 20.0 }
   },
   "alagado": {
     "_escopo": "solos alagados (arroz irrigado por inundacao); a interpretacao por argila nao se aplica (Mehlich-1)",
-    "_source": "CQFS-RS/SC 2016, Tabela 5.3 (coluna 'Solos alagados')",
     "_status": "documentado_nao_implementado",
     "faixas": { "muito_baixo_max": null, "baixo_max": 3.0, "medio_max": 6.0, "alto_max": 12.0, "critico": 6.0 }
   }
