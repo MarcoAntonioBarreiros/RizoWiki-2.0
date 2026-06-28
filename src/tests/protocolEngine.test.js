@@ -38,5 +38,15 @@ describe('protocolEngine (ficha rascunho a partir do 1.0)', () => {
     expect(Array.isArray(fix.funcoes)).toBe(true);
     expect(fix.funcoes.length).toBeGreaterThan(0);
     expect(fix.procedencia.toLowerCase()).toContain('calibrado parcial');
+    expect(fix.confidence).toBe('media');
+    expect(fix.references.length).toBeGreaterThan(0);
+    expect(fix.references[0].title).toBeTruthy();
+  });
+
+  it('estrutura referencias e pendencias para organismos calibrados parcialmente', () => {
+    const pnsb = buildProtocol({ organismo: 'pnsb' });
+    expect(pnsb.references.map((ref) => ref.id)).toContain('scielo_rpalustris_soybean_photosynthesis');
+    expect(pnsb.pending.toLowerCase()).toContain('doses');
+    expect(pnsb.calibratedFields).toContain('protocol.metodo');
   });
 });

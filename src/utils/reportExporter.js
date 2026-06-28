@@ -44,6 +44,7 @@ export function buildProtocolHtml(protocol, contexto = {}) {
   <h2>O que monitorar</h2><ul>${liList(protocol.monitorar)}</ul>
   <h2>Contraindicacoes</h2><ul>${liList(protocol.contraindicacoes)}</ul>
   <h2>Procedencia</h2><p>${esc(protocol.procedencia || '-')}</p>
+  <h2>Referencias</h2><ul>${liList((protocol.references || []).map((ref) => `${ref.title}${ref.publisher ? ' - ' + ref.publisher : ''}${ref.url ? ' - ' + ref.url : ''}`))}</ul>
   <h2>Limitacoes</h2><ul>${liList(protocol.limitations)}</ul>
 
   <p class="foot">${esc(DISCLAIMER)}</p>
