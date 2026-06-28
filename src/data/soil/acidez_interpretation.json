@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "tipo": "interpretacao_acidez_solo",
+    "status": "sourced",
+    "confidence": "media",
+    "_source": "CQFS-RS/SC (2016), Tabela 5.1 (pH em agua, saturacao por bases V%, saturacao por aluminio m%)",
+    "_url": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/manual_adubacao_calagem_rs_sc.pdf",
+    "verificado_em": "2026-06-27 (leitura direta do PDF, pagina 51)",
+    "nota_correspondencia": "CQFS Tab.5.1: 'os valores analiticos referem-se somente as faixas especificadas, NAO havendo necessariamente correspondencia entre si'. A direcao de QUALIDADE difere por indicador: pH e V% -> maior e melhor; m% (Al) -> maior e PIOR (toxidez de aluminio).",
+    "nota_unidade_al": "Esta tabela usa SATURACAO por aluminio (m%, = 100*Al/CTCefetiva), NAO o Al trocavel em cmolc/dm3. Ambos saem no laudo; nao confundir."
+  },
+  "ph_agua": {
+    "_direcao": "maior_melhor",
+    "_limites": [5.0, 5.4, 6.0],
+    "bandas": [
+      { "classe": "muito_baixo", "faixa": "<= 5,0", "rotulo": "muito acido" },
+      { "classe": "baixo", "faixa": "5,1 - 5,4", "rotulo": "acido" },
+      { "classe": "medio", "faixa": "5,5 - 6,0", "rotulo": "acidez media" },
+      { "classe": "alto", "faixa": "> 6,0", "rotulo": "adequado" }
+    ]
+  },
+  "saturacao_bases_v": {
+    "_direcao": "maior_melhor",
+    "_unidade": "%",
+    "_limites": [45, 65, 80],
+    "bandas": [
+      { "classe": "muito_baixo", "faixa": "< 45", "rotulo": "muito baixa" },
+      { "classe": "baixo", "faixa": "45 - 64", "rotulo": "baixa" },
+      { "classe": "medio", "faixa": "65 - 80", "rotulo": "media" },
+      { "classe": "alto", "faixa": "> 80", "rotulo": "alta" }
+    ]
+  },
+  "saturacao_aluminio_m": {
+    "_direcao": "maior_pior",
+    "_unidade": "%",
+    "_nota": "saturacao por aluminio (toxidez); maior e PIOR",
+    "_limites": [1, 10, 20],
+    "bandas": [
+      { "classe": "muito_baixo", "faixa": "< 1", "rotulo": "sem toxidez", "toxidez": "nula" },
+      { "classe": "baixo", "faixa": "1 - 10", "rotulo": "toxidez baixa", "toxidez": "baixa" },
+      { "classe": "medio", "faixa": "10,1 - 20", "rotulo": "toxidez moderada", "toxidez": "moderada" },
+      { "classe": "alto", "faixa": "> 20", "rotulo": "toxidez alta", "toxidez": "alta" }
+    ]
+  },
+  "calagem": {
+    "_source": "Embrapa 'Correcao e adubacao do solo' (Nava et al.): 'quando o pH em agua for menor que 5,5, devera ser aplicada calagem'. A DOSE (Indice SMP -> t/ha calcario, PRNT) e fase posterior, nao deste motor.",
+    "gatilho_ph": 5.5,
+    "gatilho_v_min": 65,
+    "gatilho_m_max": 10
+  }
+}
