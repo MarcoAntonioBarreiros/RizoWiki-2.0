@@ -1,10 +1,11 @@
 // Mapa - diagnostico rapido -> recomendacao justificada (brief secao 6).
-// Reusa diagnosticEngine + compatibilityEngine (AGENTS.md regra 6: nao duplica logica).
-// A pagina so orquestra e exibe; toda decisao vive nos motores.
+// A pagina orquestra motores e componentes visuais; as decisoes ficam nos engines.
 import { useEffect, useMemo } from 'react';
 import QuickDiagnosisForm from '../components/QuickDiagnosisForm.jsx';
 import SoilAnalysisForm from '../components/SoilAnalysisForm.jsx';
+import SoilSummaryPanel from '../components/SoilSummaryPanel.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
+import RecommendationCard from '../components/RecommendationCard.jsx';
 import { evaluateCompatibility } from '../engines/compatibilityEngine.js';
 import { buildProtocol } from '../engines/protocolEngine.js';
 import { buildMapRecommendations } from '../engines/recommendationEngine.js';
@@ -13,30 +14,62 @@ import ProtocolReport from '../components/ProtocolReport.jsx';
 import { DISCLAIMER } from '../disclaimer.js';
 
 const SEMAPHORE_COLOR = { verde: '#22c55e', amarelo: '#fbbf24', vermelho: '#ef4444' };
-const RISK_COLOR = { go: '#22c55e', atencao: '#fbbf24', nogo: '#ef4444' };
-const STATUS_LABEL = {
-  recomendado: 'Recomendado para este caso',
-  ajustar: 'Usar com ajustes',
-  evitar_agora: 'Evitar agora / revisar',
-};
-const CLASSE_P_LABEL = {
-  muito_baixo: 'Muito baixo',
-  baixo: 'Baixo',
-  medio: 'Medio',
-  alto: 'Alto',
-  muito_alto: 'Muito alto',
-};
-const ORIGEM_LABEL = { real: 'dado real', prior_regional: 'prior regional', ausente: 'ausente' };
+
+function AlertBox({ children, tone = 'warn' }) {
+  if (!children) return null;
+  return <div className={`alert-box alert-box--${tone}`}>{children}</div>;
+}
+
+function CompatibilityPanel({ compat, quimico, modo }) {
+  if (!compat) return null;
+
+  return (
+    <div className="map-panel">
+      <div className="map-panel__header">
+        <div>
+          <h3>Compatibilidade</h3>
+          <p>{quimico} / {modo}</p>
+        </div>
+      </div>
+      <div className="compat-grid">
+        {compat.results.map((res) => (
+          <div key={res.organism + res.chemical_class} className="compat-item">
+            <span
+              aria-hidden="true"
+              style={{ background: SEMAPHORE_COLOR[res.semaphore] || 'var(--muted)' }}
+            />
+            <strong>{res.organism}</strong>
+            <p>{res.message}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LimitationsPanel({ limitations }) {
+  if (!limitations || limitations.length === 0) return null;
+
+  return (
+    <details className="map-details">
+      <summary>Limites e premissas do modelo</summary>
+      <ul>
+        {limitations.map((item, idx) => (
+          <li key={idx}>{item}</li>
+        ))}
+      </ul>
+    </details>
+  );
+}
 
 export default function Mapa({ caseState, onCaseChange }) {
   const form = caseState;
   const onChange = onCaseChange;
 
   const soilSummary = useMemo(() => buildSoilSummary(form), [form]);
-  const { soil, pInterp, acidez, compactacao, kInterp, npk, pConfidence } = soilSummary;
-  // O P so alimenta o diagnostico quando e dado REAL; o prior aparece na tela mas nao decide.
+  const { soil, pInterp, acidez, compactacao } = soilSummary;
   const pClasseParaDiagnostico = pInterp.origem === 'real' ? soilSummary.pClasse : undefined;
-  // Limitacao de base REAL (acidez limitante / compactacao severa) rebaixa o bioinsumo no ranking.
+
   const soilBaseLimitante = useMemo(() => {
     const tipos = [];
     if (acidez.acidez_limitante && acidez.origem === 'real') tipos.push('acidez');
@@ -45,6 +78,7 @@ export default function Mapa({ caseState, onCaseChange }) {
     }
     return tipos.length ? { tipos } : null;
   }, [acidez, compactacao]);
+
   const mapa = useMemo(
     () => buildMapRecommendations({ ...form, pClasse: pClasseParaDiagnostico, soilBaseLimitante }),
     [form, pClasseParaDiagnostico, soilBaseLimitante],
@@ -85,283 +119,122 @@ export default function Mapa({ caseState, onCaseChange }) {
   const limitations = [...mapa.limitations, ...(compat ? compat.limitations : [])];
 
   return (
-    <section>
-      <h2 className="page__title">Mapa - diagnostico rapido</h2>
-      <p className="page__todo">
-        Diagnostico por regras explicaveis (rascunho) + checagem de compatibilidade.
-        Reusa diagnosticEngine e compatibilityEngine; nada de prescricao automatica.
-      </p>
-
-      <QuickDiagnosisForm value={form} onChange={onChange} />
-
-      <h3>Solo (analise)</h3>
-      <SoilAnalysisForm value={form.soil || {}} onChange={(field, val) => onChange('soil.' + field, val)} />
-
-      <div
-        style={{
-          margin: '0.6rem 0 0.3rem',
-          display: 'flex',
-          gap: '0.6rem',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-        }}
-      >
-        <span>
-          Completude: <strong>{soil.campos_reais}/{soil.campos_total}</strong> campos reais - regiao{' '}
-          <strong>{soil.regiao_label}</strong>{' '}
-          ({soil.regiao_origem === 'informada' ? 'informada' : 'assumida'})
-        </span>
-        <ConfidenceBadge level={pConfidence} />
+    <section className="map-page">
+      <div className="map-hero">
+        <div>
+          <p className="map-kicker">Mapa de decisao</p>
+          <h2 className="page__title">Diagnostico rapido</h2>
+          <p>{diag.message}</p>
+        </div>
+        <div className="map-hero__status">
+          <span>Confianca do diagnostico</span>
+          <ConfidenceBadge level={diag.confidence} />
+          <strong>{soil.campos_reais}/{soil.campos_total}</strong>
+          <small>campos reais de solo</small>
+        </div>
       </div>
-      {soil.regiao_aviso && (
-        <p style={{ fontSize: '0.82rem', color: 'var(--muted)', margin: '0 0 0.4rem' }}>
-          {soil.regiao_aviso}
-        </p>
-      )}
 
-      {pInterp.classe ? (
-        <p>
-          <strong>Fosforo:</strong> {pInterp.valor} mg/dm3 ({pInterp.extrator}
-          {pInterp.classe_argila ? `, argila classe ${pInterp.classe_argila}` : ''}){' -> '}
-          <strong>{CLASSE_P_LABEL[pInterp.classe] || pInterp.classe}</strong>
-          {pInterp.abaixo_critico
-            ? ` (abaixo do critico ${pInterp.critico})`
-            : ` (critico ${pInterp.critico})`}{' '}
-          <em>[{ORIGEM_LABEL[pInterp.origem] || pInterp.origem}]</em>
-          <br />
-          <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>Fonte: {pInterp._source}</span>
-        </p>
-      ) : (
-        <p><strong>Fosforo:</strong> {pInterp.mensagem}</p>
-      )}
+      <div className="map-panel">
+        <div className="map-panel__header">
+          <div>
+            <h3>Caso</h3>
+            <p>Cultura, problema e manejo informados</p>
+          </div>
+        </div>
+        <QuickDiagnosisForm value={form} onChange={onChange} />
+      </div>
 
-      {acidez._status !== 'sem_dado' && (
-        <>
-          <p>
-            <strong>Acidez:</strong>{' '}
-            {acidez.pH ? `pH ${acidez.pH.valor} (${acidez.pH.rotulo}); ` : ''}
-            {acidez.V ? `V ${acidez.V.valor}% (${acidez.V.rotulo}); ` : ''}
-            {acidez.m ? `sat. Al ${acidez.m.valor}% (${acidez.m.rotulo})` : ''}{' '}
-            <em>[{ORIGEM_LABEL[acidez.origem] || acidez.origem}]</em>
-          </p>
-          {acidez.calagem_indicada && acidez.origem === 'real' && (
-            <p
-              style={{
-                border: '1px solid var(--warn)',
-                background: 'rgba(251, 191, 36, 0.12)',
-                borderRadius: 8,
-                padding: '0.6rem 0.8rem',
-              }}
-            >
-              {acidez.mensagem}
-            </p>
-          )}
-        </>
-      )}
+      <div className="map-panel">
+        <div className="map-panel__header">
+          <div>
+            <h3>Analise de solo</h3>
+            <p>Campos vazios entram como prior regional rotulado</p>
+          </div>
+        </div>
+        <SoilAnalysisForm value={form.soil || {}} onChange={(field, val) => onChange('soil.' + field, val)} />
+      </div>
 
-      {compactacao._status !== 'sem_dado' && compactacao._status !== 'argila_ausente' && (
-        <>
-          <p>
-            <strong>Compactacao:</strong>{' '}
-            {compactacao.densidade
-              ? `Ds ${compactacao.densidade.valor} g/cm3 (${compactacao.densidade.textura}, Dsc ${compactacao.densidade.ds_critico}); `
-              : ''}
-            {compactacao.rp ? `RP ${compactacao.rp.valor} MPa; ` : ''}
-            restricao <strong>{compactacao.restricao}</strong>{' '}
-            <em>[{ORIGEM_LABEL[compactacao.origem] || compactacao.origem}]</em>
-          </p>
-          {compactacao.compactado && compactacao.origem === 'real' && (
-            <p
-              style={{
-                border: '1px solid var(--warn)',
-                background: 'rgba(251, 191, 36, 0.12)',
-                borderRadius: 8,
-                padding: '0.6rem 0.8rem',
-              }}
-            >
-              {compactacao.mensagem}
-            </p>
-          )}
-        </>
-      )}
+      <SoilSummaryPanel soilSummary={soilSummary} />
 
-      <p style={{ margin: '0.5rem 0 0.2rem' }}>
-        <strong>Adubacao NPK (qualitativo, CQFS 2016):</strong>
-      </p>
-      <ul style={{ margin: '0 0 0.2rem' }}>
-        <li>{npk.N.texto}</li>
-        <li>
-          {npk.P.texto}
-          {pInterp.classe ? <em> [{ORIGEM_LABEL[pInterp.origem] || pInterp.origem}]</em> : null}
-        </li>
-        <li>
-          {npk.K.texto}
-          {kInterp.classe ? <em> [{ORIGEM_LABEL[kInterp.origem] || kInterp.origem}]</em> : null}
-        </li>
-      </ul>
-      <p style={{ fontSize: '0.8rem', color: 'var(--muted)', margin: '0 0 0.4rem' }}>
-        {npk.nota} Dose em kg/ha pendente (tabela CQFS 2016).
-      </p>
-
-      <p className="page__todo">
+      <AlertBox>
         {pInterp.origem === 'real'
-          ? 'A classe de P (dado real) alimenta o diagnostico abaixo.'
-          : 'P ainda em prior regional: informe o P e a argila reais para que a classe influencie a recomendacao.'}
-      </p>
-
-      <h3>Diagnostico</h3>
-      <p>{diag.message}</p>
+          ? 'A classe de P real esta alimentando o diagnostico e o ranking.'
+          : 'Informe P e argila reais para que o fosforo deixe de ser prior e passe a influenciar o ranking.'}
+      </AlertBox>
 
       {diag.bioinsumoEhAlavancaPrincipal === false && (
-        <p
-          style={{
-            border: '1px solid var(--warn)',
-            background: 'rgba(251, 191, 36, 0.12)',
-            borderRadius: 8,
-            padding: '0.6rem 0.8rem',
-          }}
-        >
-          Atencao: bioinsumo nao e a alavanca principal neste cenario.
-        </p>
+        <AlertBox>
+          Bioinsumo nao e a alavanca principal neste cenario; corrija a limitacao de base antes de tratar como recomendacao principal.
+        </AlertBox>
       )}
 
-      {diag.funcoesPrioritarias.length > 0 && (
-        <p>
-          <strong>Funcoes prioritarias:</strong> {diag.funcoesPrioritarias.join(', ')}
-        </p>
-      )}
+      <div className="map-panel">
+        <div className="map-panel__header">
+          <div>
+            <h3>Ranking de organismos</h3>
+            <p>
+              {ranked.length > 0
+                ? `${ranked.length} candidatos avaliados por problema, manejo, compatibilidade e solo`
+                : 'Nenhum candidato tecnico para este caso'}
+            </p>
+          </div>
+        </div>
 
-      {diag.organismosCandidatos.length > 0 && (
-        <p>
-          <strong>Organismos candidatos ranqueados:</strong>{' '}
-          {ranked.map((item) => `${item.organism} (${item.score})`).join(', ')}
-        </p>
-      )}
-
-      {ranked.length > 0 && (
-        <>
-          <h3>Recomendacao ranqueada</h3>
-          <div style={{ display: 'grid', gap: '0.75rem', margin: '0.75rem 0 1rem' }}>
-            {ranked.map((item, idx) => (
-              <article
-                key={item.organism}
-                style={{
-                  border: '1px solid var(--panel-2)',
-                  borderLeft: `6px solid ${RISK_COLOR[item.riskSemaphore] || 'var(--panel-2)'}`,
-                  borderRadius: 8,
-                  padding: '0.75rem 0.85rem',
-                  background: idx === 0 ? 'rgba(56, 189, 248, 0.1)' : 'rgba(15, 23, 42, 0.42)',
-                }}
-              >
-                <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center', flexWrap: 'wrap' }}>
-                  <strong>{idx + 1}. {item.label}</strong>
-                  <span style={{ color: 'var(--muted)', fontSize: '0.86rem' }}>
-                    escore {item.score} - {STATUS_LABEL[item.status]}
-                  </span>
-                  {item.organism === recomendado && (
-                    <span style={{ color: 'var(--accent)', fontSize: '0.82rem' }}>melhor ajuste</span>
-                  )}
-                </div>
-
-                {item.reasons.length > 0 && (
-                  <ul className="page__todo" style={{ marginTop: '0.45rem' }}>
-                    {item.reasons.map((reason) => (
-                      <li key={reason}>{reason}</li>
-                    ))}
-                  </ul>
-                )}
-
-                {item.alerts.length > 0 && (
-                  <ul style={{ margin: '0.45rem 0 0', color: RISK_COLOR[item.riskSemaphore] || 'var(--warn)' }}>
-                    {item.alerts.map((alert) => (
-                      <li key={alert}>{alert}</li>
-                    ))}
-                  </ul>
-                )}
-
-                {item.actions.length > 0 && (
-                  <ul className="page__todo" style={{ marginTop: '0.45rem' }}>
-                    {item.actions.map((action) => (
-                      <li key={action}>Acao: {action}</li>
-                    ))}
-                  </ul>
-                )}
-
-                <button
-                  className="app__tab"
-                  style={{ marginTop: '0.45rem' }}
-                  onClick={() => onCaseChange('organismo', item.organism)}
-                >
-                  Usar na ficha
-                </button>
-              </article>
+        {diag.funcoesPrioritarias.length > 0 && (
+          <div className="priority-strip">
+            {diag.funcoesPrioritarias.map((fn) => (
+              <span key={fn}>{fn}</span>
             ))}
           </div>
-        </>
-      )}
+        )}
 
-      {compat && (
-        <>
-          <h3>
-            Compatibilidade com {form.quimico} ({form.modo})
-          </h3>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {compat.results.map((res) => (
-              <li key={res.organism + res.chemical_class} style={{ margin: '0.4rem 0' }}>
-                <span
-                  aria-hidden="true"
-                  style={{
-                    display: 'inline-block',
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    background: SEMAPHORE_COLOR[res.semaphore] || 'var(--muted)',
-                    marginRight: 8,
-                  }}
-                />
-                <strong>{res.organism}</strong>: {res.message}
-              </li>
+        {ranked.length > 0 ? (
+          <div className="recommendation-list">
+            {ranked.map((item, idx) => (
+              <RecommendationCard
+                key={item.organism}
+                item={item}
+                index={idx}
+                isTop={item.organism === recomendado}
+                onSelect={(organism) => onCaseChange('organismo', organism)}
+              />
             ))}
-          </ul>
-        </>
-      )}
+          </div>
+        ) : (
+          <p className="inline-note">O diagnostico atual aponta uma correcao de base ou falta de candidato curado.</p>
+        )}
+      </div>
+
+      <CompatibilityPanel compat={compat} quimico={form.quimico} modo={form.modo} />
 
       {candidatos.length > 0 && (
-        <>
-          <h3>Protocolo pratico</h3>
-          <label className="field" style={{ maxWidth: 280 }}>
-            <span>Organismo escolhido para ficha</span>
-            <select value={escolhido} onChange={(event) => onCaseChange('organismo', event.target.value)}>
-              {ranked.map((item) => (
-                <option key={item.organism} value={item.organism}>
-                  {item.label} - escore {item.score}
-                </option>
-              ))}
-            </select>
-          </label>
+        <div className="map-panel">
+          <div className="map-panel__header">
+            <div>
+              <h3>Ficha pratica</h3>
+              <p>Organismo selecionado para protocolo</p>
+            </div>
+            <label className="field compact-field">
+              <span>Organismo</span>
+              <select value={escolhido} onChange={(event) => onCaseChange('organismo', event.target.value)}>
+                {ranked.map((item) => (
+                  <option key={item.organism} value={item.organism}>
+                    {item.label} - score {item.score}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
           <ProtocolReport
             protocol={protocolo}
             contexto={{ cultura: form.cultura, problema: form.problema, quimico: form.quimico, modo: form.modo }}
           />
-        </>
+        </div>
       )}
 
-      <p style={{ marginTop: '1rem' }}>
-        <ConfidenceBadge level={diag.confidence} />
-      </p>
+      <LimitationsPanel limitations={limitations} />
 
-      <ul className="page__todo">
-        {limitations.map((item, idx) => (
-          <li key={idx}>{item}</li>
-        ))}
-      </ul>
-
-      <p style={{ fontSize: '0.82rem', color: 'var(--muted)' }}>{DISCLAIMER}</p>
-
-      <p className="page__todo">
-        O organismo, quimico, umidade e modo selecionados aqui alimentam tambem Fatores e Lab.
-        No Mapa V0.5, esses campos tambem rebaixam ou bloqueiam candidatos no ranking acima.
-      </p>
+      <p className="map-disclaimer">{DISCLAIMER}</p>
     </section>
   );
 }
