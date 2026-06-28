@@ -1,16 +1,26 @@
 {
   "_meta": {
     "tipo": "priors_regionais_solo",
-    "status": "pendente_revisao",
+    "status": "sourced_parcial",
     "confidence": "baixa",
-    "aviso": "Defaults regionais ASSUMIDOS para a degradacao graciosa quando o usuario NAO informa a analise de solo. NAO sao a analise do usuario nem medida; sao priors conservadores a REFINAR com manuais regionais (CQFS-RS/SC 2016; IAPAR/PR). Toda saida que usar estes valores deve marcar origem=prior_regional e confianca baixa.",
+    "aviso": "Defaults regionais usados na degradacao graciosa quando o usuario NAO informa a analise. NAO sao a analise do usuario; sao valores TIPICOS regionais (prior), sempre rotulados origem=prior_regional. A quimica (P, pH, V, Al) vem de levantamento publicado; CTC/densidade sao assumidas. Outras sub-regioes do Sul (ex.: solos arenosos) diferem muito - informe sua analise para precisao.",
+    "_source_quimica": "Tiecher et al., 'Evolucao e estado da fertilidade do solo no Norte do RS e Sudoeste de SC' (amostras 2009-2015): V modal Medio 65-80% (46% das amostras); m (sat. Al) modal Muito Baixo <1% (93% <=10%, acidez baixa); P modal Baixo (35%, ~3/4 abaixo do critico); solos basalticos muito argilosos.",
+    "_url": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/evolucao_estado_fertilidade_solo.pdf",
     "unidades": "P mg/dm3 (Mehlich-1); pH em agua; V %; Al cmolc/dm3; CTC cmolc/dm3; argila g/kg; densidade g/cm3"
   },
   "regioes": {
     "sul_pr": {
-      "_label": "Sul / Parana (default)",
-      "_source": "assumido_regional (refinar com CQFS-RS/SC 2016 e IAPAR/PR)",
-      "defaults": { "P": 8, "pH": 5.5, "V": 50, "Al": 0.3, "CTC": 10, "argila": 350, "densidade": 1.3 }
+      "_label": "Sul - tipico basaltico (ancora: Norte RS / SO SC)",
+      "_origem_por_campo": {
+        "P": "Tiecher: modal Baixo (~5 mg/dm3)",
+        "pH": "Tiecher: acidez baixa, ~84% das amostras pH>=5,5",
+        "V": "Tiecher Fig.9a: modal Medio 65-80%",
+        "Al": "Tiecher Fig.10a: m<1% na maioria -> Al trocavel baixo",
+        "argila": "Tiecher: solos basalticos muito argilosos (classe 1)",
+        "CTC": "ASSUMIDO (CTC alta tipica de basalto)",
+        "densidade": "ASSUMIDO (nao consta no levantamento quimico; valor de solo argiloso bem manejado sob plantio direto)"
+      },
+      "defaults": { "P": 5, "pH": 5.8, "V": 70, "Al": 0.1, "CTC": 12, "argila": 650, "densidade": 1.1 }
     }
   }
 }
