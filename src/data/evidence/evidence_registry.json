@@ -112,6 +112,62 @@
       "accessed_at": "2026-06-27",
       "notes": "Manual Embrapa sobre fungos entomopatogenicos (Beauveria, Metarhizium): biologia, manejo e exigencia de umidade. Usar para funcoes/manejo; NAO para dose nem cinetica."
     },
+    "bula_bovemip_beauveria_ibcb66": {
+      "title": "BOVEMIP - Beauveria bassiana cepa IBCB 66 (bula MAPA)",
+      "publisher": "Promip Manejo Integrado de Pragas",
+      "source_type": "bula",
+      "url": "https://promip.agr.br/wp-content/uploads/2023/12/BOVEMIP-BULA-DEZ_2023.pdf",
+      "accessed_at": "2026-06-28",
+      "notes": "Bula MAPA de Beauveria bassiana (IBCB 66). Fonte de dose/alvo/manejo do produto; citada pela compilacao do usuario, nao reconferida pagina a pagina por mim."
+    },
+    "bula_cromobac_chromobacterium_subtsugae": {
+      "title": "Cromobac/Chromotrix - Chromobacterium subtsugae (bula MAPA)",
+      "publisher": "Agrobiologica Sustentabilidade",
+      "source_type": "bula",
+      "url": "https://assets.revistacultivar.com.br/c4be1ae4-69ff-4a19-9140-462f5d8e151d_cromobac_bula.pdf",
+      "accessed_at": "2026-06-28",
+      "notes": "Bula MAPA de Chromobacterium subtsugae (percevejo-marrom em soja). Fonte de dose/manejo; citada pela compilacao."
+    },
+    "embrapa_compat_fungicidas_entomopatogenicos_id29016": {
+      "title": "Compatibilidade de fungicidas sobre os fungos entomopatogenicos Beauveria bassiana e Metarhizium anisopliae",
+      "publisher": "Embrapa / Alice",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.alice.cnptia.embrapa.br/alice/bitstream/doc/467340/1/ID29016.pdf",
+      "accessed_at": "2026-06-28",
+      "notes": "Ensaio Embrapa: fungicidas sistemicos (triazois/estrobilurinas) reduzem o micelio de B. bassiana e M. anisopliae. Base da incompatibilidade dura com fungicidas."
+    },
+    "rootella_br_inoculante_micorrizico": {
+      "title": "Rootella BR - inoculante micorrizico (Rhizophagus intraradices), unico registrado no MAPA",
+      "publisher": "Nova Tero / Groundwork BioAg",
+      "source_type": "ficha_tecnica",
+      "url": "https://www.rootellabr.com.br/",
+      "accessed_at": "2026-06-28",
+      "notes": "Produto comercial registrado de FMA (R. intraradices). Fonte de metodo (TS/sulco) e ~2,4 milhoes de propagulos/ha; a dose exata em g/ha veio como imagem na compilacao -> confirmar na ficha."
+    },
+    "infoteca_micorrizas_1164118": {
+      "title": "Micorrizas (cartilha tecnica)",
+      "publisher": "Embrapa / Infoteca",
+      "source_type": "publicacao_tecnica_oficial",
+      "url": "https://www.infoteca.cnptia.embrapa.br/infoteca/bitstream/doc/1164118/1/MICORRIZAS.pdf",
+      "accessed_at": "2026-06-28",
+      "notes": "Material tecnico Embrapa sobre FMA: dependencia de P (P alto inibe a simbiose), manejo (plantio direto preserva hifas), incompatibilidade com fungicidas sistemicos."
+    },
+    "scielo_rpalustris_soybean_photosynthesis": {
+      "title": "Rhodopseudomonas palustris increase soybean photosynthesis and protein levels in grains",
+      "publisher": "Brazilian Journal of Biology (SciELO) - revisado por pares",
+      "source_type": "artigo_revisado",
+      "url": "https://www.scielo.br/j/bjb/a/jgGcfTfSSVnsfrQn4LJXZpJ/",
+      "accessed_at": "2026-06-28",
+      "notes": "Estudo com R. palustris G5 (base do produto Bioavance) em soja: fotossintese e proteina nos graos; modo foliar/sulco (V6). Doses vieram como imagem na compilacao."
+    },
+    "biosphera_biovelox_consorcio_pnsb": {
+      "title": "BioVelox - consorcio Lactobacillus plantarum + Rhodopseudomonas palustris + Saccharomyces cerevisiae",
+      "publisher": "Biosphera AgroSolutions",
+      "source_type": "ficha_tecnica",
+      "url": "https://biosphera.agr.br/bioinsumo-a-base-de-tres-microrganismos-ineditos-chega-ao-mercado/",
+      "accessed_at": "2026-06-28",
+      "notes": "Produto comercial de consorcio tripartido com PNSB. Fonte de composicao/uso; nao traz dose numerica primaria."
+    },
     "embrapa_fma_curadores_germoplasma": {
       "title": "Manual de Curadores de Germoplasma - Micro-organismos: Fungos Micorrizicos Arbusculares (Embrapa, Documentos, 2011)",
       "publisher": "Embrapa",
@@ -417,6 +473,42 @@
       "status": "fonte_candidata",
       "confidence": "media",
       "calibration_action": "Extrair condicoes de uso em arroz; manter viabilidade como prior demonstrativo."
+    },
+    {
+      "id": "bioinseticidas_protocolo_compilacao_bulas",
+      "source_id": "bula_bovemip_beauveria_ibcb66",
+      "organisms": ["bioinseticidas"],
+      "claim_type": "protocolo_e_dose",
+      "claim": "Compilacao (cita bulas MAPA BOVEMIP/Cromobac + Embrapa) consolida doses por agente: Chromobacterium subtsugae 1-2 L/ha; espinosade 50-100 mL/ha; Beauveria bassiana IBCB 66 1-3 kg/ha ou 1-2 L/ha; Metarhizium anisopliae IBCB 425 1-2 L/ha. Calda 100-200 L/ha, <30C, UR>70%, agua pH<7, pressao 1,5-3 bar.",
+      "supports_fields": ["protocol.dose_range", "protocol.metodo", "protocol.critical", "protocol.manejo", "protocol.ordem_mistura"],
+      "does_not_support_yet": ["viability.decay_k_base_per_h", "viability.uv_sensitivity", "viability.effective_threshold_log"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO (parcial): protocol calibrado por agente a partir da compilacao + bulas. Grupo HETEROGENEO -> doses por estirpe especifica; CONFIRMAR na bula do produto. viability segue demonstrativo."
+    },
+    {
+      "id": "micorrizas_protocolo_rootella",
+      "source_id": "rootella_br_inoculante_micorrizico",
+      "organisms": ["micorrizas"],
+      "claim_type": "protocolo_e_manejo",
+      "claim": "Rootella BR (Rhizophagus intraradices), unico FMA registrado no MAPA: TS (filme fino), sulco (quando ha fungicida sistemico na semente) e fertirrigacao; ~2,4 milhoes de propagulos/ha; reduzir adubacao P em 25-50% (P alto aborta a simbiose). Incompat. dura com fungicidas sistemicos (benzimidazois).",
+      "supports_fields": ["protocol.metodo", "protocol.critical", "protocol.manejo", "protocol.ordem_mistura"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO (parcial): metodo/manejo/compatibilidade calibrados (Rootella + Embrapa MICORRIZAS). A dose em g/ha veio como imagem -> confirmar na ficha Rootella. viability segue demonstrativo (propagulos != log UFC)."
+    },
+    {
+      "id": "pnsb_protocolo_rpalustris_bioavance",
+      "source_id": "scielo_rpalustris_soybean_photosynthesis",
+      "organisms": ["pnsb"],
+      "claim_type": "protocolo_e_manejo",
+      "claim": "R. palustris (CCT 5355/7977, MAPA; produto Bioavance G5; consorcio BioVelox): sulco na semeadura ou foliar no V6 (soja); TS em milho (reduz N de cobertura). Agua sem cloro; aplicar isolado, fim de tarde; armazenar conforme rotulo (refrigerar Bioavance).",
+      "supports_fields": ["protocol.metodo", "protocol.culturas", "protocol.critical", "protocol.manejo", "protocol.ordem_mistura"],
+      "does_not_support_yet": ["protocol.dose_range", "viability.decay_k_base_per_h", "viability.effective_threshold_log"],
+      "status": "calibrado_parcial",
+      "confidence": "media",
+      "calibration_action": "FEITO (parcial): especies/estirpes/produtos/metodo/manejo calibrados. As doses (mg/L, L/ha) vieram como imagem -> confirmar na ficha do produto (Bioavance/BioVelox). viability segue demonstrativo."
     },
     {
       "id": "fixadores_viability_prateleira_direcao",

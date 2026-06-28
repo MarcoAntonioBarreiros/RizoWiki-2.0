@@ -205,7 +205,7 @@
       "label": "Bioinseticidas (Beauveria, Metarhizium, Chromobacterium, Saccharopolyspora)",
       "form": ["esporo", "vegetativo"],
       "functions": ["biocontrole_inseticida", "isr"],
-      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Embrapa Doc 286", "incompat_duras": ["fungicida"], "uv_exige_horario": true, "umidade_min_pct": 70, "obs": "fungos exigem alta umidade; nunca misturar com fungicidas" },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "compilacao Gemini (bulas MAPA + Embrapa compatibilidade)", "_escopo": "grupo heterogeneo; fungos entomopatogenicos (Beauveria/Metarhizium) e bacterias (Chromobacterium/espinosade)", "incompat_duras": ["fungicida"], "uv_exige_horario": true, "umidade_min_pct": 70, "temp_ar_max_c": 30, "obs": "fungicidas sistemicos (triazois/estrobilurinas) reduzem o micelio (Embrapa); UV-sensiveis, UR>70%; agua pH<7; pressao 1,5-3 bar" },
       "viability": {
         "ideal_temp_c": 25,
         "decay_k_base_per_h": 0.09,
@@ -215,19 +215,30 @@
         "_basis": "DERIVADO (demonstrativo) e GROSSEIRO: categoria heterogenea (fungos+bacterias+metabolitos). Fragil (k alto); fungos UV-sensiveis (uv alto); '1.0: NUNCA misturar fungos com fungicidas' -> fungicida muito alto. Separar por organismo na curadoria."
       },
       "protocol": {
-        "culturas": "Todas as culturas",
-        "metodo": "Pulverização dirigida",
-        "dose_range": "Variável (Esporos/mL ou Metabólitos)",
-        "critical": "Para fungos (Beauveria), umidade alta (>70%) é vital. Para bactérias, o pH da calda é crítico.",
-        "ordem_mistura": "NUNCA misturar fungos com fungicidas químicos.",
-        "manejo": "Aplicar fim de tarde ou noite (alta umidade).",
+        "culturas": "Por agente: Chromobacterium subtsugae -> percevejo-marrom (soja); espinosade (Saccharopolyspora spinosa) -> lagarta-do-cartucho (milho); Beauveria bassiana -> mosca-branca, acaro-rajado, broca-do-cafe; Metarhizium anisopliae -> cigarrinha-da-raiz (cana) [compilacao Gemini c/ bulas MAPA].",
+        "metodo": "Pulverizacao dirigida: terrestre 100-200 L/ha, aerea 30-60 L/ha; M. robertsii via sulco/fertirrigacao (nematoides). Pontas leque/cone vazio; pressao 1,5-3,0 bar (alta pressao rompe celulas/conidios).",
+        "dose_range": "Por agente/estirpe [compilacao; CONFIRMAR na bula]: Chromobacterium subtsugae (ASN04, SC) 1,0-2,0 L/ha; espinosade 50-100 mL/ha (24-48 g i.a./ha); Beauveria bassiana IBCB 66 (WP) 1,0-3,0 kg/ha ou 1,0-2,0 L/ha; Metarhizium anisopliae IBCB 425 1,0-2,0 L/ha ou kg/ha.",
+        "critical": "Fungos entomopatogenicos vulneraveis a UV e exigem UR>70% (orvalho p/ germinacao); bacterias UR>55%. Agua da calda com pH < 7 (alcalina inativa). Conidios sensiveis ao cisalhamento (pressao moderada). Preferir produto REGISTRADO (on-farm: risco de contaminacao/degeneracao).",
+        "ordem_mistura": "NUNCA misturar com fungicidas sistemicos: triazois e estrobilurinas reduzem o micelio de B. bassiana e M. anisopliae (Embrapa Soja); Bold e Curbix inibem 100%. NAO misturar B. bassiana + M. anisopliae (antagonismo). Compativeis: diamidas (clorantraniliprole/ciantraniliprole) e varios inseticidas. Triplice lavagem do tanque.",
+        "manejo": "Aplicar no fim da tarde (apos 16h) ou sob ceu encoberto (evita UV); ar < 30 C, UR > 70% (fungos) / > 55% (bacterias), vento 3-10 km/h.",
         "monitorar": [
-          "Insetos 'mumificados' (cobertos de pó).",
-          "Redução progressiva dos danos em folhas novas.",
-          "Lagartas paralisadas."
+          "Insetos 'mumificados' (cobertos de micelio/po).",
+          "Reducao progressiva dos danos em folhas novas.",
+          "Lagartas paralisadas / efeito antialimentar (Chromobacterium)."
         ]
       },
-      "sources": ["Embrapa Milho e Sorgo, Circular Técnica, 2022."],
+      "sources": [
+        "Embrapa - Compatibilidade de fungicidas sobre Beauveria bassiana e Metarhizium anisopliae (alice.cnptia.embrapa.br/.../ID29016.pdf).",
+        "Bulas MAPA: BOVEMIP (Beauveria bassiana IBCB 66, Promip); Cromobac/Chromotrix (Chromobacterium subtsugae)."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "sources": ["bula_bovemip_beauveria_ibcb66", "bula_cromobac_chromobacterium_subtsugae", "embrapa_compat_fungicidas_entomopatogenicos_id29016"],
+        "confidence": "media",
+        "campos_calibrados": ["protocol.dose_range", "protocol.metodo", "protocol.culturas", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo", "limites_operacionais"],
+        "extraido": "Compilacao Gemini (docx legivel; cita ~100 fontes reais: bulas MAPA BOVEMIP/Cromobac, Embrapa compatibilidade, SciELO/PubMed). Doses por AGENTE: Chromobacterium subtsugae ASN04 1-2 L/ha; espinosade 50-100 mL/ha; Beauveria IBCB 66 1-3 kg/ha ou 1-2 L/ha; Metarhizium IBCB 425 1-2 L/ha. Calda 100-200 L/ha, <30C, UR>70%/55%, pH<7, pressao 1,5-3 bar, fim de tarde. Fungicidas sistemicos DUROS (Embrapa); diamidas compativeis.",
+        "pendente": "Grupo HETEROGENEO: doses por agente/estirpe ESPECIFICA, nao universais. Doses vem da compilacao (cita bulas MAPA, mas NAO conferi cada bula individualmente) -> confirmar na bula do produto registrado. viability.* segue demonstrativo (sem cinetica)."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },
@@ -327,7 +338,7 @@
       "label": "Micorrizas (FMA)",
       "form": ["propagulo"],
       "functions": ["micorriza_p", "isr", "tolerancia_estresse"],
-      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0", "incompat_duras": ["fungicida"], "obs": "fungicidas sistemicos abortam a simbiose; propagulo biotrofico" },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "compilacao Gemini (Rootella BR + Embrapa MICORRIZAS)", "incompat_duras": ["fungicida"], "obs": "fungicidas sistemicos (benzimidazois) abortam a simbiose (use sulco, nao TS); P alto inibe -> reduzir adubacao P 25-50%; plantio direto preserva as hifas" },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.03,
@@ -337,19 +348,30 @@
         "_basis": "DERIVADO (demonstrativo) com RESSALVA FORTE: dose em propagulos, NAO log UFC -> modelo log-linear semanticamente limitado. Propagulos resilientes (k baixo); '1.0: fungicidas sistemicos abortam simbiose' -> fungicida alto. Sem fonte."
       },
       "protocol": {
-        "culturas": "Milho, Soja, Café, Cana",
-        "metodo": "Semente ou Sulco",
-        "dose_range": "Propágulos infectivos",
-        "critical": "Fungicidas sistêmicos podem abortar a simbiose.",
-        "ordem_mistura": "Sensível a fungicidas. Preferir aplicação no sulco.",
-        "manejo": "Precisa de planta viva para multiplicar (biotrófico obrigatório).",
+        "culturas": "Soja, milho, trigo, feijao e fruteiras/cafe; resposta MAXIMA em solos argilosos de baixa fertilidade com P fixado (Latossolos) [Rootella + Embrapa].",
+        "metodo": "Tratamento de sementes (filme fino/encapsulamento), sulco de plantio (rota preferencial quando a semente tem fungicida sistemico) ou fertirrigacao (gotejo) [Rootella + Embrapa].",
+        "dose_range": "Rhizophagus intraradices (Rootella BR), ~2,4 milhoes de propagulos ativos/ha; dose exata em g/ha por cultura = ficha do produto (veio como imagem na compilacao -> confirmar).",
+        "critical": "P ALTO inibe a simbiose (correlacao negativa P soluvel x colonizacao): em P alto a planta aborta a micorriza. Resposta maxima em P baixo + P fixado. Ao inocular, reduzir a adubacao fosfatada soluvel em 25-50% [Embrapa/compilacao].",
+        "ordem_mistura": "Incompat. DURA com fungicidas sistemicos: benzimidazois (carbendazim, tiabendazol, tiofanato metilico) inibem 100% a germinacao dos esporos; carboxin/captana/azoxistrobina tambem. Se a semente ja tem fungicida sistemico, NAO fazer TS -> aplicar no sulco. Glifosato compativel sob plantio direto.",
+        "manejo": "Propagulo biotrofico (precisa de planta viva). Plantio direto + rotacao + plantas de cobertura micotroficas (aveia/centeio/trigo) preservam a rede de hifas; aracao/gradagem a destroem. Coinocular com Bradyrhizobium (soja); separar do Trichoderma no tempo (FMA no dia 0; Trichoderma 15-30 dias pos-emergencia).",
         "monitorar": [
-          "Maior resistência à seca (turgidez).",
-          "Melhor nutrição de P (sem arroxeamento).",
-          "Agregação do solo (glomalina)."
+          "Maior resistencia a seca (turgidez).",
+          "Melhor nutricao de P (sem arroxeamento).",
+          "Agregacao do solo (glomalina)."
         ]
       },
-      "sources": ["Smith & Read, 2008. Mycorrhizal Symbiosis."],
+      "sources": [
+        "Rootella BR - inoculante micorrizico (Rhizophagus intraradices), unico registrado no MAPA (rootellabr.com.br).",
+        "Embrapa - Micorrizas (infoteca.cnptia.embrapa.br/.../MICORRIZAS.pdf)."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "sources": ["rootella_br_inoculante_micorrizico", "infoteca_micorrizas_1164118", "embrapa_fma_curadores_germoplasma"],
+        "confidence": "media",
+        "campos_calibrados": ["protocol.metodo", "protocol.culturas", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo", "limites_operacionais"],
+        "extraido": "Produto: Rootella BR (R. intraradices), unico FMA registrado no MAPA. Metodos: TS (filme fino), sulco (se a semente tem fungicida), fertirrigacao. P alto inibe a simbiose -> reduzir P 25-50%. Incompat. dura com fungicidas sistemicos (benzimidazois 100%). Plantio direto preserva hifas. Coinoculacao Bradyrhizobium; separacao temporal do Trichoderma. [compilacao Gemini c/ Rootella + Embrapa]",
+        "pendente": "A DOSE em g/ha por cultura veio como imagem na compilacao (so '~2,4 milhoes propagulos/ha') -> confirmar na ficha Rootella. viability.* segue demonstrativo (unidade propagulos != log UFC)."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },
@@ -357,7 +379,7 @@
       "label": "PNSB (Rhodopseudomonas palustris)",
       "form": ["vegetativo"],
       "functions": ["biofilme", "aia", "biocontrole", "tolerancia_estresse"],
-      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0", "incompat_atencao": ["cloro", "antibiotico"], "obs": "1.0 diz 'evitar' cloro/antibiotico (brando, nao bloqueio); depende de luz/carbono organico" },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "compilacao Gemini (SciELO R. palustris + BioVelox)", "incompat_atencao": ["cloro", "antibiotico"], "temp_ar_max_c": 30, "uv_exige_horario": true, "obs": "agua SEM cloro/biocida (mata as celulas); aplicar isolado (sem fungicida/inseticida sistemico no tanque); foliar no fim de tarde; armazenar conforme rotulo (refrigerar Bioavance)" },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.03,
@@ -367,19 +389,30 @@
         "_basis": "DERIVADO (demonstrativo): forma biofilme e e persistente (k baixo); '1.0: UV mata' -> uv alto; '1.0: evitar cloro e antibioticos' (fora do conjunto de classes). Sem fonte."
       },
       "protocol": {
-        "culturas": "Hortaliças, Arroz",
-        "metodo": "Solo ou Foliar",
-        "dose_range": "10⁶ UFC/g",
-        "critical": "Sobrevivência depende de luz ou carbono orgânico.",
-        "ordem_mistura": "Compatível com melaço. Evitar cloro e antibióticos.",
-        "manejo": "Aplicar via drench ou fertirrigação.",
+        "culturas": "Soja, milho, arroz (alagado), manga e hortalicas. Estirpes MAPA: Rhodopseudomonas palustris CCT 5355 / CCT 7977 (produto Bioavance G5; consorcio BioVelox com Lactobacillus plantarum + Saccharomyces cerevisiae) [SciELO + Biosphera].",
+        "metodo": "Soja: sulco na semeadura (com Bradyrhizobium) ou foliar no estadio V6 (1-3 aplicacoes V6/R1/R3). Milho: tratamento de sementes (consorcio), reduz N de cobertura. Tambem fertirrigacao e seed priming [SciELO/compilacao].",
+        "dose_range": "Estirpes R. palustris ~10^6-10^8 cel/mL (formulacoes). Doses por modo (sulco, foliar V6, mg/L) vieram como IMAGEM na compilacao -> confirmar na ficha do produto (Bioavance/BioVelox).",
+        "critical": "Bacteria viva e versatil (cresce aerobio/anaerobio, sob luz). Agua de calda SEM cloro nem biocida (destroi as celulas). Foliar precisa de luz, mas evitar UV severo/calor: aplicar no fim de tarde, UR alta, ar < 30 C.",
+        "ordem_mistura": "Aplicar ISOLADO (sem fungicida/inseticida sistemico no mesmo tanque); triplice lavagem. Compativel com melaco/fontes de carbono. Evitar cloro e antibioticos na agua.",
+        "manejo": "Armazenar conforme o rotulo do fabricante: Bioavance (R. palustris G5) sob refrigeracao; formulacoes de aquario (PNS ProBio) a temperatura ambiente (nao refrigerar). Preparar e aplicar a calda no menor tempo possivel.",
         "monitorar": [
-          "Melhoria na estrutura do solo (mais fofo).",
-          "Redução da crosta salina na superfície.",
-          "Hortaliças com folhas mais vigorosas."
+          "Maior teor de clorofila / folhas mais vigorosas (efeito do ALA).",
+          "Maior acumulo de proteina/aminoacidos nos graos.",
+          "Melhor tolerancia a estresse hidrico/salino."
         ]
       },
-      "sources": ["Watanabe, K., et al. (2017). Plant and Soil, 419(1-2), 175-187."],
+      "sources": [
+        "Rhodopseudomonas palustris increase soybean photosynthesis and protein levels in grains (SciELO, Braz. J. Biol.).",
+        "BioVelox - consorcio L. plantarum + R. palustris + S. cerevisiae (Biosphera AgroSolutions)."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "sources": ["scielo_rpalustris_soybean_photosynthesis", "biosphera_biovelox_consorcio_pnsb", "mdpi_photosynthetic_bacteria_agriculture_2021"],
+        "confidence": "media",
+        "campos_calibrados": ["protocol.culturas", "protocol.metodo", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo", "limites_operacionais"],
+        "extraido": "Estirpes MAPA R. palustris CCT 5355/7977; produtos Bioavance (G5) e BioVelox (consorcio). Mecanismos: ALA (clorofila/fotossintese), AIA, fixacao de N, solubilizacao. Modos: soja sulco/foliar V6 (+Bradyrhizobium), milho TS (reduz N cobertura), fertirrigacao, seed priming. Manejo: agua sem cloro, aplicar isolado, fim de tarde, armazenar conforme rotulo. [compilacao Gemini c/ SciELO/Biosphera/MDPI]",
+        "pendente": "As DOSES (mg/L, L/ha, % de reducao de N) vieram como imagem na compilacao -> confirmar na ficha do produto (Bioavance/BioVelox). viability.* segue demonstrativo (sem cinetica)."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     }
