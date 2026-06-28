@@ -20,10 +20,20 @@ export function grupoCulturaP(cultura) {
   return 'sequeiro';
 }
 
+// Parse de numero opcional vindo de formulario: '', null, undefined, espaco ou nao-numero -> null
+// (ausente). Necessario porque Number('') === 0, entao Number.isFinite nao distingue vazio de zero.
+function parseOpt(x) {
+  if (x === null || x === undefined) return null;
+  const s = String(x).trim();
+  if (s === '') return null;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
+}
+
 // Aceita argila em % (0-100) ou g/kg (>100, convertido /10), padrao dos laudos BR.
 export function argilaParaPct(argila) {
-  const a = Number(argila);
-  if (!Number.isFinite(a)) return null;
+  const a = parseOpt(argila);
+  if (a === null) return null;
   return a > 100 ? a / 10 : a;
 }
 
@@ -59,14 +69,14 @@ export function paraPClasse(classeCQFS) {
 export function interpretaP(input = {}) {
   const { valor, extrator = 'mehlich1', argila, cultura, origem = 'real' } = input;
 
-  if (!Number.isFinite(Number(valor))) {
+  const v = parseOpt(valor);
+  if (v === null) {
     return {
       classe: null,
       _status: 'sem_dado',
       mensagem: 'P nao informado; informe o valor (mg/dm3) da analise para interpretar.',
     };
   }
-  const v = Number(valor);
   const ext = String(extrator).toLowerCase().includes('resina') ? 'resina' : 'mehlich1';
   const conf = origem === 'real' ? 'media' : 'baixa';
 

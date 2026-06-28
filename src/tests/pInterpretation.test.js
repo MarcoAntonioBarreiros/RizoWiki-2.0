@@ -54,6 +54,11 @@ describe('pInterpretationEngine (CQFS-RS/SC 2016, sourced)', () => {
     expect(r._status).toBe('sem_dado');
   });
 
+  it('campo vazio do formulario ("") conta como ausente, nao como 0', () => {
+    expect(interpretaP({ valor: '', argila: 65, cultura: 'soja' })._status).toBe('sem_dado');
+    expect(interpretaP({ valor: 5, argila: '', cultura: 'soja' })._status).toBe('argila_ausente');
+  });
+
   it('ponte para o vocabulario pClasse do diagnosticEngine', () => {
     expect(paraPClasse('muito_baixo')).toBe('baixo');
     expect(paraPClasse('baixo')).toBe('baixo');

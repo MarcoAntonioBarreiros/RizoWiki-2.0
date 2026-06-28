@@ -3,10 +3,12 @@
 // A pagina so orquestra e exibe; toda decisao vive nos motores.
 import { useEffect, useMemo } from 'react';
 import QuickDiagnosisForm from '../components/QuickDiagnosisForm.jsx';
+import SoilAnalysisForm from '../components/SoilAnalysisForm.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
 import { evaluateCompatibility } from '../engines/compatibilityEngine.js';
 import { buildProtocol } from '../engines/protocolEngine.js';
 import { buildMapRecommendations } from '../engines/recommendationEngine.js';
+import { buildSoilSummary } from '../engines/soil/soilSummary.js';
 import ProtocolReport from '../components/ProtocolReport.jsx';
 import { DISCLAIMER } from '../disclaimer.js';
 
@@ -17,12 +19,27 @@ const STATUS_LABEL = {
   ajustar: 'Usar com ajustes',
   evitar_agora: 'Evitar agora / revisar',
 };
+const CLASSE_P_LABEL = {
+  muito_baixo: 'Muito baixo',
+  baixo: 'Baixo',
+  medio: 'Medio',
+  alto: 'Alto',
+  muito_alto: 'Muito alto',
+};
+const ORIGEM_LABEL = { real: 'dado real', prior_regional: 'prior regional', ausente: 'ausente' };
 
 export default function Mapa({ caseState, onCaseChange }) {
   const form = caseState;
   const onChange = onCaseChange;
 
-  const mapa = useMemo(() => buildMapRecommendations(form), [form]);
+  const soilSummary = useMemo(() => buildSoilSummary(form), [form]);
+  const { soil, pInterp, acidez, pConfidence } = soilSummary;
+  // O P so alimenta o diagnostico quando e dado REAL; o prior aparece na tela mas nao decide.
+  const pClasseParaDiagnostico = pInterp.origem === 'real' ? soilSummary.pClasse : undefined;
+  const mapa = useMemo(
+    () => buildMapRecommendations({ ...form, pClasse: pClasseParaDiagnostico }),
+    [form, pClasseParaDiagnostico],
+  );
   const diag = mapa.diagnosis;
   const ranked = mapa.rankedRecommendations;
 
@@ -67,6 +84,77 @@ export default function Mapa({ caseState, onCaseChange }) {
       </p>
 
       <QuickDiagnosisForm value={form} onChange={onChange} />
+
+      <h3>Solo (analise)</h3>
+      <SoilAnalysisForm value={form.soil || {}} onChange={(field, val) => onChange('soil.' + field, val)} />
+
+      <div
+        style={{
+          margin: '0.6rem 0 0.3rem',
+          display: 'flex',
+          gap: '0.6rem',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+        }}
+      >
+        <span>
+          Completude: <strong>{soil.campos_reais}/{soil.campos_total}</strong> campos reais - regiao{' '}
+          <strong>{soil.regiao_label}</strong>{' '}
+          ({soil.regiao_origem === 'informada' ? 'informada' : 'assumida'})
+        </span>
+        <ConfidenceBadge level={pConfidence} />
+      </div>
+      {soil.regiao_aviso && (
+        <p style={{ fontSize: '0.82rem', color: 'var(--muted)', margin: '0 0 0.4rem' }}>
+          {soil.regiao_aviso}
+        </p>
+      )}
+
+      {pInterp.classe ? (
+        <p>
+          <strong>Fosforo:</strong> {pInterp.valor} mg/dm3 ({pInterp.extrator}
+          {pInterp.classe_argila ? `, argila classe ${pInterp.classe_argila}` : ''}){' -> '}
+          <strong>{CLASSE_P_LABEL[pInterp.classe] || pInterp.classe}</strong>
+          {pInterp.abaixo_critico
+            ? ` (abaixo do critico ${pInterp.critico})`
+            : ` (critico ${pInterp.critico})`}{' '}
+          <em>[{ORIGEM_LABEL[pInterp.origem] || pInterp.origem}]</em>
+          <br />
+          <span style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>Fonte: {pInterp._source}</span>
+        </p>
+      ) : (
+        <p><strong>Fosforo:</strong> {pInterp.mensagem}</p>
+      )}
+
+      {acidez._status !== 'sem_dado' && (
+        <>
+          <p>
+            <strong>Acidez:</strong>{' '}
+            {acidez.pH ? `pH ${acidez.pH.valor} (${acidez.pH.rotulo}); ` : ''}
+            {acidez.V ? `V ${acidez.V.valor}% (${acidez.V.rotulo}); ` : ''}
+            {acidez.m ? `sat. Al ${acidez.m.valor}% (${acidez.m.rotulo})` : ''}{' '}
+            <em>[{ORIGEM_LABEL[acidez.origem] || acidez.origem}]</em>
+          </p>
+          {acidez.calagem_indicada && acidez.origem === 'real' && (
+            <p
+              style={{
+                border: '1px solid var(--warn)',
+                background: 'rgba(251, 191, 36, 0.12)',
+                borderRadius: 8,
+                padding: '0.6rem 0.8rem',
+              }}
+            >
+              {acidez.mensagem}
+            </p>
+          )}
+        </>
+      )}
+
+      <p className="page__todo">
+        {pInterp.origem === 'real'
+          ? 'A classe de P (dado real) alimenta o diagnostico abaixo.'
+          : 'P ainda em prior regional: informe o P e a argila reais para que a classe influencie a recomendacao.'}
+      </p>
 
       <h3>Diagnostico</h3>
       <p>{diag.message}</p>

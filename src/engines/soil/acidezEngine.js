@@ -13,8 +13,14 @@
 // A reconciliacao de campos (adicionar m% ao soilContext) fica para a fiacao R1.
 import tabela from '../../data/soil/acidez_interpretation.json';
 
+// Parse de numero opcional de formulario: '', null, undefined, espaco ou nao-numero -> null.
+// (Number('') === 0, por isso nao da pra usar Number.isFinite direto em entradas vazias.)
 function num(x) {
-  return Number.isFinite(Number(x)) ? Number(x) : null;
+  if (x === null || x === undefined) return null;
+  const s = String(x).trim();
+  if (s === '') return null;
+  const n = Number(s);
+  return Number.isFinite(n) ? n : null;
 }
 
 function rotulo(indicador, classe) {

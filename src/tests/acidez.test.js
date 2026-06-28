@@ -61,6 +61,13 @@ describe('acidezEngine (CQFS-RS/SC 2016, Tabela 5.1, sourced)', () => {
     expect(r.confidence).toBe('inconclusiva');
   });
 
+  it('campos vazios ("") contam como ausentes, nao como 0', () => {
+    expect(interpretaAcidez({ pH: '', V: '', m: '' })._status).toBe('sem_dado');
+    const r = interpretaAcidez({ pH: 5.2, V: '', m: '' });
+    expect(r.pH.classe).toBe('baixo');
+    expect(r.V).toBeUndefined();
+  });
+
   it('origem prior_regional rebaixa a confianca', () => {
     expect(interpretaAcidez({ pH: 5.2, origem: 'prior_regional' }).confidence).toBe('baixa');
     expect(interpretaAcidez({ pH: 5.2, origem: 'real' }).confidence).toBe('media');

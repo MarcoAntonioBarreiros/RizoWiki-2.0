@@ -21,6 +21,8 @@ const DEFAULT_CASE = {
   initialLog: 9,
   temperatureC: 30,
   effectiveThresholdLog: organismsData.organisms[DEFAULT_ORGANISM].viability.effective_threshold_log,
+  // Analise de solo (opcional). Vazio => prior regional (degradacao graciosa, Fase R1).
+  soil: { regiao: '', extrator: 'mehlich1', P: '', argila: '', pH: '', V: '', m: '' },
 };
 
 const TABS = [
@@ -36,6 +38,10 @@ export default function App() {
   const Active = (TABS.find((item) => item.id === tab) ?? TABS[0]).component;
   const setCaseField = useCallback((field, value) => {
     setCaseState((prev) => {
+      if (typeof field === 'string' && field.startsWith('soil.')) {
+        const key = field.slice('soil.'.length);
+        return { ...prev, soil: { ...prev.soil, [key]: value } };
+      }
       if (field !== 'organismo') return { ...prev, [field]: value };
 
       const threshold = organismsData.organisms[value]?.viability?.effective_threshold_log;
