@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "tipo": "interpretacao_compactacao_solo",
+    "status": "sourced",
+    "confidence": "media",
+    "_source_densidade": "Reichert, Reinert & Braida (2003) - densidade critica do solo (Dsc) por classe textural. Corroborado por SciELO RBCS (scielo.br/j/rbcs/a/5WjW8tsqwwWS6xRyMftbvJM) e pela compilacao do usuario (prints).",
+    "_source_rp": "Limite classico de RP impeditiva ao crescimento radicular ~2,0 MPa; varia 2,0-3,5 conforme textura/especie (Cavalieri et al. 2006 = 2,5 MPa; Merotto & Mundstock 1999 = 3,5 MPa). RP e DEPENDENTE da umidade (modelo de Busscher 1990): so comparar a teor de agua padrao (capacidade de campo).",
+    "verificado_em": "2026-06-27 (Reichert 2003 confirmado por busca independente; valores batem com os prints do usuario)",
+    "nota_textura": "Mapeado das classes de argila do CQFS (as mesmas do motor de P). E aproximacao por ARGILA; solos siltosos (franco-siltoso) e a classe textural exata exigem granulometria completa (areia/silte/argila).",
+    "nota_honestidade": "Compactacao e limitacao FISICA: se restritiva, a descompactacao/manejo (escarificacao, plantas de cobertura, rotacao, trafego controlado) e a alavanca principal. O bioinsumo NAO descompacta o solo - e secundario, e em solo adensado pode ter eficiencia reduzida (queda de sobrevivencia/mobilidade microbiana).",
+    "unidade_ds": "g/cm3 (= Mg/m3)",
+    "unidade_rp": "MPa"
+  },
+  "por_classe_argila": {
+    "1": { "textura": "muito argilosa (>60% argila)", "ds_critico": 1.30, "ds_faixa": "1,25-1,30" },
+    "2": { "textura": "argilosa (41-60% argila)", "ds_critico": 1.40, "ds_faixa": "1,30-1,40" },
+    "3": { "textura": "media / franco-argilosa (21-40% argila)", "ds_critico": 1.50, "ds_faixa": "1,40-1,50" },
+    "4": { "textura": "arenosa / franco-arenosa (<=20% argila)", "ds_critico": 1.75, "ds_faixa": "1,70-1,80" }
+  },
+  "margem_atencao_ds": 0.05,
+  "rp": {
+    "critico_mpa": 2.0,
+    "severo_mpa": 2.5,
+    "_nota": "RP >= 2,0 MPa restringe raizes (atencao); >= 2,5 severo. Leitura valida so a umidade padrao (capacidade de campo) - RP sobe muito em solo seco."
+  },
+  "dose_nota": "Em aplicacao no sulco, solo compactado/seco tende a exigir MAIOR volume de calda (referencia qualitativa da compilacao do usuario; NAO e previsao de produtividade)."
+}
