@@ -1,0 +1,27 @@
+{
+  "_meta": {
+    "tipo": "interpretacao_potassio_solo",
+    "status": "sourced",
+    "confidence": "media",
+    "_source": "CQFS-RS/SC 2016 (Grupo II) - interpretacao de K por classe de CTC pH7,0. Conferido em Tiecher et al. (Tabela 6).",
+    "_url": "https://www.siabrasil.com.br/wp-content/uploads/2017/08/evolucao_estado_fertilidade_solo.pdf",
+    "_correcao": "A interpretacao de K MUDOU da ed. 2004 (3 classes de CTC: <5 / 5,1-15 / >15 cmolc/dm3) para a 2016 (4 classes: <=7,5 / 7,6-15 / 15,1-30 / >30). Estes sao os valores 2016 (Tiecher, explicito p/ graos).",
+    "nota": "K interpretado por CTC pH7,0 (cmolc/dm3). Teor critico = limite inferior de 'Alto'. Unidade de K = mg/dm3.",
+    "verificado_em": "2026-06-28 (Tiecher Tabela 6, CQFS 2016)"
+  },
+  "classes_ctc": {
+    "_unidade": "cmolc/dm3 (CTC a pH 7,0)",
+    "faixas": [
+      { "classe": "A", "ctc_max": 7.5, "rotulo": "<=7,5" },
+      { "classe": "B", "ctc_max": 15.0, "rotulo": "7,6-15,0" },
+      { "classe": "C", "ctc_max": 30.0, "rotulo": "15,1-30,0" },
+      { "classe": "D", "ctc_max": null, "rotulo": ">30,0" }
+    ]
+  },
+  "por_classe_ctc": {
+    "A": { "muito_baixo_max": 20, "baixo_max": 40, "medio_max": 60, "alto_max": 120, "critico": 60 },
+    "B": { "muito_baixo_max": 30, "baixo_max": 60, "medio_max": 90, "alto_max": 180, "critico": 90 },
+    "C": { "muito_baixo_max": 40, "baixo_max": 80, "medio_max": 120, "alto_max": 240, "critico": 120 },
+    "D": { "muito_baixo_max": 45, "baixo_max": 90, "medio_max": 135, "alto_max": 270, "critico": 135 }
+  }
+}
