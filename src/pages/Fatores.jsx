@@ -6,6 +6,7 @@ import { useMemo } from 'react';
 import CaseContextBar from '../components/CaseContextBar.jsx';
 import RiskPanel from '../components/RiskPanel.jsx';
 import ConfidenceBadge from '../components/ConfidenceBadge.jsx';
+import ScoreRing from '../components/ScoreRing.jsx';
 import { assessApplication } from '../utils/riskAssessment.js';
 import { buildSoilSummary } from '../engines/soil/soilSummary.js';
 import { DISCLAIMER } from '../disclaimer.js';
@@ -21,6 +22,102 @@ function riskChipCls(semaphore) {
   if (semaphore === 'go') return 'risk-go';
   if (semaphore === 'nogo') return 'risk-nogo';
   return 'risk-atencao';
+}
+
+function scoreStatus(semaphore) {
+  if (semaphore === 'go') return 'recomendado';
+  if (semaphore === 'nogo') return 'evitar_agora';
+  return 'ajustar';
+}
+
+function levelLabel(level) {
+  if (level === 'go') return 'OK';
+  if (level === 'nogo') return 'NO-GO';
+  return 'ATENCAO';
+}
+
+function CategoryCard({ item }) {
+  return (
+    <div className={`factor-card factor-card--${item.nivel}`}>
+      <span className={`status-dot status-dot--${item.nivel}`} />
+      <strong>{item.label}</strong>
+      <small>{levelLabel(item.nivel)}{item.count ? ` - ${item.count} alerta(s)` : ''}</small>
+    </div>
+  );
+}
+
+function EvaluationTable({ evaluations }) {
+  return (
+    <div className="table-wrap">
+      <table className="data-table factor-table">
+        <thead>
+          <tr>
+            <th>Fator</th>
+            <th>Valor informado</th>
+            <th>Limite operacional</th>
+            <th>Resultado</th>
+            <th>Fonte</th>
+          </tr>
+        </thead>
+        <tbody>
+          {evaluations.map((item) => (
+            <tr key={`${item.id}-${item.parametro}-${item.resultado}`}>
+              <th>
+                <span className={`status-chip status-chip--${riskChipCls(item.nivel)}`}>
+                  {levelLabel(item.nivel)}
+                </span>
+                <span>{item.parametro}</span>
+              </th>
+              <td>{item.valor || '-'}</td>
+              <td>{item.limite || '-'}</td>
+              <td>
+                <strong>{item.resultado}</strong>
+                {item.acao && <small>Acao: {item.acao}</small>}
+              </td>
+              <td>{item.fonte || '-'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ActionsPanel({ flags, baseTipos }) {
+  const actions = flags.map((flag) => ({
+    title: flag.mensagem,
+    action: flag.acao,
+    source: flag.fonte,
+    level: flag.nivel,
+  }));
+  if (baseTipos.length > 0) {
+    actions.unshift({
+      title: `Limitacao de base real: ${baseTipos.join(' e ')}`,
+      action: 'Corrigir a base antes; o bioinsumo e complemento neste caso.',
+      source: 'analise de solo interpretada',
+      level: 'atencao',
+    });
+  }
+
+  return (
+    <div className="factor-actions">
+      {actions.length > 0 ? (
+        actions.map((item, idx) => (
+          <article key={`${item.title}-${idx}`} className={`factor-action factor-action--${item.level}`}>
+            <strong>{item.title}</strong>
+            <p>{item.action}</p>
+            <small>{item.source}</small>
+          </article>
+        ))
+      ) : (
+        <article className="factor-action factor-action--go">
+          <strong>Nenhuma acao corretiva obrigatoria</strong>
+          <p>As condicoes informadas estao dentro dos limites operacionais cadastrados.</p>
+          <small>limites_operacionais</small>
+        </article>
+      )}
+    </div>
+  );
 }
 
 export default function Fatores({ caseState, onCaseChange }) {
@@ -41,6 +138,7 @@ export default function Fatores({ caseState, onCaseChange }) {
   ) {
     baseTipos.push('compactacao');
   }
+  const sources = Array.from(new Set(result.evaluations.map((item) => item.fonte).filter(Boolean)));
 
   return (
     <section className="page-stack">
@@ -50,18 +148,26 @@ export default function Fatores({ caseState, onCaseChange }) {
         <div className="map-panel__header">
           <div>
             <h3>Vou aplicar agora?</h3>
-            <p>Veredito por LIMITES OPERACIONAIS com fonte: bloqueia so com fonte dura; o resto e risco.</p>
+            <p>Veredito por limites operacionais: bloqueia so com fonte dura; o resto vira acao de ajuste.</p>
           </div>
           <ConfidenceBadge level={result.confidence} />
         </div>
 
-        <RiskPanel value={form} onChange={onChange} />
-
-        <div className={`verdict-banner verdict-banner--${verdict.cls}`}>
-          <span className={`status-chip status-chip--${riskChipCls(result.semaphore)}`}>
-            {String(result.semaphore).toUpperCase()}
-          </span>
-          {verdict.label}
+        <div className="factor-dashboard">
+          <ScoreRing score={result.score} status={scoreStatus(result.semaphore)} label="risco" />
+          <div className="factor-dashboard__main">
+            <div className={`verdict-banner verdict-banner--${verdict.cls}`}>
+              <span className={`status-chip status-chip--${riskChipCls(result.semaphore)}`}>
+                {String(result.semaphore).toUpperCase()}
+              </span>
+              {verdict.label}
+            </div>
+            <div className="factor-category-grid">
+              {result.categories.map((item) => (
+                <CategoryCard key={item.categoria} item={item} />
+              ))}
+            </div>
+          </div>
         </div>
 
         {baseTipos.length > 0 && (
@@ -70,25 +176,53 @@ export default function Fatores({ caseState, onCaseChange }) {
             (calagem/descompactacao) antes; aqui o bioinsumo e complemento, nao a alavanca.
           </div>
         )}
+      </div>
 
-        {result.flags.length > 0 ? (
-          <div className="flag-list" style={{ marginTop: '0.7rem' }}>
-            {result.flags.map((flag, idx) => (
-              <div key={idx} className={`flag-item${flag.nivel === 'nogo' ? ' flag-item--nogo' : ''}`}>
-                <strong>{flag.mensagem}</strong>
-                <small>
-                  Acao: {flag.acao}
-                  {flag.fonte ? ` - Fonte: ${flag.fonte}` : ''}
-                </small>
-              </div>
+      <div className="map-panel">
+        <div className="map-panel__header">
+          <div>
+            <h3>Fatores informados</h3>
+            <p>Edite o cenário operacional; a tabela abaixo mostra como cada item foi avaliado.</p>
+          </div>
+        </div>
+        <RiskPanel value={form} onChange={onChange} />
+      </div>
+
+      <div className="map-panel">
+        <div className="map-panel__header">
+          <div>
+            <h3>Limites operacionais avaliados</h3>
+            <p>Valor informado, limite documentado, resultado e fonte para cada fator.</p>
+          </div>
+        </div>
+        <EvaluationTable evaluations={result.evaluations} />
+      </div>
+
+      <div className="map-panel">
+        <div className="map-panel__header">
+          <div>
+            <h3>Como virar GO</h3>
+            <p>Acoes corretivas priorizadas para aplicar com menor risco operacional.</p>
+          </div>
+        </div>
+        <ActionsPanel flags={result.flags} baseTipos={baseTipos} />
+      </div>
+
+      {sources.length > 0 && (
+        <div className="map-panel">
+          <div className="map-panel__header">
+            <div>
+              <h3>Fontes usadas no veredito</h3>
+              <p>Referencias declaradas nos limites operacionais e regras de compatibilidade.</p>
+            </div>
+          </div>
+          <div className="source-chip-row">
+            {sources.map((source) => (
+              <span key={source} className="source-chip">{source}</span>
             ))}
           </div>
-        ) : (
-          <p className="inline-note" style={{ marginTop: '0.7rem' }}>
-            Nenhum impedimento listado para as condicoes informadas.
-          </p>
-        )}
-      </div>
+        </div>
+      )}
 
       {result.limitations.length > 0 && (
         <details className="map-details">

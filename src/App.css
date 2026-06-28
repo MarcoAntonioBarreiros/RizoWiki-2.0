@@ -804,6 +804,164 @@ body {
   font-size: 0.82rem;
 }
 
+.factor-dashboard {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.factor-dashboard .score-ring {
+  width: 108px;
+  height: 108px;
+}
+
+.factor-dashboard__main {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.factor-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.65rem;
+}
+
+.factor-card {
+  position: relative;
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.7rem 0.8rem 0.7rem 2rem;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 12px;
+  background: rgba(7, 17, 31, 0.36);
+}
+
+.factor-card strong {
+  font-size: 0.88rem;
+}
+
+.factor-card small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.factor-card--atencao {
+  border-color: rgba(251, 191, 36, 0.3);
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.factor-card--nogo {
+  border-color: rgba(239, 68, 68, 0.34);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.status-dot {
+  position: absolute;
+  left: 0.8rem;
+  top: 0.95rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--ok);
+}
+
+.status-dot--atencao {
+  background: var(--warn);
+}
+
+.status-dot--nogo {
+  background: var(--danger);
+}
+
+.factor-table th:first-child {
+  min-width: 170px;
+}
+
+.factor-table tbody th {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.factor-table td strong {
+  display: block;
+  color: var(--text);
+  font-weight: 700;
+}
+
+.factor-table td small {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.factor-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 0.75rem;
+}
+
+.factor-action {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 12px;
+  padding: 0.8rem;
+  background: rgba(7, 17, 31, 0.38);
+}
+
+.factor-action--go {
+  border-color: rgba(34, 197, 94, 0.28);
+  background: rgba(34, 197, 94, 0.08);
+}
+
+.factor-action--atencao {
+  border-color: rgba(251, 191, 36, 0.3);
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.factor-action--nogo {
+  border-color: rgba(239, 68, 68, 0.34);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.factor-action strong {
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.factor-action p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+.factor-action small {
+  display: block;
+  margin-top: 0.45rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.source-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.source-chip {
+  display: inline-flex;
+  max-width: 100%;
+  border: 1px solid rgba(45, 212, 191, 0.24);
+  border-radius: 999px;
+  padding: 0.24rem 0.65rem;
+  color: #ccfbf1;
+  background: rgba(45, 212, 191, 0.08);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .map-details {
   border: 1px solid rgba(148, 163, 184, 0.18);
   border-radius: 12px;
@@ -850,6 +1008,7 @@ body {
     linear-gradient(135deg, rgba(20, 184, 166, 0.14), rgba(56, 189, 248, 0.06)),
     rgba(15, 23, 42, 0.5);
   padding: 0.85rem 1rem;
+  min-width: 0;
 }
 
 .case-bar__head {
@@ -858,12 +1017,14 @@ body {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .case-bar__risk {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  min-width: 0;
 }
 
 .case-bar__risk small {
@@ -876,6 +1037,7 @@ body {
   flex-wrap: wrap;
   gap: 0.6rem;
   margin-top: 0.6rem;
+  min-width: 0;
 }
 
 .case-chip {
@@ -887,6 +1049,7 @@ body {
   background: rgba(7, 17, 31, 0.5);
   font-size: 0.92rem;
   font-weight: 600;
+  min-width: 0;
 }
 
 .case-chip small {
@@ -904,6 +1067,7 @@ body {
   padding: 0.3rem 0.4rem;
   font-size: 0.9rem;
   min-height: 34px;
+  max-width: 100%;
 }
 
 .verdict-banner {
@@ -970,6 +1134,41 @@ body {
   .score-ring {
     width: 74px;
     height: 74px;
+  }
+
+  .factor-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .case-bar__head,
+  .case-bar__chips {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .case-bar__risk {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .case-chip,
+  .case-chip--select select {
+    width: 100%;
+  }
+
+  .factor-category-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .verdict-banner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .factor-dashboard .score-ring {
+    width: 92px;
+    height: 92px;
   }
 
   .protocol-report__actions {

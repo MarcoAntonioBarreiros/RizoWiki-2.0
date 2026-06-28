@@ -40,6 +40,9 @@ describe('riskAssessment (Fatores) por limites operacionais com fonte', () => {
     });
     expect(r.semaphore).toBe('go');
     expect(r.limitations.join(' ').toLowerCase()).toContain('resiliente');
+    expect(r.score).toBe(100);
+    expect(r.evaluations.length).toBeGreaterThanOrEqual(5);
+    expect(r.categories.map((c) => c.categoria)).toContain('quimico');
   });
 
   it('solo seco => atencao com acao de umidade', () => {
@@ -51,5 +54,13 @@ describe('riskAssessment (Fatores) por limites operacionais com fonte', () => {
   it('organismo sem limites => inconclusiva', () => {
     const r = assessApplication({ organismo: 'desconhecido', quimico: 'nenhum' });
     expect(r.confidence).toBe('inconclusiva');
+  });
+
+  it('expoe avaliacoes categorizadas para tabela de Fatores', () => {
+    const r = assessApplication({ organismo: 'pseudomonas', horas: 48, exposicaoUV: true, quimico: 'cuprico_metal' });
+    expect(r.evaluations.some((item) => item.categoria === 'janela' && item.nivel === 'atencao')).toBe(true);
+    expect(r.evaluations.some((item) => item.categoria === 'quimico' && item.nivel === 'nogo')).toBe(true);
+    expect(r.categories.find((item) => item.categoria === 'quimico').nivel).toBe('nogo');
+    expect(r.score).toBeLessThan(100);
   });
 });
