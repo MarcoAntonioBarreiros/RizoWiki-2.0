@@ -36,9 +36,18 @@ export default function Mapa({ caseState, onCaseChange }) {
   const { soil, pInterp, acidez, compactacao, pConfidence } = soilSummary;
   // O P so alimenta o diagnostico quando e dado REAL; o prior aparece na tela mas nao decide.
   const pClasseParaDiagnostico = pInterp.origem === 'real' ? soilSummary.pClasse : undefined;
+  // Limitacao de base REAL (acidez limitante / compactacao severa) rebaixa o bioinsumo no ranking.
+  const soilBaseLimitante = useMemo(() => {
+    const tipos = [];
+    if (acidez.acidez_limitante && acidez.origem === 'real') tipos.push('acidez');
+    if (compactacao.compactado && compactacao.restricao === 'severa' && compactacao.origem === 'real') {
+      tipos.push('compactacao');
+    }
+    return tipos.length ? { tipos } : null;
+  }, [acidez, compactacao]);
   const mapa = useMemo(
-    () => buildMapRecommendations({ ...form, pClasse: pClasseParaDiagnostico }),
-    [form, pClasseParaDiagnostico],
+    () => buildMapRecommendations({ ...form, pClasse: pClasseParaDiagnostico, soilBaseLimitante }),
+    [form, pClasseParaDiagnostico, soilBaseLimitante],
   );
   const diag = mapa.diagnosis;
   const ranked = mapa.rankedRecommendations;

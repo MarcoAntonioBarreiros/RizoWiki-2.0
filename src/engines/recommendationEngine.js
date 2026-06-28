@@ -9,6 +9,12 @@ const RISK_PENALTY = {
   nogo: 72,
 };
 
+// Rebaixamento UNIFORME quando a analise de solo aponta limitacao de base REAL (acidez limitante /
+// compactacao severa): nao reordena candidatos (nao ha tolerancia por organismo curada), so empurra
+// de "recomendado" para "ajustar" - a correcao da base (calagem/descompactacao) e a alavanca, nao o
+// bioinsumo. Ativado so quando input.soilBaseLimitante esta presente; sem ele, comportamento igual.
+const BASE_PENALTY = 20;
+
 const MODE_LABELS = {
   tratamento_semente: 'tratamento de semente',
   mistura_tanque: 'mistura em tanque',
@@ -85,6 +91,10 @@ function unique(items) {
 
 export function buildMapRecommendations(input = {}) {
   const diagnosis = runDiagnosis(input);
+  // Limitacao de base REAL do solo (acidez limitante / compactacao severa) vinda da analise: o
+  // bioinsumo deixa de ser a alavanca principal e os candidatos sao rebaixados uniformemente.
+  const baseLimit = input.soilBaseLimitante || null;
+  if (baseLimit) diagnosis.bioinsumoEhAlavancaPrincipal = false;
   const candidatos = diagnosis.organismosCandidatos || [];
 
   const rankedRecommendations = candidatos
@@ -101,7 +111,11 @@ export function buildMapRecommendations(input = {}) {
       const fit = modeFit({ protocolo, modo: input.modo, quimico: input.quimico });
       const stage = stageFit({ estadio: input.estadio, modo: input.modo });
       const baseScore = 100 - index * 4;
-      const score = Math.max(0, Math.round(baseScore - (RISK_PENALTY[risk.semaphore] || 0) - fit.penalty - stage.penalty));
+      const basePenalty = baseLimit ? BASE_PENALTY : 0;
+      const score = Math.max(
+        0,
+        Math.round(baseScore - (RISK_PENALTY[risk.semaphore] || 0) - fit.penalty - stage.penalty - basePenalty),
+      );
       const matchingFunctions = (organismData?.functions || []).filter((fn) =>
         diagnosis.funcoesPrioritarias.includes(fn),
       );
@@ -115,6 +129,9 @@ export function buildMapRecommendations(input = {}) {
       const alerts = [
         fit.status !== 'compativel_com_protocolo' ? fit.message : null,
         stage.message,
+        baseLimit
+          ? `Limitacao de base real (${baseLimit.tipos.join(' e ')}): corrija primeiro; bioinsumo e complemento.`
+          : null,
         ...risk.flags.map((flag) => flag.mensagem),
       ];
       const actions = unique([
@@ -139,6 +156,9 @@ export function buildMapRecommendations(input = {}) {
 
   const limitations = unique([
     ...diagnosis.limitations,
+    baseLimit
+      ? `Solo com limitacao de base real (${baseLimit.tipos.join(' e ')}): recomendacao de bioinsumo rebaixada - a correcao da base (calagem/descompactacao) e a alavanca principal.`
+      : null,
     'Ranking do Mapa V0.5: problema/cultura definem candidatos; modo, quimico, umidade, estadio, UV e tempo rebaixam ou bloqueiam a recomendacao.',
     'Os rebaixamentos usam regras e priors em curadoria; onde faltar fonte especifica, a saida permanece baixa/inconclusiva.',
   ]);
