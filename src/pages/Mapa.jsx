@@ -33,7 +33,7 @@ export default function Mapa({ caseState, onCaseChange }) {
   const onChange = onCaseChange;
 
   const soilSummary = useMemo(() => buildSoilSummary(form), [form]);
-  const { soil, pInterp, acidez, compactacao, pConfidence } = soilSummary;
+  const { soil, pInterp, acidez, compactacao, kInterp, npk, pConfidence } = soilSummary;
   // O P so alimenta o diagnostico quando e dado REAL; o prior aparece na tela mas nao decide.
   const pClasseParaDiagnostico = pInterp.origem === 'real' ? soilSummary.pClasse : undefined;
   // Limitacao de base REAL (acidez limitante / compactacao severa) rebaixa o bioinsumo no ranking.
@@ -184,6 +184,24 @@ export default function Mapa({ caseState, onCaseChange }) {
           )}
         </>
       )}
+
+      <p style={{ margin: '0.5rem 0 0.2rem' }}>
+        <strong>Adubacao NPK (qualitativo, CQFS 2016):</strong>
+      </p>
+      <ul style={{ margin: '0 0 0.2rem' }}>
+        <li>{npk.N.texto}</li>
+        <li>
+          {npk.P.texto}
+          {pInterp.classe ? <em> [{ORIGEM_LABEL[pInterp.origem] || pInterp.origem}]</em> : null}
+        </li>
+        <li>
+          {npk.K.texto}
+          {kInterp.classe ? <em> [{ORIGEM_LABEL[kInterp.origem] || kInterp.origem}]</em> : null}
+        </li>
+      </ul>
+      <p style={{ fontSize: '0.8rem', color: 'var(--muted)', margin: '0 0 0.4rem' }}>
+        {npk.nota} Dose em kg/ha pendente (tabela CQFS 2016).
+      </p>
 
       <p className="page__todo">
         {pInterp.origem === 'real'

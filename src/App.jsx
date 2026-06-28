@@ -22,7 +22,7 @@ const DEFAULT_CASE = {
   temperatureC: 30,
   effectiveThresholdLog: organismsData.organisms[DEFAULT_ORGANISM].viability.effective_threshold_log,
   // Analise de solo (opcional). Vazio => prior regional (degradacao graciosa, Fase R1).
-  soil: { regiao: '', extrator: 'mehlich1', P: '', argila: '', pH: '', V: '', m: '', densidade: '', rp: '' },
+  soil: { regiao: '', extrator: 'mehlich1', P: '', argila: '', pH: '', V: '', m: '', CTC: '', K: '', densidade: '', rp: '' },
 };
 
 const TABS = [

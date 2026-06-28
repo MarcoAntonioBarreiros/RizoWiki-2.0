@@ -40,4 +40,13 @@ describe('buildSoilSummary (orquestracao do solo, R1)', () => {
     expect(s.compactacao.compactado).toBe(true);
     expect(s.compactacao.origem).toBe('real');
   });
+
+  it('NPK: soja sem analise -> N=FBN e K pede dado; com K+CTC -> classifica K', () => {
+    const s = buildSoilSummary({ cultura: 'soja', soil: {} });
+    expect(s.npk.N.via).toBe('fixacao_biologica');
+    expect(s.kInterp._status).toBe('sem_dado'); // sem K informado
+    const s2 = buildSoilSummary({ cultura: 'soja', soil: { K: 50, CTC: 6 } });
+    expect(s2.kInterp.classe).toBe('medio'); // K 50, CTC 6 (classe A): 41-60 -> medio
+    expect(s2.npk.K.acao).toBe('corrigir_parcial');
+  });
 });

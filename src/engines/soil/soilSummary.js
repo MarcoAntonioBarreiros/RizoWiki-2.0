@@ -11,6 +11,8 @@ import { resolveSoilContext, soilConfidence, CAMPOS_DECISIVOS } from './soilCont
 import { interpretaP } from './pInterpretationEngine.js';
 import { interpretaAcidez } from './acidezEngine.js';
 import { interpretaCompactacao } from './compactacaoEngine.js';
+import { interpretaK } from './kInterpretationEngine.js';
+import { recomendaNpk } from './npkEngine.js';
 
 function ehReal(campo) {
   return !!campo && campo.origem === 'real';
@@ -57,6 +59,17 @@ export function buildSoilSummary(form = {}) {
     origem: compactacaoReal ? 'real' : 'prior_regional',
   });
 
+  // POTASSIO: o valor de K e do usuario (nao ha prior regional de K); a CTC tem prior. Sem K nao
+  // classifica. NPK qualitativo usa as CLASSES de P e K (reais ou prior) + a cultura (N=FBN em
+  // leguminosa).
+  const kInformado = preenchido(soilInput.K);
+  const kInterp = interpretaK({
+    valor: kInformado ? soilInput.K : undefined,
+    ctc: soil.campos.CTC.valor,
+    origem: kInformado && ehReal(soil.campos.CTC) ? 'real' : 'prior_regional',
+  });
+  const npk = recomendaNpk({ cultura: form.cultura, pClasse: pInterp.classe, kClasse: kInterp.classe });
+
   return {
     soil,
     pInterp,
@@ -64,6 +77,8 @@ export function buildSoilSummary(form = {}) {
     pConfidence: soilConfidence(soil, CAMPOS_DECISIVOS.fosforo),
     acidez,
     compactacao,
+    kInterp,
+    npk,
   };
 }
 
