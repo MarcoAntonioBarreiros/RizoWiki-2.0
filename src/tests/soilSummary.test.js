@@ -33,4 +33,11 @@ describe('buildSoilSummary (orquestracao do solo, R1)', () => {
     expect(s.acidez.acidez_limitante).toBe(true);
     expect(s.acidez.origem).toBe('real');
   });
+
+  it('compactacao real: solo argiloso denso -> restricao severa', () => {
+    const s = buildSoilSummary({ cultura: 'soja', soil: { regiao: 'sul_pr', densidade: 1.5, argila: 700 } });
+    expect(s.compactacao.restricao).toBe('severa');
+    expect(s.compactacao.compactado).toBe(true);
+    expect(s.compactacao.origem).toBe('real');
+  });
 });

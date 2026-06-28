@@ -33,7 +33,7 @@ export default function Mapa({ caseState, onCaseChange }) {
   const onChange = onCaseChange;
 
   const soilSummary = useMemo(() => buildSoilSummary(form), [form]);
-  const { soil, pInterp, acidez, pConfidence } = soilSummary;
+  const { soil, pInterp, acidez, compactacao, pConfidence } = soilSummary;
   // O P so alimenta o diagnostico quando e dado REAL; o prior aparece na tela mas nao decide.
   const pClasseParaDiagnostico = pInterp.origem === 'real' ? soilSummary.pClasse : undefined;
   const mapa = useMemo(
@@ -145,6 +145,32 @@ export default function Mapa({ caseState, onCaseChange }) {
               }}
             >
               {acidez.mensagem}
+            </p>
+          )}
+        </>
+      )}
+
+      {compactacao._status !== 'sem_dado' && compactacao._status !== 'argila_ausente' && (
+        <>
+          <p>
+            <strong>Compactacao:</strong>{' '}
+            {compactacao.densidade
+              ? `Ds ${compactacao.densidade.valor} g/cm3 (${compactacao.densidade.textura}, Dsc ${compactacao.densidade.ds_critico}); `
+              : ''}
+            {compactacao.rp ? `RP ${compactacao.rp.valor} MPa; ` : ''}
+            restricao <strong>{compactacao.restricao}</strong>{' '}
+            <em>[{ORIGEM_LABEL[compactacao.origem] || compactacao.origem}]</em>
+          </p>
+          {compactacao.compactado && compactacao.origem === 'real' && (
+            <p
+              style={{
+                border: '1px solid var(--warn)',
+                background: 'rgba(251, 191, 36, 0.12)',
+                borderRadius: 8,
+                padding: '0.6rem 0.8rem',
+              }}
+            >
+              {compactacao.mensagem}
             </p>
           )}
         </>

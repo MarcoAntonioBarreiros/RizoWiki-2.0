@@ -10,6 +10,7 @@
 import { resolveSoilContext, soilConfidence, CAMPOS_DECISIVOS } from './soilContext.js';
 import { interpretaP } from './pInterpretationEngine.js';
 import { interpretaAcidez } from './acidezEngine.js';
+import { interpretaCompactacao } from './compactacaoEngine.js';
 
 function ehReal(campo) {
   return !!campo && campo.origem === 'real';
@@ -45,12 +46,24 @@ export function buildSoilSummary(form = {}) {
     origem: acidezReal ? 'real' : 'prior_regional',
   });
 
+  // COMPACTACAO: densidade tem prior regional; rp (resistencia a penetracao) so entra se informado.
+  // Decisivo = densidade + argila (o Dsc critico depende da textura).
+  const rpInformado = preenchido(soilInput.rp);
+  const compactacaoReal = (ehReal(soil.campos.densidade) && ehReal(soil.campos.argila)) || rpInformado;
+  const compactacao = interpretaCompactacao({
+    densidade: soil.campos.densidade.valor,
+    argila: soil.campos.argila.valor,
+    rp: rpInformado ? soilInput.rp : undefined,
+    origem: compactacaoReal ? 'real' : 'prior_regional',
+  });
+
   return {
     soil,
     pInterp,
     pClasse: pInterp.pClasse,
     pConfidence: soilConfidence(soil, CAMPOS_DECISIVOS.fosforo),
     acidez,
+    compactacao,
   };
 }
 

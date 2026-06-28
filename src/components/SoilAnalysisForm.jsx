@@ -71,6 +71,8 @@ export default function SoilAnalysisForm({ value = {}, onChange }) {
         <NumberField label="pH (agua)" field="pH" value={value.pH} onChange={onChange} placeholder="ex.: 5,4" />
         <NumberField label="V - sat. bases (%)" field="V" value={value.V} onChange={onChange} placeholder="ex.: 50" />
         <NumberField label="m - sat. aluminio (%)" field="m" value={value.m} onChange={onChange} placeholder="ex.: 12" />
+        <NumberField label="Densidade (g/cm3)" field="densidade" value={value.densidade} onChange={onChange} placeholder="ex.: 1,45" />
+        <NumberField label="Resist. penetracao (MPa)" field="rp" value={value.rp} onChange={onChange} placeholder="ex.: 2,3" />
       </div>
     </div>
   );
