@@ -19,7 +19,7 @@
       "label": "Bacillus / Priestia",
       "form": ["esporo", "vegetativo"],
       "functions": ["solubilizacao_p", "biocontrole", "isr", "acc_desaminase", "sideroforos"],
-      "limites_operacionais": { "_status": "prior_1_0_cot252", "_source": "RizoWiki 1.0 + Embrapa COT 252", "janela_uso_h": 24, "uv_exige_horario": true, "forma_resiliente": true },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "Embrapa COT 252 + RizoWiki 1.0", "_escopo": "BiomaPhos/Bacillus-Priestia: direcao operacional, nao limite universal de produto", "janela_uso_h": 24, "janela_acao": "aplicar_logo", "uv_exige_horario": true, "forma_resiliente": true, "incompat_atencao": ["fungicida", "cuprico_metal"], "obs": "Endosporos sustentam maior resiliencia relativa. Evitar exposicao prolongada ao sol e misturas sem teste; pH/ingrediente ativo/dose seguem pendentes." },
       "viability": {
         "ideal_temp_c": 30,
         "decay_k_base_per_h": 0.02,
@@ -49,19 +49,31 @@
         }
       },
       "protocol": {
-        "culturas": "Milho, Soja, Hortaliças",
-        "metodo": "Tratamento Semente ou Sulco",
-        "dose_range": "10⁹ Esporos/mL",
-        "critical": "A forma esporulada garante estabilidade, mas requer ativação em solo úmido.",
-        "ordem_mistura": "Evitar misturar com fungicidas cúpricos ou de pH extremo. Adicionar por último.",
-        "manejo": "Não deixar sementes inoculadas expostas ao sol. Aplicar preferencialmente em até 24h.",
+        "culturas": "Soja e milho para bacterias solubilizadoras de fosfato (BiomaPhos/Bacillus-Priestia) [Embrapa COT 252]; hortalicas seguem como rascunho 1.0 ate fonte especifica.",
+        "metodo": "Tratamento de sementes ou aplicacao no sulco, conforme produto e cultura [Embrapa COT 252].",
+        "dose_range": "Rascunho 1.0: 10⁹ Esporos/mL. Confirmar dose comercial por bula/ficha do produto; a fonte Embrapa sustenta modo/uso, nao promove dose universal.",
+        "critical": "A forma esporulada aumenta a resiliencia operacional relativa, mas o estabelecimento ainda depende de solo umido, contato com raiz e manejo sem sol/calor excessivo.",
+        "ordem_mistura": "Evitar fungicidas/cupricos/pH extremo sem teste de compatibilidade. Quando houver tratamento de sementes, aplicar o inoculante por ultimo e reduzir o tempo ate a semeadura.",
+        "manejo": "Proteger inoculante e semente inoculada do sol. Aplicar no mesmo dia quando possivel; se passar de 24 h, tratar como risco operacional e reavaliar/reinocular.",
         "monitorar": [
           "Raízes mais profundas e ramificadas na camada 0-20 cm.",
           "Solo mais 'solto' e agregado ao redor das raízes (rizosfera).",
           "Menor incidência de murcha nas horas mais quentes do dia."
         ]
       },
-      "sources": ["Oliveira-Paiva et al., 2024. Frontiers in Microbiology."],
+      "sources": [
+        "Embrapa COT 252 - BiomaPhos: duvidas frequentes e boas praticas de inoculacao.",
+        "Embrapa noticia oficial 2019 - lancamento BiomaPhos."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "sources": ["embrapa_biomaphos_cot252", "embrapa_biomaphos_news_2019"],
+        "confidence": "media",
+        "confidence_protocolo": "media",
+        "campos_calibrados": ["functions", "protocol.culturas", "protocol.metodo", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo", "limites_operacionais"],
+        "extraido": "BiomaPhos/Bacillus-Priestia usado como base tecnica para solubilizacao de P em soja/milho, modo TS/sulco e direcao de manejo. Endosporos sustentam resiliencia relativa, mas nao geram constante de decaimento.",
+        "pendente": "Dose universal, pH/ingredientes ativos compativeis, hortalicas e viability.* continuam pendentes; confirmar por bula/ficha tecnica de cada produto."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },
@@ -111,7 +123,7 @@
       "label": "Rhizobium / Bradyrhizobium",
       "form": ["vegetativo"],
       "functions": ["fixacao_n"],
-      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Embrapa (compat. fungicida)", "janela_uso_h": 24, "incompat_duras": ["cuprico_metal"], "uv_exige_horario": true },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "Embrapa/Infoteca Bradyrhizobium + compatibilidade fungicida", "_escopo": "Bradyrhizobium/Rhizobium em leguminosas; estirpe, cultura e produto definem dose final", "janela_uso_h": 24, "janela_acao": "semear_logo_ou_reinocular", "incompat_duras": ["cuprico_metal"], "incompat_atencao": ["fungicida", "adubo_salino"], "uv_exige_horario": true, "obs": "Operar a sombra, proteger semente inoculada do sol e reduzir tempo ate semeadura. Co/Mo agronomico nao deve ser confundido com metal toxico." },
       "viability": {
         "ideal_temp_c": 28,
         "decay_k_base_per_h": 0.06,
@@ -141,19 +153,32 @@
         }
       },
       "protocol": {
-        "culturas": "Soja, Feijão, Ervilha",
-        "metodo": "Inoculação Semente/Sulco",
-        "dose_range": "10⁹ - 10¹⁰ UFC/mL",
-        "critical": "Compatibilidade com químicos é crítica. Morrem rapidamente com fungicidas e metais como Cobalto/Molibdênio em altas doses na semente (tóxicos por salinidade).",
-        "ordem_mistura": "Sensível a metais tóxicos (ex: Cobre) e altas concentrações salinas. No entanto, a aplicação de Co e Mo (essenciais para FBN) em doses agronômicas é necessária e compatível se a inoculação for imediata.",
-        "manejo": "Calor mata a bactéria. Semear imediatamente após inoculação.",
+        "culturas": "Soja com Bradyrhizobium como referencia primaria [Embrapa/Infoteca]; feijao/ervilha e outros rizobios dependem de estirpe/produto especifico.",
+        "metodo": "Inoculacao de sementes ou sulco. Fazer a sombra, proteger sementes inoculadas do sol e semear no mesmo dia/quanto antes [Embrapa].",
+        "dose_range": "Rascunho 1.0: 10⁹ - 10¹⁰ UFC/mL. Usar bula/ficha do inoculante e norma MAPA do produto; nao promover dose universal nesta etapa.",
+        "critical": "Compatibilidade com tratamento quimico de sementes e essencial: fungicidas podem reduzir sobrevivencia/nodulacao e exigem validacao por produto.",
+        "ordem_mistura": "Evitar cobre/metais toxicos e alta salinidade. Co/Mo em dose agronomica para FBN e outra categoria: usar conforme recomendacao tecnica, mantendo inoculacao imediata.",
+        "manejo": "Manter inoculante e semente inoculada a sombra/fresco. Semear imediatamente ou no mesmo dia; se houver atraso relevante, considerar reinoculacao.",
         "monitorar": [
           "Número de nódulos na raiz principal (coroa).",
           "Cor interna dos nódulos: deve ser vermelha/rosada.",
           "Ausência de clorose (amarelamento) na fase vegetativa."
         ]
       },
-      "sources": ["M. Hungria et al., 2013. Soil Biology."],
+      "sources": [
+        "Embrapa/Infoteca - inoculacao de sementes de soja com Bradyrhizobium japonicum.",
+        "Embrapa/Infoteca - compatibilidade entre fungicida em sementes e Bradyrhizobium.",
+        "Embrapa Circular Tecnica 166 - coinoculacao soja Bradyrhizobium + Azospirillum."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "sources": ["infoteca_bradyrhizobium_seed_soy_548660", "infoteca_bradyrhizobium_fungicide_compat_694841", "embrapa_coinoculacao_circ166"],
+        "confidence": "media",
+        "confidence_protocolo": "media",
+        "campos_calibrados": ["functions", "protocol.culturas", "protocol.metodo", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo", "limites_operacionais"],
+        "extraido": "Fontes Embrapa sustentam inoculacao de soja com Bradyrhizobium, manejo a sombra/semear logo e risco de tratamento quimico na semente. Circular 166 entra como referencia para coinoculacao, sem promover dose.",
+        "pendente": "Dose por cultura/produto, ingredientes fungicidas especificos, feijao/ervilha e viability.* seguem pendentes."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },
@@ -288,7 +313,7 @@
       "label": "Trichoderma",
       "form": ["hifa", "esporo"],
       "functions": ["biocontrole", "isr"],
-      "limites_operacionais": { "_status": "prior_1_0", "_source": "RizoWiki 1.0 + Embrapa", "incompat_duras": ["fungicida"], "uv_exige_horario": true, "temp_armazenamento_max_c": 8, "obs": "armazenar refrigerado; PROIBIDO misturar com fungicidas" },
+      "limites_operacionais": { "_status": "calibrado_parcial", "_source": "Embrapa Trichoderma + shelf-life carrier 2022 + RizoWiki 1.0", "_escopo": "Trichoderma spp.; risco varia por especie/isolado, carrier, formulacao e produto", "incompat_duras": ["fungicida"], "uv_exige_horario": true, "obs": "Aplicar separado de fungicidas; evitar UV/seca; armazenamento depende da formulacao/carrier. Nao usar refrigeracao como limite universal sem bula." },
       "viability": {
         "ideal_temp_c": 26,
         "decay_k_base_per_h": 0.08,
@@ -318,19 +343,32 @@
         }
       },
       "protocol": {
-        "culturas": "Soja, Feijão, Algodão, Hortifruti",
-        "metodo": "TS, Sulco ou Drench",
-        "dose_range": "10⁷ - 10⁹ Esporos/g",
-        "critical": "Sensível a UV e seca. Cobrir o solo após aplicação.",
-        "ordem_mistura": "PROIBIDO misturar com fungicidas. Aplicar separado.",
-        "manejo": "Armazenar em geladeira se possível. Produto vivo.",
+        "culturas": "Soja, feijao, algodao e hortifruti como usos de rascunho; resposta depende de especie/isolado, alvo e produto. Biocontrole de Sclerotinia tem evidencia in vitro registrada [Embrapa].",
+        "metodo": "Tratamento de sementes, sulco ou drench conforme bula/produto. Preferir aplicacao no solo/raiz com umidade e menor exposicao a sol.",
+        "dose_range": "Rascunho 1.0: 10⁷ - 10⁹ Esporos/g. Confirmar concentracao e dose na bula/ficha; formulacao/carrier altera sobrevivencia.",
+        "critical": "Fungo vivo com desempenho dependente de isolado, ambiente e formulacao. UV, seca e fungicidas sao riscos operacionais fortes.",
+        "ordem_mistura": "Nao misturar com fungicidas sem compatibilidade formal. Quando o manejo exigir fungicida, separar no tempo/local e seguir bula.",
+        "manejo": "Armazenar conforme rotulo do produto; nao assumir 8 C como regra universal. Aplicar em solo umido, com menor sol direto, e evitar calda com fungicida.",
         "monitorar": [
           "Redução de 'reboleiras' de plantas mortas.",
           "Raízes brancas e sem lesões.",
           "Emergência uniforme."
         ]
       },
-      "sources": ["Tucci, M., et al. (2011). Crop Protection, 30(10), 1353-1359."],
+      "sources": [
+        "Embrapa/Infoteca - especies de Trichoderma e manejo.",
+        "Embrapa/Infoteca - antagonismo in vitro a Sclerotinia sclerotiorum.",
+        "Estudo revisado 2022 - shelf-life e carrier em formulacoes de Trichoderma."
+      ],
+      "_calibration": {
+        "status": "calibrado_parcial",
+        "sources": ["infoteca_trichoderma_manejo_925302", "infoteca_trichoderma_sclerotinia_190441", "trichoderma_shelf_life_carrier_2022"],
+        "confidence": "media",
+        "confidence_protocolo": "media",
+        "campos_calibrados": ["functions", "protocol.metodo", "protocol.critical", "protocol.ordem_mistura", "protocol.manejo", "limites_operacionais"],
+        "extraido": "Fontes registradas sustentam Trichoderma como fungo benefico/biocontrole, antagonismo in vitro contra Sclerotinia e dependencia de formulacao/carrier para sobrevivencia. Protocolo ficou operacional, mas sem dose universal.",
+        "pendente": "Dose por produto/cultura, eficacia de campo por alvo, armazenamento por bula e viability.* seguem pendentes."
+      },
       "_status": "pendente_revisao",
       "_confidence": "baixa"
     },
